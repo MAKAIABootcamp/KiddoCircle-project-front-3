@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
-const Toys = () => {
+const Items = () => {
     const [showSubCategory, setShowSubCategory] = useState(false);
     const [showGender, setShowGender] = useState(false);
     const [showSize, setShowSize] = useState(false);
@@ -117,39 +117,42 @@ const Toys = () => {
     ];
 
     const subCategory = [
-        "Figuras de accion y robots",
-        "Muñecas",
-        "Juegos de mesa",
-        "Vehículos",
-        "Juguetes de bebé",
-        "Bloques y construcción",
-        "Peluches",
-        "Juguetes de rol",
-        "Juegos de exterior",
-        "Puntería",
-        "Carpas",
-        "Sets y accesorios",
-        "Arte y manualidades",
-        "Animales",
-        "Rompecabezas",
-        "Pistas de vehículos",
-        "Vehículos a control remoto",
-        "Set de playa y piscinas inflables",
-        "Aviones, trenes y barcos",
-        "Triciclos y tres ruedas",
-        "Drones de juguete",
+        "Morrales",
+        "Coches",
+        "Biberores",
+        "Extractor de leche",
+        "Ollas",
+        "Canguros",
+        "Pañaleras",
+        "Pañales",
+        "Pañitos humedos",
+        "Cremas",
+        "Utiles escolares",
+        "Toallas",
+        "Fórmula",
+        "Esterilizador de biberones",
+        "Calienta biberones",
+        "Cuna",
+        "Colchon de cuna",
+        "Sabanas y Edredones",
+        "Almohada",
+        "Monitor para bebes",
+        "Asiento para carro",
+        "Asiento para baño",
+        "Cepillos y peines",
+        "Cortauñas",
+        "Cambiador de pañales",
+        "Pañales de tela",
+        "Lociones",
+        "Aseo",
+        "Almohada de lactancia",
+        "Caminador",
         "Otros",
     ];
 
     const gender = ["Niña", "Niño", "Unisex"];
 
-    const age = [
-        "0-12M",
-        "1-3A",
-        "4-6A",
-        "7-9A",
-        "10-12A"
-    ];
+    const age = ["0-12M", "1-3A", "4-6A", "7-9A", "10-12A"];
 
     const state = [6, 7, 8, 9, 10];
 
@@ -309,7 +312,7 @@ const Toys = () => {
     return (
         <section className="clothes">
             <header className="clothes__header">
-                <h1>JUGUETES</h1>
+                <h1>ARTICULOS</h1>
             </header>
             <section className="clothes__asideYMain">
                 <aside className="clothes__asideYMain__aside">
@@ -883,7 +886,7 @@ const Toys = () => {
                             <></>
                         )}
                         <div className="clothes__asideYMain__aside__filter">
-                            <p>Edad</p>
+                            <p>Talla</p>
                             <i>
                                 <img
                                     src={arrowUp}
@@ -1250,4 +1253,4 @@ const Toys = () => {
     );
 };
 
-export default Toys;
+export default Items;
