@@ -1,0 +1,14 @@
+@import "../../../variables.scss";
+
+.gradient-division {
+  background-image: url("../../../assets/gradientBackground.png");
+  height: 150px;
+
+  &__text {
+    text-align: center;
+    margin: 10px;
+    color: #a488ad;
+    font-size: 25px;
+    font-weight: bold;
+  }
+}
