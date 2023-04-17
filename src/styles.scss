@@ -1,12 +1,19 @@
 @import "./components/Home/home.scss";
 @import "./components/cards/card.scss";
 @import "./components/Clothes/clothes.scss";
+@import "./components/Navbar/navbar.scss";
+
 
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Lato", sans-serif;
+}
+
+.btn-close{
+  background: url('./assets/icons/icon-close-pink.png') center center no-repeat;
+  background-size: 24px;
 }
 
 * {
