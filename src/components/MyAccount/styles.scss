@@ -1,0 +1,126 @@
+.account {
+    display: grid;
+    row-gap: 30px;
+  
+    .profile-bar {
+      position: relative;
+      padding: 20px 28px;
+      background-color: #d9d9d9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 50px;
+  
+      .current-page {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        column-gap: 20px;
+  
+        span {
+          font-size: 1.3rem;
+          color: #656565;
+        }
+      }
+  
+      .menu-mobile {
+        cursor: pointer;
+      }
+    }
+  
+    .menu {
+      position: absolute;
+      width: 100%;
+      max-width: 400px;
+      margin: 30px auto 0;
+      padding: 30px 0;
+      background-color: #f5f5f5;
+      border-radius: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      row-gap: 20px;
+      visibility: hidden;
+      top: 100px;
+      left: 0;
+      right: 0;
+      z-index: 100;
+  
+      &__link {
+        width: 100%;
+        max-width: 280px;
+        padding: 20px 24px;
+        border-radius: 50px;
+        background-color: #d9d9d9;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        column-gap: 20px;
+        text-decoration: none;
+  
+        span {
+          font-size: 1.3rem;
+          color: #656565;
+        }
+  
+        &--active {
+          background-color: #ece9e9;
+        }
+      }
+    }
+  
+    .menuActive {
+      visibility: visible;
+    }
+  
+    .content {
+      background-color: white;
+      border-radius: 20px;
+      align-self: flex-start;
+    }
+  }
+  
+  @media screen and (min-width: 1200px) {
+    .account {
+      grid-template-columns: 30% 1fr;
+      justify-content: space-between;
+      align-items: center;
+      column-gap: 20px;
+      width: 100%;
+      margin: auto;
+      background-color: #f5f5f5;
+  
+      .profile-bar {
+        display: none;
+      }
+  
+      .menu {
+        width: auto;
+        max-width: initial;
+        position: static;
+        margin: 0;
+        padding: 0;
+        visibility: visible;
+        min-height: 100vh;
+        margin-top: 60px;
+        border-radius: 0;
+        justify-content: flex-start;
+      }
+    }
+  
+    .profile-bar {
+      visibility: visible;
+    }
+  
+    .menuActive {
+      visibility: visible;
+    }
+  
+    .content {
+      min-height: 70vh;
+      padding: 30px 60px;
+      margin-top: 56px;
+    }
+  }
+  
