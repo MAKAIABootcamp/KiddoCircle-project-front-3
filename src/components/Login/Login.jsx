@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "../../assets/icons/logo.png";
 import googleIcon from "../../assets/icons/google.png";
 import facebookIcon from "../../assets/icons/facebook.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { userLoginEmailAsync, userLoginProvider } from "../../redux/actions/userActions";
+import Swal from "sweetalert2";
+import { google, facebook } from "../../firebase/firebaseConfig";
 
 const schema = yup
     .object({
@@ -18,6 +22,10 @@ const schema = yup
     .required();
 
 const Login = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const user = useSelector((state) => state.user);
+
     const {
         register,
         handleSubmit,
@@ -26,7 +34,52 @@ const Login = () => {
 
     const submitSigIn = (data) => {
         console.log(data);
+        dispatch(userLoginEmailAsync(data));
     };
+
+    const sesionProvider = (provider) => {
+        dispatch(userLoginProvider(provider));
+    };
+
+    //Use effect para mostrarle al usuario si pudo inicar sesión correctamente
+    useEffect(() => {
+        if (user.isLogged && user.register) {
+            Swal.fire({
+                icon: "success",
+                title: "¡Bienvenido!",
+                confirmButtonText: "Ok",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate("/");
+                }
+            });
+        }
+    }, [user.isLogged]);
+
+    useEffect(() => {
+        if (user.error) {
+            Swal.fire({
+                icon: "error",
+                title: "Uups...",
+                text: "Hubo un error al realizar la solictud",
+            });
+        }
+    }, [user.error]);
+
+    //Use effect para validar si se tiene o no coleccion del usuario que se logue con el provedor google o facebook
+    useEffect(() => {
+        if (!user.register && user.isLogged) {
+            Swal.fire({
+                icon: "success",
+                title: "Por favor diligencie el siguiente formulario.",
+                confirmButtonText: "Ok",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate("/registro");
+                }
+            });
+        }
+    }, [user.register]);
 
     return (
         <section className="login">
@@ -65,13 +118,19 @@ const Login = () => {
                         )}
                         <button>Iniciar sesión</button>
                     </form>
-                    <button className="button">
+                    <button
+                        className="button"
+                        onClick={() => sesionProvider(google)}
+                    >
                         <figure>
                             <img src={googleIcon} alt="google icon" />
                         </figure>
                         <p>Iniciar con Google</p>
                     </button>
-                    <button className="button">
+                    <button
+                        className="button"
+                        // onClick={() => sesionProvider(facebook)}
+                    >
                         <figure>
                             <img src={facebookIcon} alt="facebook icon" />
                         </figure>

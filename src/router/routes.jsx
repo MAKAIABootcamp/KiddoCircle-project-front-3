@@ -12,20 +12,20 @@ import Toys from "../components/Toys/Toys";
 import Items from "../components/Items/Items";
 import Login from "../components/Login/Login";
 import Register from "../components/Register/Register";
-import MyProfile from "../components/Profile/MyProfile";
-import MenuProfile from "../components/Profile/MenuProfile/MenuProfile";
 
-const RouterDom = () => { 
+
+
+const RouterDom = () => {
     return (
         <BrowserRouter>
             <Routes>
                     <Route path="/" element={<NavBar />}>
                     <Route path="/" element={<Home />} />
-                    
+
                     <Route path="/ropa" element={<Clothes />} />
                     <Route path="/juguetes" element={<Toys />} />
-                    <Route path="/articulos" element={<Items />} /> 
-                    <Route path="/mi-cuenta" element={<MyAccount />} >
+                    <Route path="/articulos" element={<Items />} />
+                    <Route path="/cuenta" element={<MyAccount />} >
                     <Route index element={<Profile />} />
                     <Route path='perfil' element={<Profile />} />
                     <Route path='favoritos' element={<Favorites />} />

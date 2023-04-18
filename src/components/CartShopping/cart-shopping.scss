@@ -1,0 +1,49 @@
+.cart-shopping{
+    margin-top: 60px;
+    .cards-shopping{
+        .card-buy{
+            border-bottom: 1px solid $dark-gray;
+            padding: 15px;
+            img{
+                max-width: 80px;
+                border-radius: 10px;
+            }
+        }
+    }
+    .price{
+        color: $purple;
+        font-size: 20px;
+    }
+    .data-shopping{
+        h3{
+            color: $purple;
+        }
+        .info-user{
+            margin-top: 13px;
+            margin-bottom: 40px;
+            color: #656565;
+            border: 1px solid #656565;
+            border-radius: 10px;
+            padding: 10px 34px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            a{
+                color: $red;
+            }
+        }
+        .btn-payment{
+            background-color: $red;
+            border: 1px solid $red;
+        }
+        form{
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            .form-control, .form-select{
+                border: 2px solid $purple;
+            }
+        }
+    }
+
+}

@@ -6,7 +6,11 @@
 @import "./components/Home/populars-section/popularSection.scss";
 @import "./components/Login/login.scss";
 @import "./components/Register/register.scss";
-
+@import "./components/MyAccount/MenuAccount/menu-account.scss";
+@import "./components/MyAccount/Buy/buy.scss";
+@import "./components/MyAccount/Wallet/wallet.scss";
+@import "./components/CartShopping/cart-shopping.scss";
+@import "./components/Home/ConfirmOrder/confirm-order.scss";
 
 body {
   margin: 0;
