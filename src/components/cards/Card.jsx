@@ -14,7 +14,7 @@ const Card = ({ product, type }) => {
 
   return (
     <motion.div className="card" whileHover={{ y: -12 }}>
-      {type === "donation" ? (
+      {type === true ? (
         <img className="card__donation" src={donationIcon} alt="donation" />
       ) : (
         <></>
@@ -35,14 +35,14 @@ const Card = ({ product, type }) => {
         <figure className="card__figure">
           <img
             className="card__figure-img"
-            src={product.img}
+            src={product.photo[0]}
             alt="product-image"
           />
         </figure>
       </header>
       <footer className="card__footer">
         <p className="card__footer-name">{product.name}</p>
-        <p className="card__footer-state">{product.status}</p>
+        <p className="card__footer-state">Estado: {product.estado}/10</p>
         <p className="card__footer-price">{product.price}</p>
         <button className="card__footer-button">Comprar</button>
       </footer>

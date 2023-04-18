@@ -41,15 +41,15 @@
 
 //Mobile text
 .mobile-text-container {
-  background-color: rgba(255, 231, 227, 0.8);
+  background-color: rgba(255, 246, 246, 0.8);
   padding: 10px;
-  border-radius: 8px;
+  border-radius: 16px;
   display: none;
 }
 .title-mobile {
   font-size: 30px;
-  text-shadow: 1px 1px 1px $dark-gray;
   text-align: center;
+  font-weight: bold;
   color: $red;
 }
 

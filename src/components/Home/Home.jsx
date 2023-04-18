@@ -5,6 +5,8 @@ import ClothesSection from "./clothes-section/ClothesSection";
 import GradientDivision from "./gradient-division/GradientDivision";
 import ToysSection from "./toys-section/ToysSection";
 import FavoritesSection from "./favorites-section/FavoritesSection";
+import ButtonsSection from "./buttons-section/ButtonsSection";
+import Footer from "./footer/Footer";
 
 const Home = () => {
   return (
@@ -15,6 +17,8 @@ const Home = () => {
       <GradientDivision />
       <ToysSection />
       <FavoritesSection />
+      <ButtonsSection />
+      <Footer />
     </section>
   );
 };
