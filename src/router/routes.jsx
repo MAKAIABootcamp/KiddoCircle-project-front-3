@@ -21,12 +21,17 @@ const RouterDom = () => {
             <Routes>
                     <Route path="/" element={<NavBar />}>
                     <Route path="/" element={<Home />} />
+                    
                     <Route path="/ropa" element={<Clothes />} />
                     <Route path="/juguetes" element={<Toys />} />
                     <Route path="/articulos" element={<Items />} /> 
-                    <Route path="/mi-cuenta" element={<MenuProfile />} >
-                        <Route path="/mi-cuenta" element={<MyProfile />} />
-                    </Route>
+                    <Route path="/mi-cuenta" element={<MyAccount />} >
+                    <Route index element={<Profile />} />
+                    <Route path='perfil' element={<Profile />} />
+                    <Route path='favoritos' element={<Favorites />} />
+                    <Route path='publicaciones' element={<Posts />} />
+                    <Route path='chat' element={<Chat />} />
+                </Route>
                 </Route>
                 <Route path="/login" element={<Login />} />
                 <Route path="/registro" element={<Register />} />
