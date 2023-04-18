@@ -7,6 +7,8 @@ import Toys from "../components/Toys/Toys";
 import Items from "../components/Items/Items";
 import Login from "../components/Login/Login";
 import Register from "../components/Register/Register";
+import MyProfile from "../components/Profile/MyProfile";
+import MenuProfile from "../components/Profile/MenuProfile/MenuProfile";
 
 const RouterDom = () => { 
     return (
@@ -16,8 +18,10 @@ const RouterDom = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="/ropa" element={<Clothes />} />
                     <Route path="/juguetes" element={<Toys />} />
-                    <Route path="/articulos" element={<Items />} />
-                    <Route path="/mi-cuenta" element="" />
+                    <Route path="/articulos" element={<Items />} /> 
+                    <Route path="/mi-cuenta" element={<MenuProfile />} >
+                        <Route path="/mi-cuenta" element={<MyProfile />} />
+                    </Route>
                 </Route>
                 <Route path="/login" element={<Login />} />
                 <Route path="/registro" element={<Register />} />
