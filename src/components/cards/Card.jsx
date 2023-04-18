@@ -35,15 +35,15 @@ const Card = ({ product, type }) => {
         <figure className="card__figure">
           <img
             className="card__figure-img"
-            src={product.img}
+            src={product?.img}
             alt="product-image"
           />
         </figure>
       </header>
       <footer className="card__footer">
-        <p className="card__footer-name">{product.name}</p>
-        <p className="card__footer-state">{product.status}</p>
-        <p className="card__footer-price">{product.price}</p>
+        <p className="card__footer-name">{product?.name}</p>
+        <p className="card__footer-state">{product?.status}</p>
+        <p className="card__footer-price">{product?.price}</p>
         <button className="card__footer-button">Comprar</button>
       </footer>
     </motion.div>
