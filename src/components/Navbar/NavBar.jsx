@@ -59,7 +59,7 @@ const NavBar = () => {
                             Artículos
                         </NavLink>
                         <NavLink
-                            to="/mi-cuenta"
+                            to="/cuenta"
                             className={({ isActive }) =>
                                 isActive ? "selected px-0 nav-link" : "px-0 nav-link"
                             }

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "../components/Home/Home";
 import Clothes from "../components/Clothes/Clothes";
 import NavBar from "../components/Navbar/NavBar";
@@ -7,8 +7,11 @@ import Toys from "../components/Toys/Toys";
 import Items from "../components/Items/Items";
 import Login from "../components/Login/Login";
 import Register from "../components/Register/Register";
-import MyProfile from "../components/Profile/MyProfile";
-import MenuProfile from "../components/Profile/MenuProfile/MenuProfile";
+import Buy from "../components/MyAccount/Buy/Buy";
+import Wallet from "../components/MyAccount/Wallet/Wallet";
+import MenuAccount from "../components/MyAccount/MenuAccount/MenuAccount";
+import CartShopping from "../components/CartShopping/CartShopping";
+
 
 const RouterDom = () => { 
     return (
@@ -16,11 +19,18 @@ const RouterDom = () => {
             <Routes>
                 <Route path="/" element={<NavBar />}>
                     <Route path="/" element={<Home />} />
-                    <Route path="/ropa" element={<Clothes />} />
-                    <Route path="/juguetes" element={<Toys />} />
-                    <Route path="/articulos" element={<Items />} /> 
-                    <Route path="/mi-cuenta" element={<MenuProfile />} >
-                        <Route path="/mi-cuenta" element={<MyProfile />} />
+                    <Route path="ropa" element={<Clothes />} />
+                    <Route path="juguetes" element={<Toys />} />
+                    <Route path="articulos" element={<Items />} /> 
+                    <Route path="cart-shooping" element={<CartShopping />} /> 
+                    <Route path="cuenta/*" element={<MenuAccount />} >
+                        <Route path="*" element={<Navigate to="perfil" replace />}/>
+                        <Route path="perfil" element="" />
+                        <Route path="favoritos" element="" />
+                        <Route path="mis-publicaciones" element="" />
+                        <Route path="mis-compras-donaciones" element={<Buy />} />
+                        <Route path="mi-billetera" element={<Wallet />} />
+                        <Route path="chat" element="" />
                     </Route>
                 </Route>
                 <Route path="/login" element={<Login />} />

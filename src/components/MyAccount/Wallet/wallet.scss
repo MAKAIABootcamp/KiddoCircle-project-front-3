@@ -1,0 +1,30 @@
+.wallet{
+    button{
+        --bs-btn-hover-bg:#fa897b;
+        --bs-btn-bg: #fa897b;
+        --bs-btn-active-bg: #fa897b;
+        --bs-btn-hover-border-color: #fa897b;
+        --bs-btn-border-color: #fa897b;
+    }
+    .btn-recharge{
+        background-color: $purple;
+        border: 1px solid $purple;
+    }
+    .form-control, .form-select{
+        border: 2px solid $purple;
+    }
+    .card-wallet{
+        color: #656565;
+        border-bottom: 0.745335px solid #656565;
+        img{
+            max-width: 50px;
+            border-radius: 8px;
+        }
+        .pay{
+            color: $green;
+        }
+        .withdrawal{
+            color: $red;
+        }
+    }
+}

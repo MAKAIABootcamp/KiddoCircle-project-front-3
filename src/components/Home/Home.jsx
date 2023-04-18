@@ -5,6 +5,7 @@ import ClothesSection from "./clothes-section/ClothesSection";
 import GradientDivision from "./gradient-division/GradientDivision";
 import ToysSection from "./toys-section/ToysSection";
 import FavoritesSection from "./favorites-section/FavoritesSection";
+import ConfirmOrder from "./ConfirmOrder/ConfirmOrder";
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
       <GradientDivision />
       <ToysSection />
       <FavoritesSection />
+      <ConfirmOrder />
     </section>
   );
 };
