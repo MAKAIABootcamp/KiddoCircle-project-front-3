@@ -1,7 +1,7 @@
 import React from "react";
-import logo from '../../assets/icons/logo.png';
+import logo from "../../assets/icons/logo.png";
 import googleIcon from "../../assets/icons/google.png";
-import facebookIcon from "../../assets/icons/facebook.png"
+import facebookIcon from "../../assets/icons/facebook.png";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -13,7 +13,7 @@ const schema = yup
         password: yup
             .string()
             .required("Contraseña requerida")
-            .min(6, "La contraseña debe tener mínimo 6 caracteres")
+            .min(6, "La contraseña debe tener mínimo 6 caracteres"),
     })
     .required();
 
@@ -24,7 +24,6 @@ const Login = () => {
         formState: { errors },
     } = useForm({ resolver: yupResolver(schema) });
 
-    
     const submitSigIn = (data) => {
         console.log(data);
     };
@@ -43,16 +42,14 @@ const Login = () => {
                     tenemos para ofrecerte!
                 </p>
                 <div className="formContainer">
-                    <form onSubmit={handleSubmit(submitSigIn)}>
+                    <form className="form" onSubmit={handleSubmit(submitSigIn)}>
                         <input
                             type="email"
                             placeholder="Ingresa tu correo"
                             {...register("email")}
                         />
                         {errors.email ? (
-                            <span>
-                                {errors.email.message}
-                            </span>
+                            <span>{errors.email.message}</span>
                         ) : (
                             <></>
                         )}
@@ -62,9 +59,7 @@ const Login = () => {
                             {...register("password")}
                         />
                         {errors.password ? (
-                            <span>
-                                {errors.password.message}
-                            </span>
+                            <span>{errors.password.message}</span>
                         ) : (
                             <></>
                         )}

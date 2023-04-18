@@ -48,12 +48,19 @@
             padding: 0px 50px;
         }
 
-        form{
+        .form{
             display: flex;
             flex-direction: column;
             gap: 20px;
             // width: 500px;
             width: 100%;
+
+            label{
+                font-weight: 400;
+                font-size: 15px;
+                line-height: 30px;
+                color: #ACABAB;
+            }
 
             input{
                 border: 2px solid #FA897B;
