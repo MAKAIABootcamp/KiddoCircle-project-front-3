@@ -1,0 +1,33 @@
+@import "../../../variables.scss";
+//Section popular products
+.react-multi-carousel-item {
+  display: flex;
+  justify-content: center;
+}
+.react-multiple-carousel__arrow {
+  background-color: #86e3c28c;
+
+  &:hover {
+    background-color: #a2e7cf8c;
+  }
+}
+.title-text {
+  font-weight: bold;
+  font-size: 25px;
+}
+.popular-section {
+  padding: 30px;
+}
+
+@media screen and (max-width: 470px) {
+  .popular-section {
+    padding: 10px;
+  }
+  .title-text {
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .react-multiple-carousel__arrow {
+    display: none;
+  }
+}
