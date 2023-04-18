@@ -1,0 +1,205 @@
+.login{
+    display: flex;
+    height: 100%;
+
+    aside{
+        font-weight: 700;
+        font-size: 60px;
+        line-height: 96px;
+        text-align: center;
+        color: #FFFFFF;
+        background-image: url("../../assets/image\ login\ desktop.png");
+        width: 555px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    main{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 30px 45px;
+
+        .logo{
+            align-self: flex-start;
+        }
+
+        h1{
+            font-weight: 700;
+            font-size: 35px;
+            line-height: 60px;
+            text-align: center;
+            color: #CCABD8;
+        }
+
+        .parrafo{
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 30px;
+            text-align: center;
+            color: #656565;
+            margin: 10px 0px 15px 0px;
+        }
+
+        .formContainer{
+            width: 100%;
+            padding: 0px 50px;
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            // width: 500px;
+            width: 100%;
+
+            input{
+                border: 2px solid #FA897B;
+                border-radius: 40px;
+                height: 40px;
+                padding: 10px;
+                color: #FA897B;
+                font-size: 15px;
+                
+            }
+
+            input:focus{
+                outline: none;
+            }
+
+            input::placeholder{
+                font-weight: 400;
+                font-size: 15px;
+                line-height: 30px;
+                color: #FA897B;
+            }
+
+            button{
+                background: #FA897B;
+                border: 2px solid #FA897B;
+                border-radius: 40px;
+                height: 40px;
+                font-weight: 700;
+                font-size: 15px;
+                line-height: 30px;
+                text-align: center;
+                color: #FFFFFF;
+            }
+
+            button:hover{
+                box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.2);
+            }
+            
+            span{
+                font-size: 15px;
+                color: #FA897B;
+            }
+        }
+
+        .button{
+            height: 40px;
+            border: none;
+            justify-content: center;
+            gap: 16px;
+            align-items: center;
+            padding: 10px;
+            display: flex;
+            border-radius: 40px;
+            // width: 500px;
+            width: 100%;
+            margin-top: 20px;
+            font-size: 15px;
+            font-weight: 400;
+
+            img{
+                height: 20px;
+            }
+        }
+
+        .button:hover{
+            box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.2);
+        }
+
+        .link{
+            font-size: 15px;
+            color: #FA897B;
+            margin-top: 20px;
+        }
+
+        .link:hover{
+            color: #CCABD8;
+        }
+    }
+}
+
+@media (max-width: 780px) {
+    .login{
+
+        aside{
+            width: 250px;
+            font-size: 20px;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .login{
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+
+    aside{
+        font-size: 30px;
+        background-image: url("../../assets/image\ login\ mobile.png");
+        width: 100%;
+        height: 150px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    main{
+        padding: 10px;
+
+        .logo{
+            align-self: flex-start;
+        }
+
+        h1{
+            font-size: 25px;
+        }
+
+        .parrafo{
+            margin: 10px 0px 10px 0px;
+        }
+
+        .formContainer{
+            padding: 0px 0px;
+        }
+
+        form{
+
+            input{
+                height: 30px;
+            }
+
+            button{
+                height: 30px;
+            }
+        }
+
+        .button{
+            height: 30px;
+            
+            img{
+                height: 16px;
+            }
+        }
+    }
+}
+}

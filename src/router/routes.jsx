@@ -5,6 +5,8 @@ import Clothes from "../components/Clothes/Clothes";
 import NavBar from "../components/Navbar/NavBar";
 import Toys from "../components/Toys/Toys";
 import Items from "../components/Items/Items";
+import Login from "../components/Login/Login";
+import Register from "../components/Register/Register";
 
 const RouterDom = () => { 
     return (
@@ -17,6 +19,8 @@ const RouterDom = () => {
                     <Route path="/articulos" element={<Items />} />
                     <Route path="/mi-cuenta" element="" />
                 </Route>
+                <Route path="/login" element={<Login />} />
+                <Route path="/registro" element={<Register />} />
             </Routes>
         </BrowserRouter>
     );
