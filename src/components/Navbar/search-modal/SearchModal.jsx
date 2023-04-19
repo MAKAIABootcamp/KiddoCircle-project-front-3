@@ -1,11 +1,11 @@
-import React from "react";
-import carritoProduct from "../../../assets/carrito.png";
-import cochesitoProduct from "../../../assets/coche.png";
-import Card from "../../cards/Card";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
+import React, { useMemo, useState, useEffect } from "react";
+import iconClose from "../../../assets/icons/icon close.png";
+import { useForm } from "react-hook-form";
 
-const PopularsSection = () => {
+const SearchModal = ({ setModal }) => {
+  const { watch, register } = useForm();
+  //const [data, setData] = useState([]);
+
   const products = [
     {
       name: "Cochesito",
@@ -98,34 +98,68 @@ const PopularsSection = () => {
       ],
     },
   ];
-  const responsive = {
-    superLargeDesktop: {
-      breakpoint: { max: 4000, min: 1024 },
-      items: 4,
-    },
-    desktop: {
-      breakpoint: { max: 1024, min: 400 },
-      items: 4,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 3,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 2,
-    },
+
+  const handleModalSearch = () => {
+    setModal(false);
   };
+
+  const searchValue = watch("search".toLowerCase());
+
+  // const forSetData = () => {
+  //   setData(products);
+  //   console.log(data);
+  // };
+  // useEffect(() => {
+  //   forSetData();
+  // }, []);
+
+  const filterProducts = useMemo(() => {
+    //  setData(products);
+
+    const filter = products.filter((product) =>
+      product?.name?.toLowerCase().includes(searchValue)
+    );
+    if (searchValue != "") {
+      return filter;
+    } else {
+      return [];
+    }
+  }, [searchValue, products]);
+
   return (
-    <section className="popular-section">
-      <p className="title-text">Productos más populares</p>
-      <Carousel responsive={responsive} style={{ justifyContent: "center" }}>
-        {products.map((product, index) => (
-          <Card product={product} key={index} type={product.donation} />
-        ))}
-      </Carousel>
-    </section>
+    <aside className="searchModal">
+      <figure onClick={handleModalSearch} className="searchModal__figure">
+        <img src={iconClose} alt="icon-close" />
+      </figure>
+      <form className="searchModal__form">
+        <input
+          type="text"
+          placeholder="¿Qué estás buscando?"
+          {...register("search")}
+          className="searchModal__input"
+        />
+      </form>
+      <section className="section-filter">
+        {filterProducts.length ? (
+          filterProducts?.map((product, index) => (
+            <div key={index} className="filterProduct">
+              <figure className="filterProduct__figure">
+                <img className="filterProduct__img" src={product.photo[0]} />
+              </figure>
+              <div className="filterProduct__container">
+                <p className="filterProduct__container-name">{product.name}</p>
+                <p className="filterProduct__container-price">
+                  ${product.price}
+                </p>
+              </div>
+            </div>
+          ))
+        ) : (
+          <></>
+        )}
+      </section>
+    </aside>
   );
 };
 
-export default PopularsSection;
+export default SearchModal;

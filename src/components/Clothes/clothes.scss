@@ -29,7 +29,7 @@
                 justify-content: space-between;
                 padding: 16px;
                 border-bottom: 1px solid #CCABD8;
-                
+
                 h2{
                     font-weight: 700;
                     font-size: 18px;
@@ -104,19 +104,19 @@
                     &__scroll::-webkit-scrollbar {
                         width: 6px;
                         background-color: #EFEFEF;
-                        
+
                     }
 
                     &__scroll::-webkit-scrollbar-thumb {
                         background-color: #FA897B;
                         border-radius: 4px;
-                        
+
                     }
 
                 }
             }
 
-            
+
         }
 
         &__main{
