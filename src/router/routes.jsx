@@ -13,7 +13,8 @@ import MenuAccount from "../components/MyAccount/MenuAccount/MenuAccount";
 import CartShopping from "../components/CartShopping/CartShopping";
 
 
-const RouterDom = () => { 
+
+const RouterDom = () => {
     return (
         <BrowserRouter>
             <Routes>
@@ -21,8 +22,8 @@ const RouterDom = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="ropa" element={<Clothes />} />
                     <Route path="juguetes" element={<Toys />} />
-                    <Route path="articulos" element={<Items />} /> 
-                    <Route path="cart-shooping" element={<CartShopping />} /> 
+                    <Route path="articulos" element={<Items />} />
+                    <Route path="cart-shooping" element={<CartShopping />} />
                     <Route path="cuenta/*" element={<MenuAccount />} >
                         <Route path="*" element={<Navigate to="perfil" replace />}/>
                         <Route path="perfil" element="" />
