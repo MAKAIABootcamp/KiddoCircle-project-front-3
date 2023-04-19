@@ -1,0 +1,51 @@
+.profile {
+  figure{
+    >img{
+        object-fit: cover;
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+    }
+    .camera{
+      position: relative;
+      cursor: pointer;
+      border: 0;
+      background: none;
+      img{
+          position: absolute;
+          left: 30px;
+          bottom: 6px;
+          max-width: 25px;
+      }
+    }
+  }
+  .details{
+    margin-top: 60px;
+    .form-control{
+      color: #656565;
+      background-color: #EAEAEA;
+      border: none;
+      padding-left: 30px;
+      height: 50px;
+      max-width: 600px;
+      &:focus{
+        border: none;
+        box-shadow:none;
+      }
+    }
+    .btn-edit{
+      background-color: #EAEAEA;
+      border: none;
+      img{
+        max-width: 20px;
+        margin-right: 15px;
+      }
+    }
+    .btn-save{
+      background-color: $red;
+      border: 1px solid $red;
+      width: 100%;
+      max-width: 659px;
+    }
+  }
+}

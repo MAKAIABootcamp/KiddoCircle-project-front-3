@@ -130,7 +130,7 @@ const Wallet = () => {
                         <ModalFooter className="border-0">
                             <Button className="btn-recharge"  onClick={toggleRecharge}>
                                 Recargar
-                            </Button>{' '}
+                            </Button>
                             <Button color="secondary" onClick={toggleRecharge}>
                                 Cancel
                             </Button>
@@ -253,7 +253,7 @@ const Wallet = () => {
                         <ModalFooter className="border-0">
                             <Button className="btn-recharge"  onClick={toggleWithdrawal}>
                                 Retirar
-                            </Button>{' '}
+                            </Button>
                             <Button color="secondary" onClick={toggleWithdrawal}>
                                 Cancel
                             </Button>

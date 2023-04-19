@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "../components/Home/Home";
+import Profile from '../components/MyAccount/Profile/Profile';
 import Clothes from "../components/Clothes/Clothes";
 import NavBar from "../components/Navbar/NavBar";
 import Toys from "../components/Toys/Toys";
@@ -17,7 +18,7 @@ const RouterDom = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<NavBar />}>
+                    <Route path="/" element={<NavBar />}>
                     <Route path="/" element={<Home />} />
                     <Route path="ropa" element={<Clothes />} />
                     <Route path="juguetes" element={<Toys />} />
@@ -25,7 +26,7 @@ const RouterDom = () => {
                     <Route path="cart-shooping" element={<CartShopping />} /> 
                     <Route path="cuenta/*" element={<MenuAccount />} >
                         <Route path="*" element={<Navigate to="perfil" replace />}/>
-                        <Route path="perfil" element="" />
+                        <Route path="perfil" element={<Profile/>} />
                         <Route path="favoritos" element="" />
                         <Route path="mis-publicaciones" element="" />
                         <Route path="mis-compras-donaciones" element={<Buy />} />
