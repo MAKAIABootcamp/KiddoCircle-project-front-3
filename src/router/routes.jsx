@@ -19,15 +19,18 @@ const RouterDom = () => {
     return (
         <BrowserRouter>
             <Routes>
-                    <Route path="/" element={<NavBar />}>
+                <Route path="/" element={<NavBar />}>
                     <Route path="/" element={<Home />} />
                     <Route path="ropa" element={<Clothes />} />
                     <Route path="juguetes" element={<Toys />} />
                     <Route path="articulos" element={<Items />} />
                     <Route path="cart-shooping" element={<CartShopping />} />
-                    <Route path="cuenta/*" element={<MenuAccount />} >
-                        <Route path="*" element={<Navigate to="perfil" replace />}/>
-                        <Route path="perfil" element="" />
+                    <Route path="cuenta/*" element={<MenuAccount />}>
+                        <Route
+                            path="*"
+                            element={<Navigate to="perfil" replace />}
+                        />
+                        <Route path="perfil" element={<Profile />} />
                         <Route path="favoritos" element="" />
                         <Route path="mis-publicaciones" element={<Posts />} />
                         <Route
