@@ -129,7 +129,7 @@ const Login = () => {
                     </button>
                     <button
                         className="button"
-                        // onClick={() => sesionProvider(facebook)}
+                        onClick={() => sesionProvider(facebook)}
                     >
                         <figure>
                             <img src={facebookIcon} alt="facebook icon" />
