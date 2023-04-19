@@ -91,7 +91,7 @@ const Wallet = () => {
                                         name="name"
                                         type="text"
                                     />
-                                </FormGroup>                         
+                                </FormGroup>
                                 <Row>
                                     <Col md={4}>
                                         <FormGroup>
@@ -214,7 +214,7 @@ const Wallet = () => {
                                         name="name"
                                         type="text"
                                     />
-                                </FormGroup>                         
+                                </FormGroup>
                                 <Row>
                                     <Col md={4}>
                                         <FormGroup>
@@ -271,9 +271,9 @@ const Wallet = () => {
                     <div className="flex-grow-1 ms-5 data-product d-flex justify-content-between align-items-center">
                         <div>
                             <span className="status fw-semibold">Depósito</span>
-                            <p>Hoy</p> 
+                            <p>Hoy</p>
                         </div>
-                        <span className="pay fw-semibold">+$130.000</span>          
+                        <span className="pay fw-semibold">+$130.000</span>
                     </div>
                 </div>
                 <div className="d-flex mx-4 card-wallet mb-2 align-items-center">
@@ -283,9 +283,9 @@ const Wallet = () => {
                     <div className="flex-grow-1 ms-5 data-product d-flex justify-content-between align-items-center">
                         <div>
                             <span className="status fw-semibold">Retiro</span>
-                            <p>16 de abril</p> 
+                            <p>16 de abril</p>
                         </div>
-                        <span className="withdrawal fw-semibold">-$30.000</span>          
+                        <span className="withdrawal fw-semibold">-$30.000</span>
                     </div>
                 </div>
                 <div className="d-flex mx-4 card-wallet mb-2 align-items-center">
@@ -295,9 +295,9 @@ const Wallet = () => {
                     <div className="flex-grow-1 ms-5 data-product d-flex justify-content-between align-items-center">
                         <div>
                             <span className="status fw-semibold">Depósito</span>
-                            <p>14 de abril</p> 
+                            <p>14 de abril</p>
                         </div>
-                        <span className="pay fw-semibold">+$30.000</span>          
+                        <span className="pay fw-semibold">+$30.000</span>
                     </div>
                 </div>
             </div>

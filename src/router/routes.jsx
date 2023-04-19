@@ -12,9 +12,10 @@ import Buy from "../components/MyAccount/Buy/Buy";
 import Wallet from "../components/MyAccount/Wallet/Wallet";
 import MenuAccount from "../components/MyAccount/MenuAccount/MenuAccount";
 import CartShopping from "../components/CartShopping/CartShopping";
+import Posts from "../components/MyAccount/Posts/Posts";
 
 
-const RouterDom = () => { 
+const RouterDom = () => {
     return (
         <BrowserRouter>
             <Routes>
@@ -22,14 +23,17 @@ const RouterDom = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="ropa" element={<Clothes />} />
                     <Route path="juguetes" element={<Toys />} />
-                    <Route path="articulos" element={<Items />} /> 
-                    <Route path="cart-shooping" element={<CartShopping />} /> 
+                    <Route path="articulos" element={<Items />} />
+                    <Route path="cart-shooping" element={<CartShopping />} />
                     <Route path="cuenta/*" element={<MenuAccount />} >
                         <Route path="*" element={<Navigate to="perfil" replace />}/>
-                        <Route path="perfil" element={<Profile/>} />
+                        <Route path="perfil" element="" />
                         <Route path="favoritos" element="" />
-                        <Route path="mis-publicaciones" element="" />
-                        <Route path="mis-compras-donaciones" element={<Buy />} />
+                        <Route path="mis-publicaciones" element={<Posts />} />
+                        <Route
+                            path="mis-compras-donaciones"
+                            element={<Buy />}
+                        />
                         <Route path="mi-billetera" element={<Wallet />} />
                         <Route path="chat" element="" />
                     </Route>
