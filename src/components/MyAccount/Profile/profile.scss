@@ -26,8 +26,8 @@
       background-color: #EAEAEA;
       border: none;
       padding-left: 30px;
-      height: 50px;
-      max-width: 600px;
+      height: 45px;
+      max-width: 500px;
       &:focus{
         border: none;
         box-shadow:none;
@@ -45,7 +45,7 @@
       background-color: $red;
       border: 1px solid $red;
       width: 100%;
-      max-width: 659px;
+      max-width: 459px;
     }
   }
 }
