@@ -1,5 +1,6 @@
 .clothes{
     width: 100%;
+    padding-right: 0px !important;
 
     &__header{
         background-image: url("../../assets/gradientBackground.png");
@@ -27,18 +28,18 @@
                 display: flex;
                 align-items: baseline;
                 justify-content: space-between;
-                padding: 16px;
+                padding: 10px;
                 border-bottom: 1px solid #CCABD8;
 
                 h2{
                     font-weight: 700;
-                    font-size: 18px;
+                    font-size: 16px;
                     line-height: 22px;
                 }
 
                 span{
                     font-weight: 400;
-                    font-size: 14px;
+                    font-size: 12px;
                     line-height: 17px;
                     cursor: pointer;
                 }
@@ -46,10 +47,10 @@
             &__filter{
                 display: flex;
                 justify-content: space-between;
-                padding: 16px;
+                padding: 10px;
                 border-bottom: 1px solid #CCABD8;
                 font-weight: 400;
-                font-size: 16px;
+                font-size: 14px;
                 line-height: 19px;
 
                 img{
@@ -58,11 +59,11 @@
             }
 
             &__options{
-                padding: 16px;
+                padding: 10px;
                 border-bottom: 1px solid #CCABD8;
                 p{
                     font-weight: 400;
-                    font-size: 16px;
+                    font-size: 14px;
                     line-height: 19px;
                 }
 
@@ -89,7 +90,7 @@
 
                 &__selectsScroller{
                     height: 254px;
-                    padding: 16px;
+                    padding: 10px;
                     border-bottom: 1px solid #CCABD8;
 
                     &__scroll{
@@ -129,7 +130,7 @@
 
                 p{
                     font-weight: 400;
-                    font-size: 16px;
+                    font-size: 14px;
                     line-height: 19px;
                 }
 
@@ -148,7 +149,7 @@
                     }
 
                     &__options{
-                        padding: 16px;
+                        padding: 10px;
                         box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.25);
                         border-radius: 5px;
                         background: #FFFFFF;
@@ -211,7 +212,7 @@
 
     p{
         font-weight: 400;
-        font-size: 16px;
+        font-size: 14px;
         line-height: 19px;
     }
 
@@ -257,11 +258,15 @@
 }
 
 .clothes__asideYMain__aside__multipleOp{
-    padding: 16px;
+    padding: 10px;
     border-bottom: 1px solid #CCABD8;
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.letterClothes{
+    font-size: 14px !important;
 }
 
 @media (max-width: 860px) {

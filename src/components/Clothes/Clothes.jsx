@@ -325,776 +325,942 @@ const Clothes = () => {
   };
 
   return (
-    <section className="clothes">
-      <header className="clothes__header">
-        <h1>ROPA</h1>
-      </header>
-      <section className="clothes__asideYMain">
-        <aside className="clothes__asideYMain__aside">
-          <div className="clothes__asideYMain__aside__tittle">
-            <h2>FILTROS</h2>
-            <span onClick={clearFilters}>LIMPIAR TODO</span>
-          </div>
-          <div className="clothes__asideYMain__aside__options">
-            <p>Filtrado Por:</p>
-            <div className="clothes__asideYMain__aside__options__container">
-              {filter.map((obj, index) =>
-                obj.items.length
-                  ? obj.items.map((item, itemIndex) => (
-                      <div
-                        key={itemIndex}
-                        className="clothes__asideYMain__aside__options__option"
-                      >
-                        <div
-                          style={{
-                            backgroundColor: "#FA897B",
-                          }}
-                        ></div>
-                        <p>{item}</p>
+      <section className="clothes">
+          <header className="clothes__header">
+              <h1>ROPA</h1>
+          </header>
+          <section className="clothes__asideYMain">
+              <aside className="clothes__asideYMain__aside">
+                  <div className="clothes__asideYMain__aside__tittle">
+                      <h2>FILTROS</h2>
+                      <span onClick={clearFilters}>LIMPIAR TODO</span>
+                  </div>
+                  <div className="clothes__asideYMain__aside__options">
+                      <p>Filtrado Por:</p>
+                      <div className="clothes__asideYMain__aside__options__container">
+                          {filter.map((obj, index) =>
+                              obj.items.length
+                                  ? obj.items.map((item, itemIndex) => (
+                                        <div
+                                            key={itemIndex}
+                                            className="clothes__asideYMain__aside__options__option"
+                                        >
+                                            <div
+                                                style={{
+                                                    backgroundColor: "#FA897B",
+                                                }}
+                                            ></div>
+                                            <p>{item}</p>
+                                        </div>
+                                    ))
+                                  : null
+                          )}
                       </div>
-                    ))
-                  : null
-              )}
-            </div>
-          </div>
-          <div className="clothes__asideYMain__aside__filter">
-            <p>Sub-Categoría</p>
-            <i>
-              <img
-                src={arrowUp}
-                alt="arrow up icon"
-                onClick={() => setShowSubCategory(!showSubCategory)}
-                style={{
-                  transform: showSubCategory ? "none" : "rotate(180deg)",
-                }}
-              />
-            </i>
-          </div>
-          {showSubCategory ? (
-            <motion.div
-              className="clothes__asideYMain__aside__options__selectsScroller"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{
-                opacity: 1,
-                y: showSubCategory ? 0 : -20,
-              }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="clothes__asideYMain__aside__options__selectsScroller__scroll">
-                {subCategory.map((item, index) =>
-                  filter.some(
-                    (obj) =>
-                      obj.name === "sub_category" && obj.items.includes(item)
-                  ) ? (
-                    <div
-                      className="clothes__asideYMain__aside__options__option"
-                      key={index}
-                    >
-                      <div
-                        onClick={() => toogleSelectFilter("sub_category", item)}
-                        style={{
-                          backgroundColor: "#FA897B",
-                        }}
-                      ></div>
-                      <p>{item}</p>
-                    </div>
+                  </div>
+                  <div className="clothes__asideYMain__aside__filter">
+                      <p>Sub-Categoría</p>
+                      <i>
+                          <img
+                              src={arrowUp}
+                              alt="arrow up icon"
+                              onClick={() =>
+                                  setShowSubCategory(!showSubCategory)
+                              }
+                              style={{
+                                  transform: showSubCategory
+                                      ? "none"
+                                      : "rotate(180deg)",
+                              }}
+                          />
+                      </i>
+                  </div>
+                  {showSubCategory ? (
+                      <motion.div
+                          className="clothes__asideYMain__aside__options__selectsScroller"
+                          initial={{ opacity: 0, y: -20 }}
+                          animate={{
+                              opacity: 1,
+                              y: showSubCategory ? 0 : -20,
+                          }}
+                          transition={{ duration: 0.5 }}
+                      >
+                          <div className="clothes__asideYMain__aside__options__selectsScroller__scroll">
+                              {subCategory.map((item, index) =>
+                                  filter.some(
+                                      (obj) =>
+                                          obj.name === "sub_category" &&
+                                          obj.items.includes(item)
+                                  ) ? (
+                                      <div
+                                          className="clothes__asideYMain__aside__options__option"
+                                          key={index}
+                                      >
+                                          <div
+                                              onClick={() =>
+                                                  toogleSelectFilter(
+                                                      "sub_category",
+                                                      item
+                                                  )
+                                              }
+                                              style={{
+                                                  backgroundColor: "#FA897B",
+                                              }}
+                                          ></div>
+                                          <p>{item}</p>
+                                      </div>
+                                  ) : (
+                                      <div
+                                          className="clothes__asideYMain__aside__options__option"
+                                          key={index}
+                                      >
+                                          <div
+                                              onClick={() =>
+                                                  toogleSelectFilter(
+                                                      "sub_category",
+                                                      item
+                                                  )
+                                              }
+                                          ></div>
+                                          <p>{item}</p>
+                                      </div>
+                                  )
+                              )}
+                          </div>
+                      </motion.div>
                   ) : (
-                    <div
-                      className="clothes__asideYMain__aside__options__option"
-                      key={index}
-                    >
-                      <div
-                        onClick={() => toogleSelectFilter("sub_category", item)}
-                      ></div>
-                      <p>{item}</p>
-                    </div>
-                  )
-                )}
-              </div>
-            </motion.div>
-          ) : (
-            <></>
-          )}
-          <div className="clothes__asideYMain__aside__filter">
-            <p>Genero</p>
-            <i>
-              <img
-                src={arrowUp}
-                alt="arrow up icon"
-                onClick={() => setShowGender(!showGender)}
-                style={{
-                  transform: showGender ? "none" : "rotate(180deg)",
-                }}
-              />
-            </i>
-          </div>
-          {showGender ? (
-            <motion.div
-              className="clothes__asideYMain__aside__multipleOp"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{
-                opacity: 1,
-                y: showGender ? 0 : -20,
-              }}
-              transition={{ duration: 0.5 }}
-            >
-              {gender.map((item, index) =>
-                filter.some(
-                  (obj) => obj.name === "genero" && obj.items.includes(item)
-                ) ? (
-                  <div
-                    className="clothes__asideYMain__aside__options__option"
-                    key={index}
-                  >
-                    <div
-                      onClick={() => toogleSelectFilter("genero", item)}
-                      style={{
-                        backgroundColor: "#FA897B",
-                      }}
-                    ></div>
-                    <p>{item}</p>
+                      <></>
+                  )}
+                  <div className="clothes__asideYMain__aside__filter">
+                      <p>Genero</p>
+                      <i>
+                          <img
+                              src={arrowUp}
+                              alt="arrow up icon"
+                              onClick={() => setShowGender(!showGender)}
+                              style={{
+                                  transform: showGender
+                                      ? "none"
+                                      : "rotate(180deg)",
+                              }}
+                          />
+                      </i>
                   </div>
-                ) : (
-                  <div
-                    className="clothes__asideYMain__aside__options__option"
-                    key={index}
-                  >
-                    <div
-                      onClick={() => toogleSelectFilter("genero", item)}
-                    ></div>
-                    <p>{item}</p>
-                  </div>
-                )
-              )}
-            </motion.div>
-          ) : (
-            <></>
-          )}
-          <div className="clothes__asideYMain__aside__filter">
-            <p>Talla</p>
-            <i>
-              <img
-                src={arrowUp}
-                alt="arrow up icon"
-                onClick={() => setShowSize(!showSize)}
-                style={{
-                  transform: showSubCategory ? "none" : "rotate(180deg)",
-                }}
-              />
-            </i>
-          </div>
-          {showSize ? (
-            <motion.div
-              className="clothes__asideYMain__aside__options__selectsScroller"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{
-                opacity: 1,
-                y: showSize ? 0 : -20,
-              }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="clothes__asideYMain__aside__options__selectsScroller__scroll">
-                {sizes.map((item, index) =>
-                  filter.some(
-                    (obj) => obj.name === "talla" && obj.items.includes(item)
-                  ) ? (
-                    <div
-                      className="clothes__asideYMain__aside__options__option"
-                      key={index}
-                    >
-                      <div
-                        onClick={() => toogleSelectFilter("talla", item)}
-                        style={{
-                          backgroundColor: "#FA897B",
-                        }}
-                      ></div>
-                      <p>{item}</p>
-                    </div>
+                  {showGender ? (
+                      <motion.div
+                          className="clothes__asideYMain__aside__multipleOp"
+                          initial={{ opacity: 0, y: -20 }}
+                          animate={{
+                              opacity: 1,
+                              y: showGender ? 0 : -20,
+                          }}
+                          transition={{ duration: 0.5 }}
+                      >
+                          {gender.map((item, index) =>
+                              filter.some(
+                                  (obj) =>
+                                      obj.name === "genero" &&
+                                      obj.items.includes(item)
+                              ) ? (
+                                  <div
+                                      className="clothes__asideYMain__aside__options__option"
+                                      key={index}
+                                  >
+                                      <div
+                                          onClick={() =>
+                                              toogleSelectFilter("genero", item)
+                                          }
+                                          style={{
+                                              backgroundColor: "#FA897B",
+                                          }}
+                                      ></div>
+                                      <p>{item}</p>
+                                  </div>
+                              ) : (
+                                  <div
+                                      className="clothes__asideYMain__aside__options__option"
+                                      key={index}
+                                  >
+                                      <div
+                                          onClick={() =>
+                                              toogleSelectFilter("genero", item)
+                                          }
+                                      ></div>
+                                      <p>{item}</p>
+                                  </div>
+                              )
+                          )}
+                      </motion.div>
                   ) : (
-                    <div
-                      className="clothes__asideYMain__aside__options__option"
-                      key={index}
-                    >
-                      <div
-                        onClick={() => toogleSelectFilter("talla", item)}
-                      ></div>
-                      <p>{item}</p>
-                    </div>
-                  )
-                )}
-              </div>
-            </motion.div>
-          ) : (
-            <></>
-          )}
-          <div className="clothes__asideYMain__aside__filter">
-            <p>Estado</p>
-            <i>
-              <img
-                src={arrowUp}
-                alt="arrow up icon"
-                onClick={() => setShowState(!showState)}
-                style={{
-                  transform: showState ? "none" : "rotate(180deg)",
-                }}
-              />
-            </i>
-          </div>
-          {showState ? (
-            <motion.div
-              className="clothes__asideYMain__aside__multipleOp"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{
-                opacity: 1,
-                y: showState ? 0 : -20,
-              }}
-              transition={{ duration: 0.5 }}
-            >
-              {state.map((item, index) =>
-                filter.some(
-                  (obj) =>
-                    obj.name === "estado" && obj.items.includes(`${item}/10`)
-                ) ? (
-                  <div
-                    className="clothes__asideYMain__aside__options__option"
-                    key={index}
-                  >
-                    <div
-                      onClick={() => toogleSelectFilter("estado", `${item}/10`)}
-                      style={{
-                        backgroundColor: "#FA897B",
-                      }}
-                    ></div>
-                    <p>{item}/10</p>
+                      <></>
+                  )}
+                  <div className="clothes__asideYMain__aside__filter">
+                      <p>Talla</p>
+                      <i>
+                          <img
+                              src={arrowUp}
+                              alt="arrow up icon"
+                              onClick={() => setShowSize(!showSize)}
+                              style={{
+                                  transform: showSubCategory
+                                      ? "none"
+                                      : "rotate(180deg)",
+                              }}
+                          />
+                      </i>
                   </div>
-                ) : (
-                  <div
-                    className="clothes__asideYMain__aside__options__option"
-                    key={index}
-                  >
-                    <div
-                      onClick={() => toogleSelectFilter("estado", `${item}/10`)}
-                    ></div>
-                    <p>{item}/10</p>
+                  {showSize ? (
+                      <motion.div
+                          className="clothes__asideYMain__aside__options__selectsScroller"
+                          initial={{ opacity: 0, y: -20 }}
+                          animate={{
+                              opacity: 1,
+                              y: showSize ? 0 : -20,
+                          }}
+                          transition={{ duration: 0.5 }}
+                      >
+                          <div className="clothes__asideYMain__aside__options__selectsScroller__scroll">
+                              {sizes.map((item, index) =>
+                                  filter.some(
+                                      (obj) =>
+                                          obj.name === "talla" &&
+                                          obj.items.includes(item)
+                                  ) ? (
+                                      <div
+                                          className="clothes__asideYMain__aside__options__option"
+                                          key={index}
+                                      >
+                                          <div
+                                              onClick={() =>
+                                                  toogleSelectFilter(
+                                                      "talla",
+                                                      item
+                                                  )
+                                              }
+                                              style={{
+                                                  backgroundColor: "#FA897B",
+                                              }}
+                                          ></div>
+                                          <p>{item}</p>
+                                      </div>
+                                  ) : (
+                                      <div
+                                          className="clothes__asideYMain__aside__options__option"
+                                          key={index}
+                                      >
+                                          <div
+                                              onClick={() =>
+                                                  toogleSelectFilter(
+                                                      "talla",
+                                                      item
+                                                  )
+                                              }
+                                          ></div>
+                                          <p>{item}</p>
+                                      </div>
+                                  )
+                              )}
+                          </div>
+                      </motion.div>
+                  ) : (
+                      <></>
+                  )}
+                  <div className="clothes__asideYMain__aside__filter">
+                      <p>Estado</p>
+                      <i>
+                          <img
+                              src={arrowUp}
+                              alt="arrow up icon"
+                              onClick={() => setShowState(!showState)}
+                              style={{
+                                  transform: showState
+                                      ? "none"
+                                      : "rotate(180deg)",
+                              }}
+                          />
+                      </i>
                   </div>
-                )
-              )}
-            </motion.div>
-          ) : (
-            <></>
-          )}
-          <div className="clothes__asideYMain__aside__multipleOp">
-            {filter.some(
-              (obj) => obj.name === "price" && obj.items.includes("Donación")
-            ) ? (
-              <div className="clothes__asideYMain__aside__options__option">
-                <div
-                  onClick={() => toogleSelectFilter("price", "Donación")}
-                  style={{
-                    backgroundColor: "#FA897B",
-                  }}
-                ></div>
-                <p>Donación</p>
-              </div>
-            ) : (
-              <div className="clothes__asideYMain__aside__options__option">
-                <div
-                  onClick={() => toogleSelectFilter("price", "Donación")}
-                ></div>
-                <p>Donación</p>
-              </div>
-            )}
-            {filter.some(
-              (obj) =>
-                obj.name === "price" && obj.items.includes("Rango de precio")
-            ) ? (
-              <div className="clothes__asideYMain__aside__options__option">
-                <div
-                  onClick={() => toogleSelectFilter("price", "Rango de precio")}
-                  style={{
-                    backgroundColor: "#FA897B",
-                  }}
-                ></div>
-                <p>Rango de precio</p>
-              </div>
-            ) : (
-              <div className="clothes__asideYMain__aside__options__option">
-                <div
-                  onClick={() => toogleSelectFilter("price", "Rango de precio")}
-                ></div>
-                <p>Rango de precio</p>
-              </div>
-            )}
-            <div>
-              <Slider
-                min={0}
-                max={300}
-                range={true}
-                value={range}
-                onChange={setRange}
-                railStyle={{ backgroundColor: "#EFEFEF" }}
-                trackStyle={{ backgroundColor: "#FA897B" }}
-                handleStyle={{
-                  backgroundColor: "#FA897B",
-                  border: "none",
-                  borderRadius: "50%",
-                  boxShadow: "0 0 3px rgba(255, 0, 0, 0.5)",
-                }}
-              />
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                <span>{formatPrice(range[0])}</span>
-                <span>{formatPrice(range[1])}</span>
-              </div>
-            </div>
-          </div>
-        </aside>
-        {showFilterFlex ? (
-          <section className="clothes__asideYMain__asideMobile">
-            <figure className="clothes__asideYMain__asideMobile__x">
-              <img
-                src={xIcon}
-                alt="x icon"
-                onClick={() => {
-                  setShowFilterFlex(false);
-                }}
-              />
-            </figure>
-            <div className="clothes__asideYMain__aside__tittle">
-              <h2>FILTROS</h2>
-              <span onClick={clearFilters}>LIMPIAR TODO</span>
-            </div>
-            <div className="clothes__asideYMain__aside__options">
-              <p>Filtrado Por:</p>
-              <div className="clothes__asideYMain__aside__options__container">
-                {filter.map((obj, index) =>
-                  obj.items.length
-                    ? obj.items.map((item, itemIndex) => (
-                        <div
-                          key={itemIndex}
-                          className="clothes__asideYMain__aside__options__option"
-                        >
+                  {showState ? (
+                      <motion.div
+                          className="clothes__asideYMain__aside__multipleOp"
+                          initial={{ opacity: 0, y: -20 }}
+                          animate={{
+                              opacity: 1,
+                              y: showState ? 0 : -20,
+                          }}
+                          transition={{ duration: 0.5 }}
+                      >
+                          {state.map((item, index) =>
+                              filter.some(
+                                  (obj) =>
+                                      obj.name === "estado" &&
+                                      obj.items.includes(`${item}/10`)
+                              ) ? (
+                                  <div
+                                      className="clothes__asideYMain__aside__options__option"
+                                      key={index}
+                                  >
+                                      <div
+                                          onClick={() =>
+                                              toogleSelectFilter(
+                                                  "estado",
+                                                  `${item}/10`
+                                              )
+                                          }
+                                          style={{
+                                              backgroundColor: "#FA897B",
+                                          }}
+                                      ></div>
+                                      <p>{item}/10</p>
+                                  </div>
+                              ) : (
+                                  <div
+                                      className="clothes__asideYMain__aside__options__option"
+                                      key={index}
+                                  >
+                                      <div
+                                          onClick={() =>
+                                              toogleSelectFilter(
+                                                  "estado",
+                                                  `${item}/10`
+                                              )
+                                          }
+                                      ></div>
+                                      <p>{item}/10</p>
+                                  </div>
+                              )
+                          )}
+                      </motion.div>
+                  ) : (
+                      <></>
+                  )}
+                  <div className="clothes__asideYMain__aside__multipleOp">
+                      {filter.some(
+                          (obj) =>
+                              obj.name === "price" &&
+                              obj.items.includes("Donación")
+                      ) ? (
+                          <div className="clothes__asideYMain__aside__options__option">
+                              <div
+                                  onClick={() =>
+                                      toogleSelectFilter("price", "Donación")
+                                  }
+                                  style={{
+                                      backgroundColor: "#FA897B",
+                                  }}
+                              ></div>
+                              <p>Donación</p>
+                          </div>
+                      ) : (
+                          <div className="clothes__asideYMain__aside__options__option">
+                              <div
+                                  onClick={() =>
+                                      toogleSelectFilter("price", "Donación")
+                                  }
+                              ></div>
+                              <p>Donación</p>
+                          </div>
+                      )}
+                      {filter.some(
+                          (obj) =>
+                              obj.name === "price" &&
+                              obj.items.includes("Rango de precio")
+                      ) ? (
+                          <div className="clothes__asideYMain__aside__options__option">
+                              <div
+                                  onClick={() =>
+                                      toogleSelectFilter(
+                                          "price",
+                                          "Rango de precio"
+                                      )
+                                  }
+                                  style={{
+                                      backgroundColor: "#FA897B",
+                                  }}
+                              ></div>
+                              <p>Rango de precio</p>
+                          </div>
+                      ) : (
+                          <div className="clothes__asideYMain__aside__options__option">
+                              <div
+                                  onClick={() =>
+                                      toogleSelectFilter(
+                                          "price",
+                                          "Rango de precio"
+                                      )
+                                  }
+                              ></div>
+                              <p>Rango de precio</p>
+                          </div>
+                      )}
+                      <div>
+                          <Slider
+                              min={0}
+                              max={300}
+                              range={true}
+                              value={range}
+                              onChange={setRange}
+                              railStyle={{ backgroundColor: "#EFEFEF" }}
+                              trackStyle={{ backgroundColor: "#FA897B" }}
+                              handleStyle={{
+                                  backgroundColor: "#FA897B",
+                                  border: "none",
+                                  borderRadius: "50%",
+                                  boxShadow: "0 0 3px rgba(255, 0, 0, 0.5)",
+                              }}
+                          />
                           <div
-                            style={{
-                              backgroundColor: "#FA897B",
-                            }}
-                          ></div>
-                          <p>{item}</p>
-                        </div>
-                      ))
-                    : null
-                )}
-              </div>
-            </div>
-            <div className="clothes__asideYMain__aside__filter">
-              <p>Sub-Categoría</p>
-              <i>
-                <img
-                  src={arrowUp}
-                  alt="arrow up icon"
-                  onClick={() => setShowSubCategory(!showSubCategory)}
-                  style={{
-                    transform: showSubCategory ? "none" : "rotate(180deg)",
-                  }}
-                />
-              </i>
-            </div>
-            {showSubCategory ? (
-              <motion.div
-                className="clothes__asideYMain__aside__options__selectsScroller"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{
-                  opacity: 1,
-                  y: showSubCategory ? 0 : -20,
-                }}
-                transition={{ duration: 0.5 }}
-              >
-                <div className="clothes__asideYMain__aside__options__selectsScroller__scroll">
-                  {subCategory.map((item, index) =>
-                    filter.some(
-                      (obj) =>
-                        obj.name === "sub_category" && obj.items.includes(item)
-                    ) ? (
-                      <div
-                        className="clothes__asideYMain__aside__options__option"
-                        key={index}
-                      >
-                        <div
-                          onClick={() =>
-                            toogleSelectFilter("sub_category", item)
-                          }
-                          style={{
-                            backgroundColor: "#FA897B",
-                          }}
-                        ></div>
-                        <p>{item}</p>
+                              style={{
+                                  display: "flex",
+                                  justifyContent: "space-between",
+                              }}
+                          >
+                              <span>{formatPrice(range[0])}</span>
+                              <span>{formatPrice(range[1])}</span>
+                          </div>
                       </div>
-                    ) : (
-                      <div
-                        className="clothes__asideYMain__aside__options__option"
-                        key={index}
-                      >
-                        <div
-                          onClick={() =>
-                            toogleSelectFilter("sub_category", item)
-                          }
-                        ></div>
-                        <p>{item}</p>
-                      </div>
-                    )
-                  )}
-                </div>
-              </motion.div>
-            ) : (
-              <></>
-            )}
-            <div className="clothes__asideYMain__aside__filter">
-              <p>Genero</p>
-              <i>
-                <img
-                  src={arrowUp}
-                  alt="arrow up icon"
-                  onClick={() => setShowGender(!showGender)}
-                  style={{
-                    transform: showGender ? "none" : "rotate(180deg)",
-                  }}
-                />
-              </i>
-            </div>
-            {showGender ? (
-              <motion.div
-                className="clothes__asideYMain__aside__multipleOp"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{
-                  opacity: 1,
-                  y: showGender ? 0 : -20,
-                }}
-                transition={{ duration: 0.5 }}
-              >
-                {gender.map((item, index) =>
-                  filter.some(
-                    (obj) => obj.name === "genero" && obj.items.includes(item)
-                  ) ? (
-                    <div
-                      className="clothes__asideYMain__aside__options__option"
-                      key={index}
-                    >
-                      <div
-                        onClick={() => toogleSelectFilter("genero", item)}
-                        style={{
-                          backgroundColor: "#FA897B",
-                        }}
-                      ></div>
-                      <p>{item}</p>
-                    </div>
-                  ) : (
-                    <div
-                      className="clothes__asideYMain__aside__options__option"
-                      key={index}
-                    >
-                      <div
-                        onClick={() => toogleSelectFilter("genero", item)}
-                      ></div>
-                      <p>{item}</p>
-                    </div>
-                  )
-                )}
-              </motion.div>
-            ) : (
-              <></>
-            )}
-            <div className="clothes__asideYMain__aside__filter">
-              <p>Talla</p>
-              <i>
-                <img
-                  src={arrowUp}
-                  alt="arrow up icon"
-                  onClick={() => setShowSize(!showSize)}
-                  style={{
-                    transform: showSubCategory ? "none" : "rotate(180deg)",
-                  }}
-                />
-              </i>
-            </div>
-            {showSize ? (
-              <motion.div
-                className="clothes__asideYMain__aside__options__selectsScroller"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{
-                  opacity: 1,
-                  y: showSize ? 0 : -20,
-                }}
-                transition={{ duration: 0.5 }}
-              >
-                <div className="clothes__asideYMain__aside__options__selectsScroller__scroll">
-                  {sizes.map((item, index) =>
-                    filter.some(
-                      (obj) => obj.name === "talla" && obj.items.includes(item)
-                    ) ? (
-                      <div
-                        className="clothes__asideYMain__aside__options__option"
-                        key={index}
-                      >
-                        <div
-                          onClick={() => toogleSelectFilter("talla", item)}
-                          style={{
-                            backgroundColor: "#FA897B",
-                          }}
-                        ></div>
-                        <p>{item}</p>
-                      </div>
-                    ) : (
-                      <div
-                        className="clothes__asideYMain__aside__options__option"
-                        key={index}
-                      >
-                        <div
-                          onClick={() => toogleSelectFilter("talla", item)}
-                        ></div>
-                        <p>{item}</p>
-                      </div>
-                    )
-                  )}
-                </div>
-              </motion.div>
-            ) : (
-              <></>
-            )}
-            <div className="clothes__asideYMain__aside__filter">
-              <p>Estado</p>
-              <i>
-                <img
-                  src={arrowUp}
-                  alt="arrow up icon"
-                  onClick={() => setShowState(!showState)}
-                  style={{
-                    transform: showState ? "none" : "rotate(180deg)",
-                  }}
-                />
-              </i>
-            </div>
-            {showState ? (
-              <motion.div
-                className="clothes__asideYMain__aside__multipleOp"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{
-                  opacity: 1,
-                  y: showState ? 0 : -20,
-                }}
-                transition={{ duration: 0.5 }}
-              >
-                {state.map((item, index) =>
-                  filter.some(
-                    (obj) =>
-                      obj.name === "estado" && obj.items.includes(`${item}/10`)
-                  ) ? (
-                    <div
-                      className="clothes__asideYMain__aside__options__option"
-                      key={index}
-                    >
-                      <div
-                        onClick={() =>
-                          toogleSelectFilter("estado", `${item}/10`)
-                        }
-                        style={{
-                          backgroundColor: "#FA897B",
-                        }}
-                      ></div>
-                      <p>{item}/10</p>
-                    </div>
-                  ) : (
-                    <div
-                      className="clothes__asideYMain__aside__options__option"
-                      key={index}
-                    >
-                      <div
-                        onClick={() =>
-                          toogleSelectFilter("estado", `${item}/10`)
-                        }
-                      ></div>
-                      <p>{item}/10</p>
-                    </div>
-                  )
-                )}
-              </motion.div>
-            ) : (
-              <></>
-            )}
-            <div className="clothes__asideYMain__aside__multipleOp">
-              {filter.some(
-                (obj) => obj.name === "price" && obj.items.includes("Donación")
-              ) ? (
-                <div className="clothes__asideYMain__aside__options__option">
-                  <div
-                    onClick={() => toogleSelectFilter("price", "Donación")}
-                    style={{
-                      backgroundColor: "#FA897B",
-                    }}
-                  ></div>
-                  <p>Donación</p>
-                </div>
-              ) : (
-                <div className="clothes__asideYMain__aside__options__option">
-                  <div
-                    onClick={() => toogleSelectFilter("price", "Donación")}
-                  ></div>
-                  <p>Donación</p>
-                </div>
-              )}
-              {filter.some(
-                (obj) =>
-                  obj.name === "price" && obj.items.includes("Rango de precio")
-              ) ? (
-                <div className="clothes__asideYMain__aside__options__option">
-                  <div
-                    onClick={() =>
-                      toogleSelectFilter("price", "Rango de precio")
-                    }
-                    style={{
-                      backgroundColor: "#FA897B",
-                    }}
-                  ></div>
-                  <p>Rango de precio</p>
-                </div>
-              ) : (
-                <div className="clothes__asideYMain__aside__options__option">
-                  <div
-                    onClick={() =>
-                      toogleSelectFilter("price", "Rango de precio")
-                    }
-                  ></div>
-                  <p>Rango de precio</p>
-                </div>
-              )}
-              <div>
-                <Slider
-                  min={0}
-                  max={300}
-                  range={true}
-                  value={range}
-                  onChange={setRange}
-                  railStyle={{ backgroundColor: "#EFEFEF" }}
-                  trackStyle={{ backgroundColor: "#FA897B" }}
-                  handleStyle={{
-                    backgroundColor: "#FA897B",
-                    border: "none",
-                    borderRadius: "50%",
-                    boxShadow: "0 0 3px rgba(255, 0, 0, 0.5)",
-                  }}
-                />
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <span>{formatPrice(range[0])}</span>
-                  <span>{formatPrice(range[1])}</span>
-                </div>
-              </div>
-            </div>
-          </section>
-        ) : (
-          <></>
-        )}
-        <main className="clothes__asideYMain__main">
-          <section className="clothes__asideYMain__main__menuMobile">
-            <p className="clothes__asideYMain__main__menuMobile__products">
-              {productsFiltered.length} productos
-            </p>
-            <div className="clothes__asideYMain__main__menuMobile__container">
-              <div
-                className="clothes__asideYMain__main__menuMobile__container__filter"
-                onClick={() => {
-                  setShowFilterFlex(true);
-                }}
-              >
-                <p>Filtros</p>
-                <figure>
-                  <img src={filterIcon} alt="filter icon" />
-                </figure>
-              </div>
-              <div className="clothes__asideYMain__main__menuMobile__container__order">
-                <div
-                  className="clothes__asideYMain__main__menuMobile__container__order__div1"
-                  onClick={() => setShowOrdersMobile(!showOrdersMobile)}
-                >
-                  <p>Ordenar Por: {optionSelected}</p>
-                  <figure>
-                    <img
-                      src={whiteArrow}
-                      alt="arrow icon"
-                      style={{
-                        transform: showOrdersMobile ? "none" : "rotate(180deg)",
-                      }}
-                    />
-                  </figure>
-                </div>
-                {showOrdersMobile ? (
-                  <div className="clothes__asideYMain__main__header__order__options">
-                    {orderOptions.map((item, index) => (
-                      <p
-                        key={index}
-                        style={{
-                          textDecoration:
-                            item === optionSelected ? "underline" : "none",
-                          color: item === optionSelected ? "#FA897B" : "black",
-                        }}
-                        onClick={() => handleOrderOptionMobile(item)}
-                      >
-                        {item}
-                      </p>
-                    ))}
                   </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-            </div>
-          </section>
-          <div className="clothes__asideYMain__main__header">
-            <p>{productsFiltered.length} productos</p>
-            <div className="clothes__asideYMain__main__header__order">
-              <div className="clothes__asideYMain__main__header__order__div">
-                <p>{`Ordenar por:     ${optionSelected}`}</p>
-                <i>
-                  <img
-                    src={arrowUp}
-                    alt="arrow icon"
-                    onClick={() => setShowOrders(!showOrders)}
-                    style={{
-                      transform: showOrders ? "none" : "rotate(180deg)",
-                    }}
-                  />
-                </i>
-              </div>
-              {showOrders ? (
-                <div className="clothes__asideYMain__main__header__order__options">
-                  {orderOptions.map((item, index) => (
-                    <p
-                      key={index}
-                      style={{
-                        textDecoration:
-                          item === optionSelected ? "underline" : "none",
-                        color: item === optionSelected ? "#FA897B" : "black",
-                      }}
-                      onClick={() => handleOrderOption(item)}
-                    >
-                      {item}
-                    </p>
-                  ))}
-                </div>
+              </aside>
+              {showFilterFlex ? (
+                  <section className="clothes__asideYMain__asideMobile">
+                      <figure className="clothes__asideYMain__asideMobile__x">
+                          <img
+                              src={xIcon}
+                              alt="x icon"
+                              onClick={() => {
+                                  setShowFilterFlex(false);
+                              }}
+                          />
+                      </figure>
+                      <div className="clothes__asideYMain__aside__tittle">
+                          <h2>FILTROS</h2>
+                          <span onClick={clearFilters}>LIMPIAR TODO</span>
+                      </div>
+                      <div className="clothes__asideYMain__aside__options">
+                          <p>Filtrado Por:</p>
+                          <div className="clothes__asideYMain__aside__options__container">
+                              {filter.map((obj, index) =>
+                                  obj.items.length
+                                      ? obj.items.map((item, itemIndex) => (
+                                            <div
+                                                key={itemIndex}
+                                                className="clothes__asideYMain__aside__options__option"
+                                            >
+                                                <div
+                                                    style={{
+                                                        backgroundColor:
+                                                            "#FA897B",
+                                                    }}
+                                                ></div>
+                                                <p>{item}</p>
+                                            </div>
+                                        ))
+                                      : null
+                              )}
+                          </div>
+                      </div>
+                      <div className="clothes__asideYMain__aside__filter">
+                          <p>Sub-Categoría</p>
+                          <i>
+                              <img
+                                  src={arrowUp}
+                                  alt="arrow up icon"
+                                  onClick={() =>
+                                      setShowSubCategory(!showSubCategory)
+                                  }
+                                  style={{
+                                      transform: showSubCategory
+                                          ? "none"
+                                          : "rotate(180deg)",
+                                  }}
+                              />
+                          </i>
+                      </div>
+                      {showSubCategory ? (
+                          <motion.div
+                              className="clothes__asideYMain__aside__options__selectsScroller"
+                              initial={{ opacity: 0, y: -20 }}
+                              animate={{
+                                  opacity: 1,
+                                  y: showSubCategory ? 0 : -20,
+                              }}
+                              transition={{ duration: 0.5 }}
+                          >
+                              <div className="clothes__asideYMain__aside__options__selectsScroller__scroll">
+                                  {subCategory.map((item, index) =>
+                                      filter.some(
+                                          (obj) =>
+                                              obj.name === "sub_category" &&
+                                              obj.items.includes(item)
+                                      ) ? (
+                                          <div
+                                              className="clothes__asideYMain__aside__options__option"
+                                              key={index}
+                                          >
+                                              <div
+                                                  onClick={() =>
+                                                      toogleSelectFilter(
+                                                          "sub_category",
+                                                          item
+                                                      )
+                                                  }
+                                                  style={{
+                                                      backgroundColor:
+                                                          "#FA897B",
+                                                  }}
+                                              ></div>
+                                              <p>{item}</p>
+                                          </div>
+                                      ) : (
+                                          <div
+                                              className="clothes__asideYMain__aside__options__option"
+                                              key={index}
+                                          >
+                                              <div
+                                                  onClick={() =>
+                                                      toogleSelectFilter(
+                                                          "sub_category",
+                                                          item
+                                                      )
+                                                  }
+                                              ></div>
+                                              <p>{item}</p>
+                                          </div>
+                                      )
+                                  )}
+                              </div>
+                          </motion.div>
+                      ) : (
+                          <></>
+                      )}
+                      <div className="clothes__asideYMain__aside__filter">
+                          <p>Genero</p>
+                          <i>
+                              <img
+                                  src={arrowUp}
+                                  alt="arrow up icon"
+                                  onClick={() => setShowGender(!showGender)}
+                                  style={{
+                                      transform: showGender
+                                          ? "none"
+                                          : "rotate(180deg)",
+                                  }}
+                              />
+                          </i>
+                      </div>
+                      {showGender ? (
+                          <motion.div
+                              className="clothes__asideYMain__aside__multipleOp"
+                              initial={{ opacity: 0, y: -20 }}
+                              animate={{
+                                  opacity: 1,
+                                  y: showGender ? 0 : -20,
+                              }}
+                              transition={{ duration: 0.5 }}
+                          >
+                              {gender.map((item, index) =>
+                                  filter.some(
+                                      (obj) =>
+                                          obj.name === "genero" &&
+                                          obj.items.includes(item)
+                                  ) ? (
+                                      <div
+                                          className="clothes__asideYMain__aside__options__option"
+                                          key={index}
+                                      >
+                                          <div
+                                              onClick={() =>
+                                                  toogleSelectFilter(
+                                                      "genero",
+                                                      item
+                                                  )
+                                              }
+                                              style={{
+                                                  backgroundColor: "#FA897B",
+                                              }}
+                                          ></div>
+                                          <p>{item}</p>
+                                      </div>
+                                  ) : (
+                                      <div
+                                          className="clothes__asideYMain__aside__options__option"
+                                          key={index}
+                                      >
+                                          <div
+                                              onClick={() =>
+                                                  toogleSelectFilter(
+                                                      "genero",
+                                                      item
+                                                  )
+                                              }
+                                          ></div>
+                                          <p>{item}</p>
+                                      </div>
+                                  )
+                              )}
+                          </motion.div>
+                      ) : (
+                          <></>
+                      )}
+                      <div className="clothes__asideYMain__aside__filter">
+                          <p>Talla</p>
+                          <i>
+                              <img
+                                  src={arrowUp}
+                                  alt="arrow up icon"
+                                  onClick={() => setShowSize(!showSize)}
+                                  style={{
+                                      transform: showSubCategory
+                                          ? "none"
+                                          : "rotate(180deg)",
+                                  }}
+                              />
+                          </i>
+                      </div>
+                      {showSize ? (
+                          <motion.div
+                              className="clothes__asideYMain__aside__options__selectsScroller"
+                              initial={{ opacity: 0, y: -20 }}
+                              animate={{
+                                  opacity: 1,
+                                  y: showSize ? 0 : -20,
+                              }}
+                              transition={{ duration: 0.5 }}
+                          >
+                              <div className="clothes__asideYMain__aside__options__selectsScroller__scroll">
+                                  {sizes.map((item, index) =>
+                                      filter.some(
+                                          (obj) =>
+                                              obj.name === "talla" &&
+                                              obj.items.includes(item)
+                                      ) ? (
+                                          <div
+                                              className="clothes__asideYMain__aside__options__option"
+                                              key={index}
+                                          >
+                                              <div
+                                                  onClick={() =>
+                                                      toogleSelectFilter(
+                                                          "talla",
+                                                          item
+                                                      )
+                                                  }
+                                                  style={{
+                                                      backgroundColor:
+                                                          "#FA897B",
+                                                  }}
+                                              ></div>
+                                              <p>{item}</p>
+                                          </div>
+                                      ) : (
+                                          <div
+                                              className="clothes__asideYMain__aside__options__option"
+                                              key={index}
+                                          >
+                                              <div
+                                                  onClick={() =>
+                                                      toogleSelectFilter(
+                                                          "talla",
+                                                          item
+                                                      )
+                                                  }
+                                              ></div>
+                                              <p>{item}</p>
+                                          </div>
+                                      )
+                                  )}
+                              </div>
+                          </motion.div>
+                      ) : (
+                          <></>
+                      )}
+                      <div className="clothes__asideYMain__aside__filter">
+                          <p>Estado</p>
+                          <i>
+                              <img
+                                  src={arrowUp}
+                                  alt="arrow up icon"
+                                  onClick={() => setShowState(!showState)}
+                                  style={{
+                                      transform: showState
+                                          ? "none"
+                                          : "rotate(180deg)",
+                                  }}
+                              />
+                          </i>
+                      </div>
+                      {showState ? (
+                          <motion.div
+                              className="clothes__asideYMain__aside__multipleOp"
+                              initial={{ opacity: 0, y: -20 }}
+                              animate={{
+                                  opacity: 1,
+                                  y: showState ? 0 : -20,
+                              }}
+                              transition={{ duration: 0.5 }}
+                          >
+                              {state.map((item, index) =>
+                                  filter.some(
+                                      (obj) =>
+                                          obj.name === "estado" &&
+                                          obj.items.includes(`${item}/10`)
+                                  ) ? (
+                                      <div
+                                          className="clothes__asideYMain__aside__options__option"
+                                          key={index}
+                                      >
+                                          <div
+                                              onClick={() =>
+                                                  toogleSelectFilter(
+                                                      "estado",
+                                                      `${item}/10`
+                                                  )
+                                              }
+                                              style={{
+                                                  backgroundColor: "#FA897B",
+                                              }}
+                                          ></div>
+                                          <p>{item}/10</p>
+                                      </div>
+                                  ) : (
+                                      <div
+                                          className="clothes__asideYMain__aside__options__option"
+                                          key={index}
+                                      >
+                                          <div
+                                              onClick={() =>
+                                                  toogleSelectFilter(
+                                                      "estado",
+                                                      `${item}/10`
+                                                  )
+                                              }
+                                          ></div>
+                                          <p>{item}/10</p>
+                                      </div>
+                                  )
+                              )}
+                          </motion.div>
+                      ) : (
+                          <></>
+                      )}
+                      <div className="clothes__asideYMain__aside__multipleOp">
+                          {filter.some(
+                              (obj) =>
+                                  obj.name === "price" &&
+                                  obj.items.includes("Donación")
+                          ) ? (
+                              <div className="clothes__asideYMain__aside__options__option">
+                                  <div
+                                      onClick={() =>
+                                          toogleSelectFilter(
+                                              "price",
+                                              "Donación"
+                                          )
+                                      }
+                                      style={{
+                                          backgroundColor: "#FA897B",
+                                      }}
+                                  ></div>
+                                  <p className="letterClothes">Donación</p>
+                              </div>
+                          ) : (
+                              <div className="clothes__asideYMain__aside__options__option">
+                                  <div
+                                      onClick={() =>
+                                          toogleSelectFilter(
+                                              "price",
+                                              "Donación"
+                                          )
+                                      }
+                                  ></div>
+                                  <p className="letterClothes">Donación</p>
+                              </div>
+                          )}
+                          {filter.some(
+                              (obj) =>
+                                  obj.name === "price" &&
+                                  obj.items.includes("Rango de precio")
+                          ) ? (
+                              <div className="clothes__asideYMain__aside__options__option">
+                                  <div
+                                      onClick={() =>
+                                          toogleSelectFilter(
+                                              "price",
+                                              "Rango de precio"
+                                          )
+                                      }
+                                      style={{
+                                          backgroundColor: "#FA897B",
+                                      }}
+                                  ></div>
+                                  <p className="letterClothes">
+                                      Rango de precio
+                                  </p>
+                              </div>
+                          ) : (
+                              <div className="clothes__asideYMain__aside__options__option">
+                                  <div
+                                      onClick={() =>
+                                          toogleSelectFilter(
+                                              "price",
+                                              "Rango de precio"
+                                          )
+                                      }
+                                  ></div>
+                                  <p className="letterClothes">
+                                      Rango de precio
+                                  </p>
+                              </div>
+                          )}
+                          <div>
+                              <Slider
+                                  min={0}
+                                  max={300}
+                                  range={true}
+                                  value={range}
+                                  onChange={setRange}
+                                  railStyle={{ backgroundColor: "#EFEFEF" }}
+                                  trackStyle={{ backgroundColor: "#FA897B" }}
+                                  handleStyle={{
+                                      backgroundColor: "#FA897B",
+                                      border: "none",
+                                      borderRadius: "50%",
+                                      boxShadow: "0 0 3px rgba(255, 0, 0, 0.5)",
+                                  }}
+                              />
+                              <div
+                                  style={{
+                                      display: "flex",
+                                      justifyContent: "space-between",
+                                      fontSize: "14px",
+                                  }}
+                              >
+                                  <span className="letterClothes">
+                                      {formatPrice(range[0])}
+                                  </span>
+                                  <span className="letterClothes">
+                                      {formatPrice(range[1])}
+                                  </span>
+                              </div>
+                          </div>
+                      </div>
+                  </section>
               ) : (
-                <></>
+                  <></>
               )}
-            </div>
-          </div>
-          <section className="clothes__asideYMain__main__cards">
-            {/* <Card />
+              <main className="clothes__asideYMain__main">
+                  <section className="clothes__asideYMain__main__menuMobile">
+                      <p className="clothes__asideYMain__main__menuMobile__products">
+                          {productsFiltered.length} productos
+                      </p>
+                      <div className="clothes__asideYMain__main__menuMobile__container">
+                          <div
+                              className="clothes__asideYMain__main__menuMobile__container__filter"
+                              onClick={() => {
+                                  setShowFilterFlex(true);
+                              }}
+                          >
+                              <p>Filtros</p>
+                              <figure>
+                                  <img src={filterIcon} alt="filter icon" />
+                              </figure>
+                          </div>
+                          <div className="clothes__asideYMain__main__menuMobile__container__order">
+                              <div
+                                  className="clothes__asideYMain__main__menuMobile__container__order__div1"
+                                  onClick={() =>
+                                      setShowOrdersMobile(!showOrdersMobile)
+                                  }
+                              >
+                                  <p>Ordenar Por: {optionSelected}</p>
+                                  <figure>
+                                      <img
+                                          src={whiteArrow}
+                                          alt="arrow icon"
+                                          style={{
+                                              transform: showOrdersMobile
+                                                  ? "none"
+                                                  : "rotate(180deg)",
+                                          }}
+                                      />
+                                  </figure>
+                              </div>
+                              {showOrdersMobile ? (
+                                  <div className="clothes__asideYMain__main__header__order__options">
+                                      {orderOptions.map((item, index) => (
+                                          <p
+                                              key={index}
+                                              style={{
+                                                  textDecoration:
+                                                      item === optionSelected
+                                                          ? "underline"
+                                                          : "none",
+                                                  color:
+                                                      item === optionSelected
+                                                          ? "#FA897B"
+                                                          : "black",
+                                              }}
+                                              onClick={() =>
+                                                  handleOrderOptionMobile(item)
+                                              }
+                                          >
+                                              {item}
+                                          </p>
+                                      ))}
+                                  </div>
+                              ) : (
+                                  <></>
+                              )}
+                          </div>
+                      </div>
+                  </section>
+                  <div className="clothes__asideYMain__main__header">
+                      <p>{productsFiltered.length} productos</p>
+                      <div className="clothes__asideYMain__main__header__order">
+                          <div className="clothes__asideYMain__main__header__order__div">
+                              <p>{`Ordenar por:     ${optionSelected}`}</p>
+                              <i>
+                                  <img
+                                      src={arrowUp}
+                                      alt="arrow icon"
+                                      onClick={() => setShowOrders(!showOrders)}
+                                      style={{
+                                          transform: showOrders
+                                              ? "none"
+                                              : "rotate(180deg)",
+                                      }}
+                                  />
+                              </i>
+                          </div>
+                          {showOrders ? (
+                              <div className="clothes__asideYMain__main__header__order__options">
+                                  {orderOptions.map((item, index) => (
+                                      <p
+                                          key={index}
+                                          style={{
+                                              textDecoration:
+                                                  item === optionSelected
+                                                      ? "underline"
+                                                      : "none",
+                                              color:
+                                                  item === optionSelected
+                                                      ? "#FA897B"
+                                                      : "black",
+                                          }}
+                                          onClick={() =>
+                                              handleOrderOption(item)
+                                          }
+                                      >
+                                          {item}
+                                      </p>
+                                  ))}
+                              </div>
+                          ) : (
+                              <></>
+                          )}
+                      </div>
+                  </div>
+                  <section className="clothes__asideYMain__main__cards">
+                      {/* <Card />
                         <Card />
                         <Card />
                         <Card />
@@ -1103,13 +1269,17 @@ const Clothes = () => {
                         <Card />
                         <Card />
                         <Card /> */}
-            {products.map((product, index) => (
-              <Card product={product} key={index} type={product.donation} />
-            ))}
+                      {products.map((product, index) => (
+                          <Card
+                              product={product}
+                              key={index}
+                              type={product.donation}
+                          />
+                      ))}
+                  </section>
+              </main>
           </section>
-        </main>
       </section>
-    </section>
   );
 };
 
