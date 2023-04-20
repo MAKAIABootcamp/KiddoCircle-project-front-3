@@ -8,6 +8,9 @@ import heart from "../../../assets/icons/heart_mini.svg";
 import eye from "../../../assets/icons/eye_mini.svg";
 import Card from "../../cards/Card";
 import { motion } from "framer-motion";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { subCategoryClothes, subCategoryItems, subCategoryToys, age, gender, sizes, state } from "../../../categorys";
 import {
     Button,
@@ -24,6 +27,15 @@ import {
     ButtonGroup,
 } from "reactstrap";
 
+const schema = yup
+    .object({
+        name: yup.string().required("Nombre requerido"),
+        description: yup.string().required("Descripción requerida"),
+        photos: yup.mixed().required("Foto requerida"),
+        price: yup.string().required("Precio requerido"),
+    })
+    .required();
+
 const Posts = () => {
     const [showModalTypes, setShowModalTypes] = useState(false);
     const [showClothesForm, setShowClothesForm] = useState(false);
@@ -38,6 +50,26 @@ const Posts = () => {
         toggleForm();
         setTypeSelected(type);
     }
+
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        formState: { errors },
+    } = useForm({ resolver: yupResolver(schema) });
+
+    const { ref: refName, ...registerName } = register("name");
+    const { ref: refDescription, ...registerDescription } = register("description");
+    const { ref: refSubcategory, ...registerSubcategory } = register("subcategory");
+    const { ref: refGender, ...registerGender } = register("gender");
+    const { ref: refRopa, ...registerRopa } = register("ropa");
+    const { ref: refState, ...registerState } = register("state");
+    const { ref: refPhoto, ...registerPhoto } = register("photo");
+    const { ref: refPrice, ...registerPrice } = register("price");
+
+    const submitProduct = (data) => {
+        console.log("hola");
+    };
 
     return (
         <section className="posts">
@@ -91,28 +123,48 @@ const Posts = () => {
                     Agregar Producto
                 </ModalHeader>
                 <ModalBody>
-                    <Form>
+                    <Form onSubmit={handleSubmit(submitProduct)}>
                         <FormGroup>
-                            <Label for="value">Nombre del producto</Label>
+                            <Label for="name">Nombre del producto</Label>
                             <Input
-                                id="value"
-                                name="value"
+                                id="name"
+                                name="name"
                                 placeholder="Coche marca Baby Trend"
                                 type="text"
+                                innerRef={refName}
+                                {...registerName}
                             />
+                            {errors.name ? (
+                                <span>{errors.name.message}</span>
+                            ) : (
+                                <></>
+                            )}
                         </FormGroup>
                         <FormGroup>
-                            <Label for="typeAccount">Descripción</Label>
+                            <Label for="description">Descripción</Label>
                             <Input
-                                id="typeAccount"
-                                name="typeAccount"
+                                id="description"
+                                name="description"
                                 type="text"
                                 placeholder="Cuenta con una capota ajustable para proteger del sol, canasta de almacenamiento grande y ruedas grandes para una conducción suave. Fácil de plegar y transportar"
+                                innerRef={refDescription}
+                                {...registerDescription}
                             />
+                            {errors.description ? (
+                                <span>{errors.description.message}</span>
+                            ) : (
+                                <></>
+                            )}
                         </FormGroup>
                         <FormGroup>
-                            <Label for="bank">Sub-Categoría</Label>
-                            <Input id="bank" name="bank" type="select">
+                            <Label for="subcategory">Sub-Categoría</Label>
+                            <Input
+                                id="subcategory"
+                                name="subcategory"
+                                type="select"
+                                innerRef={refSubcategory}
+                                {...registerSubcategory}
+                            >
                                 {typeSelected === "ropa"
                                     ? subCategoryClothes.map((item, index) => (
                                           <option key={index}>{item}</option>
@@ -129,11 +181,13 @@ const Posts = () => {
                         <Row>
                             <Col md={4}>
                                 <FormGroup>
-                                    <Label for="typeId">Genero</Label>
+                                    <Label for="gender">Genero</Label>
                                     <Input
-                                        id="typeId"
-                                        name="typeId"
+                                        id="gender"
+                                        name="gender"
                                         type="select"
+                                        innerRef={refGender}
+                                        {...registerGender}
                                     >
                                         {gender.map((item, index) => (
                                             <option key={index}>{item}</option>
@@ -143,15 +197,17 @@ const Posts = () => {
                             </Col>
                             <Col md={4}>
                                 <FormGroup>
-                                    <Label for="id">
+                                    <Label for="ropa">
                                         {typeSelected === "ropa"
                                             ? "Talla"
                                             : "Edad"}
                                     </Label>
                                     <Input
-                                        id="typeId"
-                                        name="typeId"
+                                        id="ropa"
+                                        name="ropa"
                                         type="select"
+                                        innerRef={refRopa}
+                                        {...registerRopa}
                                     >
                                         {typeSelected === "ropa"
                                             ? sizes.map((item, index) => (
@@ -169,11 +225,13 @@ const Posts = () => {
                             </Col>
                             <Col md={4}>
                                 <FormGroup>
-                                    <Label for="id">Estado</Label>
+                                    <Label for="state">Estado</Label>
                                     <Input
-                                        id="typeId"
-                                        name="typeId"
+                                        id="state"
+                                        name="state"
                                         type="select"
+                                        innerRef={refState}
+                                        {...registerState}
                                     >
                                         {state.map((item, index) => (
                                             <option key={index}>{item}</option>
@@ -182,11 +240,22 @@ const Posts = () => {
                                 </FormGroup>
                             </Col>
                         </Row>
-                        <FormGroup>
-                            <Label for="bank">Fotos del producto</Label>
-                            <Input id="bank" name="bank" type="file" />
-                        </FormGroup>
-                        <FormGroup tag="fieldset" className="custom-purple">
+                        {/* <FormGroup>
+                            <Label for="photos">Fotos del producto</Label>
+                            <Input
+                                id="photos"
+                                name="photos"
+                                type="file"
+                                innerRef={refPhoto}
+                                {...registerPhoto}
+                            />
+                            {errors.photos ? (
+                                <span>{errors.photos.message}</span>
+                            ) : (
+                                <></>
+                            )}
+                        </FormGroup> */}
+                        {/* <FormGroup tag="fieldset" className="custom-purple">
                             <Label for="radio1">
                                 ¿Qué desea hacer con el producto?
                             </Label>
@@ -218,16 +287,23 @@ const Posts = () => {
                                     Vender
                                 </Label>
                             </FormGroup>
-                        </FormGroup>
+                        </FormGroup> */}
                         {selectedOption === "vender" ? (
                             <FormGroup>
-                                <Label for="typeAccount">Precio</Label>
+                                <Label for="price">Precio</Label>
                                 <Input
-                                    id="typeAccount"
-                                    name="typeAccount"
+                                    id="price"
+                                    name="price"
                                     type="text"
                                     placeholder="$ 150.000"
+                                    innerRef={refPrice}
+                                    {...registerPrice}
                                 />
+                                {errors.price ? (
+                                    <span>{errors.price.message}</span>
+                                ) : (
+                                    <></>
+                                )}
                             </FormGroup>
                         ) : (
                             <></>
@@ -235,6 +311,7 @@ const Posts = () => {
                         <Button
                             color="secondary"
                             className="w-100 posts__buttonMorado"
+                            type="submit"
                         >
                             Agregar
                         </Button>
