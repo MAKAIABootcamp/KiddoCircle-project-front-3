@@ -8,6 +8,7 @@ import FavoritesSection from "./favorites-section/FavoritesSection";
 import ConfirmOrder from "./ConfirmOrder/ConfirmOrder";
 import ButtonsSection from "./buttons-section/ButtonsSection";
 import Footer from "./footer/Footer";
+import PopUpLogin from "./PopUpLogin/PopUpLogin";
 
 const Home = () => {
   return (
@@ -21,6 +22,7 @@ const Home = () => {
       <ConfirmOrder />
       <ButtonsSection />
       <Footer />
+      <PopUpLogin/>
     </section>
   );
 };

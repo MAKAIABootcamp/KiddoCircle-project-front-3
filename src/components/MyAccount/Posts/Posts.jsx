@@ -17,14 +17,12 @@ import {
     Modal,
     ModalHeader,
     ModalBody,
-    ModalFooter,
     FormGroup,
     Form,
     Label,
     Input,
     Row,
-    Col,
-    ButtonGroup,
+    Col
 } from "reactstrap";
 
 const schema = yup
