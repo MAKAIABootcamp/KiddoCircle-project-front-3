@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import carritoProduct from "../../../assets/carrito.png";
 import cochesitoProduct from "../../../assets/coche.png";
 import Card from "../../cards/Card";
@@ -6,6 +7,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 const PopularsSection = () => {
+  const navigate = useNavigate();
   const products = [
     {
       name: "Cochesito",
@@ -121,7 +123,12 @@ const PopularsSection = () => {
       <p className="title-text">Productos más populares</p>
       <Carousel responsive={responsive} style={{ justifyContent: "center" }}>
         {products.map((product, index) => (
-          <Card product={product} key={index} type={product.donation} />
+          <Card
+            product={product}
+            key={index}
+            type={product.donation}
+            //onClick={() => navigate(`${product.name}`)}
+          />
         ))}
       </Carousel>
     </section>
