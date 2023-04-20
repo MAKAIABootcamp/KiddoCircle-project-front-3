@@ -24,7 +24,7 @@ const RouterDom = () => {
           <Route path="/" element={<Home />} />
           <Route path="ropa" element={<Clothes />} />
           <Route path="juguetes" element={<Toys />} />
-          <Route path="articulos" element={<Items />} />
+          <Route path="artículos" element={<Items />} />
           <Route path="cart-shooping" element={<CartShopping />} />
           <Route path="cuenta/*" element={<MenuAccount />}>
             <Route path="*" element={<Navigate to="perfil" replace />} />
