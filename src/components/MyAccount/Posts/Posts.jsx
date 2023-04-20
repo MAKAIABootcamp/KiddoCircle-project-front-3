@@ -240,7 +240,7 @@ const Posts = () => {
                                 </FormGroup>
                             </Col>
                         </Row>
-                        {/* <FormGroup>
+                        <FormGroup>
                             <Label for="photos">Fotos del producto</Label>
                             <Input
                                 id="photos"
@@ -254,8 +254,8 @@ const Posts = () => {
                             ) : (
                                 <></>
                             )}
-                        </FormGroup> */}
-                        {/* <FormGroup tag="fieldset" className="custom-purple">
+                        </FormGroup>
+                        <FormGroup tag="fieldset" className="custom-purple">
                             <Label for="radio1">
                                 ¿Qué desea hacer con el producto?
                             </Label>
@@ -287,7 +287,7 @@ const Posts = () => {
                                     Vender
                                 </Label>
                             </FormGroup>
-                        </FormGroup> */}
+                        </FormGroup>
                         {selectedOption === "vender" ? (
                             <FormGroup>
                                 <Label for="price">Precio</Label>
