@@ -19,63 +19,62 @@ const NavBar = () => {
   return (
     <>
       {modal ? <SearchModal setModal={setModal} /> : <></>}
-      <Navbar  expand='md' className="pb-0 pt-3 nav-bar">
+      <Navbar expand="md" className="pb-0 pt-3 nav-bar">
         <Container fluid>
           <img className="logo" src={logo} alt="logo" />
           {/* MODAL PARA BÚSQUEDA */}
           <figure className="search-icon" onClick={handleModalSearch}>
-              <img src={search} />
+            <img className="search-icon__img" src={search} />
           </figure>
-          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-md`}/>
+          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-md`} />
           <Navbar.Offcanvas
-              id={`offcanvasNavbar-expand-md`}
-              aria-labelledby={`offcanvasNavbarLabel-expand-md`}
-              placement="end"
+            id={`offcanvasNavbar-expand-md`}
+            aria-labelledby={`offcanvasNavbarLabel-expand-md`}
+            placement="end"
           >
             <Offcanvas.Header
               closeButton
               className="justify-content-end"
-            >
-            </Offcanvas.Header>
+            ></Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-center  flex-grow-1 nav-bar-items fw-semibold">
                 <NavLink
-                    to="/"
-                    className={({ isActive }) =>
-                        isActive ? "selected px-0 nav-link" : "px-0 nav-link"
-                    }
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive ? "selected px-0 nav-link" : "px-0 nav-link"
+                  }
                 >
                   Inicio
                 </NavLink>
                 <NavLink
-                    to="/ropa"
-                    className={({ isActive }) =>
-                        isActive ? "selected px-0 nav-link" : "px-0 nav-link"
-                    }
+                  to="/ropa"
+                  className={({ isActive }) =>
+                    isActive ? "selected px-0 nav-link" : "px-0 nav-link"
+                  }
                 >
                   Ropa
                 </NavLink>
                 <NavLink
-                    to="/juguetes"
-                    className={({ isActive }) =>
-                        isActive ? "selected px-0 nav-link" : "px-0 nav-link"
-                    }
+                  to="/juguetes"
+                  className={({ isActive }) =>
+                    isActive ? "selected px-0 nav-link" : "px-0 nav-link"
+                  }
                 >
                   Juguetes
                 </NavLink>
                 <NavLink
-                    to="/articulos"
-                    className={({ isActive }) =>
-                        isActive ? "selected px-0 nav-link" : "px-0 nav-link"
-                    }
+                  to="/articulos"
+                  className={({ isActive }) =>
+                    isActive ? "selected px-0 nav-link" : "px-0 nav-link"
+                  }
                 >
                   Artículos
                 </NavLink>
                 <NavLink
-                    to="/cuenta"
-                    className={({ isActive }) =>
-                        isActive ? "selected px-0 nav-link" : "px-0 nav-link"
-                    }
+                  to="/cuenta"
+                  className={({ isActive }) =>
+                    isActive ? "selected px-0 nav-link" : "px-0 nav-link"
+                  }
                 >
                   Mi cuenta
                 </NavLink>
@@ -85,10 +84,10 @@ const NavBar = () => {
                   <img src={search} alt="search" />
                 </Button>
                 <Form.Control
-                    type="input"
-                    placeholder="Buscar productos"
-                    className="me-2"
-                    aria-label="Search"
+                  type="input"
+                  placeholder="Buscar productos"
+                  className="me-2"
+                  aria-label="Search"
                 />
               </Form>
             </Offcanvas.Body>
