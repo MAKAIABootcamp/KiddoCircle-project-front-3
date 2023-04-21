@@ -416,7 +416,7 @@ const Clothes = () => {
             <></>
           )}
           <div className="clothes__asideYMain__aside__filter">
-            <p>Genero</p>
+            <p>Género</p>
             <i>
               <img
                 src={arrowUp}
