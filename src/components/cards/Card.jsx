@@ -14,8 +14,17 @@ const Card = ({ product, type }) => {
     console.log(product);
   };
 
+  const handleRoute = (product) => {
+    navigate(`${product.name}`);
+    //console.log(product);
+  };
+
   return (
-    <motion.div className="card" whileHover={{ y: -12 }}>
+    <motion.div
+      className="card"
+      whileHover={{ y: -12 }}
+      onClick={() => handleRoute(product)}
+    >
       {type === true ? (
         <img className="card__donation" src={donationIcon} alt="donation" />
       ) : (

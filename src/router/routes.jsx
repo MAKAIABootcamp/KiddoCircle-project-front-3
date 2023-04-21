@@ -18,7 +18,7 @@ const RouterDom = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/:producto" element={<EachProduct />} />
+        <Route path="/:productName" element={<EachProduct />} />
         <Route path="/" element={<NavBar />}>
           <Route path="/" element={<Home />} />
           <Route path="ropa" element={<Clothes />} />
