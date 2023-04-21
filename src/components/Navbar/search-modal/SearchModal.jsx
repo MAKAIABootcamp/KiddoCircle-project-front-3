@@ -114,8 +114,6 @@ const SearchModal = ({ setModal }) => {
   // }, []);
 
   const filterProducts = useMemo(() => {
-    //  setData(products);
-
     const filter = products.filter((product) =>
       product?.name?.toLowerCase().includes(searchValue)
     );
