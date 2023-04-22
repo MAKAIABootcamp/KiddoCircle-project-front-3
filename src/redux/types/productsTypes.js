@@ -1,0 +1,5 @@
+export const productsTypes = {
+    CREATE_PRODUCT: 'CREATE_PRODUCT',
+    GET_PRODUCTS: 'GET_PRODUCTS',
+    UPDATE_PRODUCT: 'UPDATE_PRODUCT',
+}
