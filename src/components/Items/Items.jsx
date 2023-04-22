@@ -163,7 +163,7 @@ const Items = () => {
     "Precio, mayor a menor",
     "Estado, menor a mayor",
     "Estado, mayor a menor",
-    "Mas antiguo",
+    "Más antiguo",
     "Más reciente",
   ];
 
@@ -398,7 +398,7 @@ const Items = () => {
             <></>
           )}
           <div className="clothes__asideYMain__aside__filter">
-            <p>Genero</p>
+            <p>Género</p>
             <i>
               <img
                 src={arrowUp}
@@ -731,7 +731,7 @@ const Items = () => {
               <></>
             )}
             <div className="clothes__asideYMain__aside__filter">
-              <p>Genero</p>
+              <p>Género</p>
               <i>
                 <img
                   src={arrowUp}
