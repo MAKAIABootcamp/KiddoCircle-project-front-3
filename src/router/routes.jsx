@@ -13,6 +13,7 @@ import Wallet from "../components/MyAccount/Wallet/Wallet";
 import MenuAccount from "../components/MyAccount/MenuAccount/MenuAccount";
 import CartShopping from "../components/CartShopping/CartShopping";
 import Posts from "../components/MyAccount/Posts/Posts";
+import Posts2 from "../components/MyAccount/Posts/Posts2";
 import EachProduct from "../components/each-product/EachProduct";
 
 const RouterDom = () => {
@@ -33,7 +34,7 @@ const RouterDom = () => {
                       />
                       <Route path="perfil" element={<Profile />} />
                       <Route path="favoritos" element="" />
-                      <Route path="mis-publicaciones" element={<Posts />} />
+                      <Route path="mis-publicaciones" element={<Posts2 />} />
                       <Route path="mis-compras-donaciones" element={<Buy />} />
                       <Route path="mi-billetera" element={<Wallet />} />
                       <Route path="chat" element="" />
