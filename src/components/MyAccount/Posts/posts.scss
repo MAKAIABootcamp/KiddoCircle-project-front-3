@@ -23,13 +23,24 @@
         justify-content: space-between;
         row-gap: 10px;
         column-gap: 20px;
+
+        &__lottie{
+            justify-self: center;
+            width: 300px;
+            height: 400px;
+            text-align: center;
+
+            &__p{
+                font-weight: 700;
+                font-size: 14px;
+                color: #36d49d;
+            }
+        }
     }
 
     &__error{
         color: #fa897b;
     }
-
-
 }
 
 .cardType{
@@ -108,58 +119,7 @@
     border-color: #CCABD8 !important;
 }
 
-.edit__button{
-    background-color: #CCABD8;
-    color: $white;
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-    width: 100%;
-    padding: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-    margin-bottom: 8px;
-}
 
-.edit__button:hover {
-    cursor: pointer;
-    transition: 0.3s;
-    border: 1px solid #CCABD8;
-    color: #CCABD8;
-    background-color: $white;
-}
-
-.card__footer-hearts-eye{
-    display: flex;
-    gap: 10px;
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 18px;
-    color: #656565;
-}
-
-.card-post{
-    font-family: "Lato", sans-serif;
-    background-color: $light-gray;
-    width: 230px;
-    height: 450px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    padding: 10px;
-}
-
-.card__figure__post{
-    width: 100%;
-    height: 200px;
-    border-radius: 5px;
-
-    img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-}
 
 @media (max-width: 767px) {
     .cardType{

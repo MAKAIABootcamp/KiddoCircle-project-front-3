@@ -154,7 +154,7 @@ const Toys = () => {
     "Precio, mayor a menor",
     "Estado, menor a mayor",
     "Estado, mayor a menor",
-    "Mas antiguo",
+    "Más antiguo",
     "Más reciente",
   ];
 
@@ -389,7 +389,7 @@ const Toys = () => {
             <></>
           )}
           <div className="clothes__asideYMain__aside__filter">
-            <p>Genero</p>
+            <p>Género</p>
             <i>
               <img
                 src={arrowUp}
@@ -722,7 +722,7 @@ const Toys = () => {
               <></>
             )}
             <div className="clothes__asideYMain__aside__filter">
-              <p>Genero</p>
+              <p>Género</p>
               <i>
                 <img
                   src={arrowUp}
