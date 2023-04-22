@@ -3,11 +3,7 @@ import plus from "../../../assets/icons/plus_white.svg";
 import juguetesImg from "../../../assets/juguetes.jpg";
 import ropaImg from "../../../assets/ropa.jpg";
 import articulosImg from "../../../assets/articulos.jpg";
-import product from "../../../assets/coche.png";
-import heart from "../../../assets/icons/heart_mini.svg";
-import eye from "../../../assets/icons/eye_mini.svg";
-import Card from "../../cards/Card";
-import { motion } from "framer-motion";
+
 import Swal from "sweetalert2";
 import * as yup from "yup";
 import {
@@ -31,9 +27,10 @@ import {
     Row,
     Col,
 } from "reactstrap";
-import { fileUpload, multipleFileUpload } from "../../../services/fileUpload";
+import { multipleFileUpload } from "../../../services/fileUpload";
 import { useSelector } from "react-redux";
-import { addDocument } from "../../../services/filterCollection";
+import { addDocument, filterCollection } from "../../../services/filterCollection";
+import CardPost from "./CardPost/CardPost";
 
 const schema = yup.object({
     nombre: yup.string().required("Nombre requerido"),
@@ -58,9 +55,9 @@ const Posts2 = () => {
     const [showModalTypes, setShowModalTypes] = useState(false);
     const [showClothesForm, setShowClothesForm] = useState(false);
     const [typeSelected, setTypeSelected] = useState("");
-    // const [selectedOption, setSelectedOption] = useState("vender");
     const [errors, setErrors] = useState({});
     const user = useSelector((state) => state.user);
+    const [publishedProducts, setPublishedProducts] = useState([]);
 
     //variables formulario
     const [nombre, setNombre] = useState("");
@@ -74,6 +71,38 @@ const Posts2 = () => {
     const [opcionSeleccionada, setOpcionSeleccionada] = useState("vender");
     const [precio, setPrecio] = useState("");
 
+    const toggleTypes = () => setShowModalTypes(!showModalTypes);
+    const toggleForm = () => setShowClothesForm(!showClothesForm);
+
+    const getPublishedProducts = async () => {
+        const getProducts = await filterCollection({
+            key: "id_publicador",
+            value: user.uid,
+            collectionName: "products",
+        });
+        console.log(getProducts)
+        setPublishedProducts(getProducts);
+    }
+
+    useEffect(() => {
+        getPublishedProducts();
+    }, []);
+
+    //Función para limpiar el formulario
+    const clearForm = () => {
+        setNombre("");
+        setDescripcion("");
+        setSubcategoria("");
+        setGenero("");
+        setTalla("");
+        setEdad("");
+        setEstado("");
+        setFotos([]);
+        setOpcionSeleccionada("vender");
+        setPrecio("");
+    }
+
+    //Función que envia el formulario
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.target);
@@ -151,16 +180,7 @@ const Posts2 = () => {
                         text: "Hubo un error al realizar la solictud",
                     });
                 });
-            setNombre("");
-            setDescripcion("");
-            setSubcategoria("");
-            setGenero("");
-            setTalla("");
-            setEdad("");
-            setEstado("");
-            setFotos([]);
-            setOpcionSeleccionada("vender");
-            setPrecio("");
+            clearForm();
         } catch (err) {
             console.log(
                 "Validation failed",
@@ -180,18 +200,10 @@ const Posts2 = () => {
 
     };
 
-    const toggleTypes = () => setShowModalTypes(!showModalTypes);
-    const toggleForm = () => setShowClothesForm(!showClothesForm);
-
     const changeToForm = (type) => {
         toggleTypes();
         toggleForm();
         setTypeSelected(type);
-    };
-
-
-    const submitProduct = (data) => {
-        console.log("hola");
     };
 
     return (
@@ -480,36 +492,9 @@ const Posts2 = () => {
                 </ModalBody>
             </Modal>
             <div className="posts__cards__container">
-                <motion.div className="card-post" whileHover={{ y: -12 }}>
-                    <figure className="card__figure__post">
-                        <img src={product} alt="product-image" />
-                    </figure>
-                    <footer className="card__footer">
-                        <p className="card__footer-name">Cochesito X</p>
-                        <div className="card__footer-hearts-eye">
-                            <figure>
-                                <img src={heart} alt="icono corazon" />
-                            </figure>
-                            <p>12 favoritos</p>
-                        </div>
-                        <div className="card__footer-hearts-eye">
-                            <figure>
-                                <img src={eye} alt="icono corazon" />
-                            </figure>
-                            <p>30 vistas</p>
-                        </div>
-                        <p className="card__footer-price">$150.000</p>
-                        <button
-                            className="edit__button"
-                            onClick={() => setShowClothesForm(!showClothesForm)}
-                        >
-                            Editar publicación
-                        </button>
-                        <button className="card__footer-button">
-                            Eliminar publicación
-                        </button>
-                    </footer>
-                </motion.div>
+                {publishedProducts.map((product, index) => (
+                    <CardPost product={product} key={index} />
+                ))}
             </div>
         </section>
     );
