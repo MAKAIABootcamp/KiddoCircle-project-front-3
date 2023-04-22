@@ -119,6 +119,7 @@ const Posts2 = () => {
                 fotos: await multipleFileUpload(fotos),
                 vistas: 0,
                 id_publicador: user.uid,
+                disponibilidad: true
             };
             if (typeSelected === "ropa") {
                 newProduct.talla = talla;
