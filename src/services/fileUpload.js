@@ -22,3 +22,33 @@ export const fileUpload = async (file) => {
         return null;
     }
 };
+
+export const multipleFileUpload = async (files) => {
+    const urls = [];
+
+    for (const file of files) {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", uploadPreset);
+        formData.append("cloud_name", cloudName);
+
+        try {
+            const response = await fetch(urlCloudinary, {
+                method: "POST",
+                body: formData,
+            });
+
+            if (!response.ok) {
+                urls.push(null);
+            } else {
+                const data = await response.json();
+                urls.push(data.secure_url);
+            }
+        } catch (error) {
+            console.log(error);
+            urls.push(null);
+        }
+    }
+
+    return urls;
+};

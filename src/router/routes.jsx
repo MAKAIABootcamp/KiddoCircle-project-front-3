@@ -13,33 +13,37 @@ import Wallet from "../components/MyAccount/Wallet/Wallet";
 import MenuAccount from "../components/MyAccount/MenuAccount/MenuAccount";
 import CartShopping from "../components/CartShopping/CartShopping";
 import Posts from "../components/MyAccount/Posts/Posts";
+import Posts2 from "../components/MyAccount/Posts/Posts2";
 import EachProduct from "../components/each-product/EachProduct";
 
 const RouterDom = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/:productName" element={<EachProduct />} />
-        <Route path="/" element={<NavBar />}>
-          <Route path="/" element={<Home />} />
-          <Route path="ropa" element={<Clothes />} />
-          <Route path="juguetes" element={<Toys />} />
-          <Route path="articulos" element={<Items />} />
-          <Route path="cart-shooping" element={<CartShopping />} />
-          <Route path="cuenta/*" element={<MenuAccount />}>
-            <Route path="*" element={<Navigate to="perfil" replace />} />
-            <Route path="perfil" element={<Profile />} />
-            <Route path="favoritos" element="" />
-            <Route path="mis-publicaciones" element="" />
-            <Route path="mis-compras-donaciones" element={<Buy />} />
-            <Route path="mi-billetera" element={<Wallet />} />
-            <Route path="chat" element="" />
-          </Route>
-        </Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="/registro" element={<Register />} />
-      </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+          <Routes>
+              <Route path="/:producto" element={<EachProduct />} />
+              <Route path="/" element={<NavBar />}>
+                  <Route path="/" element={<Home />} />
+                  <Route path="ropa" element={<Clothes />} />
+                  <Route path="juguetes" element={<Toys />} />
+                  <Route path="articulos" element={<Items />} />
+                  <Route path="cart-shooping" element={<CartShopping />} />
+                  <Route path="cuenta/*" element={<MenuAccount />}>
+                      <Route
+                          path="*"
+                          element={<Navigate to="perfil" replace />}
+                      />
+                      <Route path="perfil" element={<Profile />} />
+                      <Route path="favoritos" element="" />
+                      <Route path="mis-publicaciones" element={<Posts2 />} />
+                      <Route path="mis-compras-donaciones" element={<Buy />} />
+                      <Route path="mi-billetera" element={<Wallet />} />
+                      <Route path="chat" element="" />
+                  </Route>
+              </Route>
+              <Route path="/login" element={<Login />} />
+              <Route path="/registro" element={<Register />} />
+          </Routes>
+      </BrowserRouter>
   );
 };
 

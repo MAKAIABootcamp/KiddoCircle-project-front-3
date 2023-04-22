@@ -416,7 +416,7 @@ const Clothes = () => {
             <></>
           )}
           <div className="clothes__asideYMain__aside__filter">
-            <p>Género</p>
+            <p>Genero</p>
             <i>
               <img
                 src={arrowUp}
@@ -1103,13 +1103,17 @@ const Clothes = () => {
                         <Card />
                         <Card />
                         <Card /> */}
-            {products.map((product, index) => (
-              <Card product={product} key={index} type={product.donation} />
-            ))}
+                      {products.map((product, index) => (
+                          <Card
+                              product={product}
+                              key={index}
+                              type={product.donation}
+                          />
+                      ))}
+                  </section>
+              </main>
           </section>
-        </main>
       </section>
-    </section>
   );
 };
 
