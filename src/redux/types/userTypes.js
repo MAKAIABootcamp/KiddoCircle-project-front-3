@@ -5,4 +5,5 @@ export const userTypes = {
     // LOGIN_GOOGLE: "LOGIN_GOOGLE",
     DO_LOGOUT: "DO_LOGOUT",
     LOGIN_PHONE: "LOGIN_PHONE",
+    UPDATE_USER: 'UPDATE_USER',
 };

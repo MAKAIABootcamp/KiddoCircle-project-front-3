@@ -33,7 +33,6 @@ const Login = () => {
     } = useForm({ resolver: yupResolver(schema) });
 
     const submitSigIn = (data) => {
-        console.log(data);
         dispatch(userLoginEmailAsync(data));
     };
 

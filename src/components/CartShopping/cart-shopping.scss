@@ -43,6 +43,11 @@
             .form-control, .form-select{
                 border: 2px solid $purple;
             }
+            .text-red{
+                color: $red;
+                font-size: 14px;
+                padding-left: 10px;
+            }
         }
     }
 

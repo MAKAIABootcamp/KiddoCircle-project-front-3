@@ -11,6 +11,8 @@ const initialState = {
     error: false,
     isLogged: false,
     register: true,
+    cards:[],
+    id: ""
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -29,6 +31,7 @@ export const userReducer = (state = initialState, action) => {
                 error: action.payload.error,
                 isLogged: action.payload.isLogged,
                 register: action.payload.register,
+                id: action.payload.id
             };
         case userTypes.TOGGLE_LOGIN:
             return {
@@ -48,10 +51,17 @@ export const userReducer = (state = initialState, action) => {
                 error: action.payload.error,
                 isLogged: action.payload.isLogged,
                 register: action.payload.register,
+                cards:action.payload.cards,
+                id:action.payload.id
             };
         case userTypes.DO_LOGOUT:
             return {
                 initialState,
+            };
+        case userTypes.UPDATE_USER:
+            return {
+                ...state,
+                ...action.payload,
             };
         default:
             return state;

@@ -110,7 +110,7 @@ const NavBar = () => {
   ];
 
   const searchValue = watch("search".toLowerCase());
-  console.log(searchValue);
+
 
   const filterProducts = useMemo(() => {
     const filter = products.filter((product) =>

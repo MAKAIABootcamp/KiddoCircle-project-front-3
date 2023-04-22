@@ -20,51 +20,52 @@ const Card = ({ product, type }) => {
   };
 
   return (
-    <motion.div
-      className="card"
-      whileHover={{ y: -12 }}
-      onClick={() => handleRoute(product)}
-    >
-      {type === true ? (
-        <img className="card__donation" src={donationIcon} alt="donation" />
-      ) : (
-        <></>
-      )}
-      <header className="card__header">
-        <motion.button
-          className="card__header-container"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <img
-            onClick={changeHeart}
-            className="card__header-heart"
-            src={heartFavorites ? iconHeartFull : iconHeart}
-            alt="heart-icon"
-          />
-        </motion.button>
-        <figure className="card__figure">
-          <img
-            className="card__figure-img"
-            src={product?.photo[0]}
-            alt="product-image"
-          />
-        </figure>
-      </header>
-      <footer className="card__footer">
-        <p className="card__footer-name">{product?.name}</p>
-        <p className="card__footer-state">{product?.status}</p>
-        <p className="card__footer-price">{product?.price}</p>
-        <button
-          className="card__footer-button"
-          onClick={() => {
-            navigate("/cart-shooping");
-          }}
-        >
-          Comprar
-        </button>
-      </footer>
-    </motion.div>
+    <div className="card">
+      <motion.div
+        whileHover={{ y: -12 }}
+        onClick={() => handleRoute(product)}
+      >
+        {type === true ? (
+          <img className="card__donation" src={donationIcon} alt="donation" />
+        ) : (
+          <></>
+        )}
+        <header className="card__header">
+          <motion.button
+            className="card__header-container"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <img
+              onClick={changeHeart}
+              className="card__header-heart"
+              src={heartFavorites ? iconHeartFull : iconHeart}
+              alt="heart-icon"
+            />
+          </motion.button>
+          <figure className="card__figure">
+            <img
+              className="card__figure-img"
+              src={product?.photo[0]}
+              alt="product-image"
+            />
+          </figure>
+        </header>
+        <footer className="card__footer">
+          <p className="card__footer-name">{product?.name}</p>
+          <p className="card__footer-state">{product?.status}</p>
+          <p className="card__footer-price">{product?.price}</p>
+        </footer>
+      </motion.div>
+      <button
+        className="card__footer-button"
+        onClick={() => {
+          navigate("/cart-shooping");
+        }}
+      >
+        Comprar
+      </button>
+    </div>
   );
 };
 
