@@ -29,20 +29,18 @@
             width: 300px;
             height: 400px;
             text-align: center;
-        }
 
-        p{
-            font-weight: 700;
-            font-size: 14px;
-            color: #36d49d;
+            &__p{
+                font-weight: 700;
+                font-size: 14px;
+                color: #36d49d;
+            }
         }
     }
 
     &__error{
         color: #fa897b;
     }
-
-
 }
 
 .cardType{

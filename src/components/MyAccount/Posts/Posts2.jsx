@@ -503,13 +503,17 @@ const Posts2 = () => {
                 {publishedProducts.length === 0 ? (
                     <div className="posts__cards__container__lottie">
                         <LottieNothing play={true} />
-                        <p>
+                        <p className="posts__cards__container__lottie">
                             ¡Aún no has publicado nada para vender o donar!
                         </p>
                     </div>
                 ) : (
                     publishedProducts.map((product, index) => (
-                        <CardPost product={product} key={index} />
+                        <CardPost
+                            product={product}
+                            key={index}
+                            onDisponibilidadChange={getPublishedProducts}
+                        />
                     ))
                 )}
             </div>
