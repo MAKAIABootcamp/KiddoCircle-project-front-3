@@ -30,7 +30,7 @@ import {
 import { multipleFileUpload } from "../../../services/fileUpload";
 import { useSelector } from "react-redux";
 import { addDocument, filterCollection } from "../../../services/filterCollection";
-import CardPost from "./CardPost/CardPost";
+import CardPost from "./cardPost/cardPost";
 
 const schema = yup.object({
     nombre: yup.string().required("Nombre requerido"),
