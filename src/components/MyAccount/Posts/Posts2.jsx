@@ -3,7 +3,7 @@ import plus from "../../../assets/icons/plus_white.svg";
 import juguetesImg from "../../../assets/juguetes.jpg";
 import ropaImg from "../../../assets/ropa.jpg";
 import articulosImg from "../../../assets/articulos.jpg";
-
+import LottieNothing from "./lottieAnimation/LottieNothing";
 import Swal from "sweetalert2";
 import * as yup from "yup";
 import {
@@ -491,10 +491,27 @@ const Posts2 = () => {
                     </Form>
                 </ModalBody>
             </Modal>
-            <div className="posts__cards__container">
-                {publishedProducts.map((product, index) => (
-                    <CardPost product={product} key={index} />
-                ))}
+            <div
+                className="posts__cards__container"
+                style={{
+                    display: "flex",
+                    justifyContent: `${
+                        publishedProducts.length ? "space-between" : "center"
+                    }`,
+                }}
+            >
+                {publishedProducts.length === 0 ? (
+                    <div className="posts__cards__container__lottie">
+                        <LottieNothing play={true} />
+                        <p>
+                            ¡Aún no has publicado nada para vender o donar!
+                        </p>
+                    </div>
+                ) : (
+                    publishedProducts.map((product, index) => (
+                        <CardPost product={product} key={index} />
+                    ))
+                )}
             </div>
         </section>
     );
