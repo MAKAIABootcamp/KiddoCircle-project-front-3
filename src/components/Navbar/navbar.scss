@@ -4,6 +4,26 @@
     width: 100%;
     max-width: 234px;
   }
+  .car{
+    display: flex;
+    position: relative;
+    align-items: baseline;
+    .totalproducts{
+      position: absolute;
+      background-color: $red;
+      color: $white;
+      font-size: 13px;
+      top: -7px;
+      right: -5px;
+      padding: 0 2px;
+      border-radius: 50%;
+      height: 20px;
+      width: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
   &-items {
     margin: 0 57px 0 66px;
     .nav-link {

@@ -10,7 +10,7 @@ export const shoppingReducer = (state = initialState, action) => {
     case shoppingTypes.CREATE_SHOPPING:
       return {
         ...state,
-        shoppings: [...state.shoppings, action.payload.shopping],
+        shoppings: [...state.shoppings, action.payload.item],
         status: action.payload.status,
       };
 

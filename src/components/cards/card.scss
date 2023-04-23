@@ -82,7 +82,9 @@
       padding: 5px;
       cursor: pointer;
       transition: 0.3s;
-
+      &:disabled{
+        background-color: $purple;
+      }
       &:hover {
         cursor: pointer;
         transition: 0.3s;

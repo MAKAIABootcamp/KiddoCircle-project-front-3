@@ -45,6 +45,7 @@ const Items = () => {
 
   const products = [
     {
+      id: "oHCpmQmjk9yWcFj12cEd",
       name: "cochesito",
       description: "cochesito en buen estado marca x",
       category: "ropa",

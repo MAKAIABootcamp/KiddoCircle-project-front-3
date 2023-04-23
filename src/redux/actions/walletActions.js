@@ -6,10 +6,12 @@ export const getTransactionsActionAsync = (userId) => {
     return async (dispatch) => {
       try {
         const transactions = await getItemsFilterSubCollectionActionAsync("wallet",['userId', '==', userId]);
-        transactions.sort(function(a, b) {
+        const shoppings = await getItemsFilterSubCollectionActionAsync("shopping", ['userId', '==', userId]);
+        const allTransations= [...shoppings,...transactions];
+        allTransations.sort(function(a, b) {
           return (a.date > b.date) ? -1 : ((a.date < b.date) ? 1 : 0);
         });
-        dispatch(getTransactionsAction(transactions));
+        dispatch(getTransactionsAction(allTransations));
       } catch (error) {
         dispatch(getTransactionsAction([]));
         Swal.fire({

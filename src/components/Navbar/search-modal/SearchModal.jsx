@@ -8,6 +8,7 @@ const SearchModal = ({ setModal }) => {
 
   const products = [
     {
+      id: "oHCpmQmjk9yWcFj12cEd",
       name: "Cochesito",
       description: "cochesito en buen estado marca x",
       category: "ropa",
@@ -26,6 +27,7 @@ const SearchModal = ({ setModal }) => {
       ],
     },
     {
+      id:"I0xA3t6ncuODdJ4Hq4ez",
       name: "pañalera",
       description: "pañalera en buen estado, poco uso marca bebé",
       category: "items",

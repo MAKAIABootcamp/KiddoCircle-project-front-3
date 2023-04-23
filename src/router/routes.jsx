@@ -24,14 +24,14 @@ const RouterDom = () => {
   return (
       <BrowserRouter>
           <Routes>
-              <Route path="/:producto" element={<EachProduct />} />
               <Route path="/" element={<NavBar />}>
                   <Route path="/" element={<Home />} />
+                  <Route path=":productoId" element={<EachProduct />} />
                   <Route path="ropa" element={<Clothes />} />
                   <Route path="juguetes" element={<Toys />} />
                   <Route path="articulos" element={<Items />} />
-                  <Route path="cart-shooping" element={<CartShopping />} />
-                  {/* <Route element={<PrivateRoute isLogged={isLogged} />}> */}
+                  <Route path="car-shopping" element={<CartShopping />} />
+                  <Route element={<PrivateRoute isLogged={isLogged} />}>
                     <Route path="cuenta/*" element={<MenuAccount />}>
                         <Route
                             path="*"
@@ -44,7 +44,7 @@ const RouterDom = () => {
                         <Route path="mi-billetera" element={<Wallet />} />
                         <Route path="chat" element="" />
                     </Route>
-                  {/* </Route> */}
+                  </Route>
               </Route>
               <Route path="/login" element={<Login />} />
               <Route path="/registro" element={<Register />} />

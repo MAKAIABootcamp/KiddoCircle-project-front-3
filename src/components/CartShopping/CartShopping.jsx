@@ -1,230 +1,160 @@
-import React from "react";
-import product from '../../assets/coche.png'
+import React, {useEffect,useState} from "react";
+import { Button } from 'reactstrap';
 import close from '../../assets/icons/icon close.png'
 import { NavLink } from "react-router-dom";
-import {FormGroup, Form, Label, Input, Button, Row, Col} from 'reactstrap';
 import { useForm } from "react-hook-form";
+import {Recharge} from "../MyAccount/Wallet/Form/FormRecharge";
+import {getTotalTransactions, getTotalPrice} from '../../utils/general'
+import { useSelector, useDispatch } from "react-redux";
+import {getTransactionsActionAsync} from '../../redux/actions/walletActions'
+import {currentShopAction} from '../../redux/actions/shoppingActions'
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import {createShoppingActionAsync} from '../../redux/actions/shoppingActions'
 
 const CartShopping = () => {
-    const {register,handleSubmit,watch, formState: { errors }} = useForm({
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [total, setTotal] = useState('0');
+    const [totalToShop, setTotalToShop] = useState('0');
+    const { register, setValue, handleSubmit,watch,reset , formState: { errors } } = useForm({
         defaultValues: {
-        numberCard: "",
-        ED: "",
+            value: "",
+            numberCard: "",
+            ED: "",
         },
     });
-    //Function to validate complete name
-    const validateName = (value) => {
-        if (value.split(' ').length <= 1) {
-            return 'El nombre completo es requerido'
+    const { transactions } = useSelector((store) => store.wallet);
+    const { currentShopping } = useSelector((store) => store.shopping);
+    const { products } = useSelector((store) => store.products);
+    const user = useSelector((store) => store.user);
+
+    useEffect(()=>{
+        if(user){
+            dispatch(getTransactionsActionAsync(user.id))
         }
-        return true
-    }
+    },[user])
 
-    //Function to validate TC number
-    const validateTC = (value) => {
-        if (value.length < 19) {
-            return 'Número de TC no puede ser menor a 16 dígitos'
+    useEffect(()=>{
+        if(transactions){
+            const sumTotal= getTotalTransactions(transactions)
+            setTotal(sumTotal)
         }
-        return true
-    }
+    },[transactions]);
 
-    //Function to validate expiration date
-    const validateED = (value) => {
-        if (value.length < 5) {
-            return 'Fecha invalida'
+    useEffect(()=>{
+        if(currentShopping && currentShopping.products && currentShopping.products.length>0){
+            const sumToShop=  getTotalPrice(products,currentShopping.products);
+            setTotalToShop(sumToShop)
+        } else{
+            setTotalToShop('0')
         }
-        return true
+    },[currentShopping]);
+
+    const closeModal=()=>{
+        reset();
     }
 
-    const validateCvv = (value) => {
-        if (value.length < 3) {
-            return 'Se requieren 3 dígitos.'
+    const deleteProduct= (productId)=>{
+        const newShopping={...currentShopping}
+        const products= [...newShopping.products]
+        const index= newShopping.products.findIndex(item=> item.productId === productId)
+        if(index>-1){
+            products.splice(index,1);
         }
-        return true
+        newShopping.products=[...products]
+        dispatch(currentShopAction(newShopping))
     }
-    const validateDoc= (value) =>{
-        if(value.length === 10 ){
-            return true
+
+    const doShopping=()=>{
+        if(Object.keys(currentShopping).length>0 && currentShopping.products.length>0 && total && totalToShop){
+            const updateShopping={...currentShopping};
+            const products=[...updateShopping.products]
+            const newProducts=[]
+            products.forEach(item=>{
+                newProducts.push({...item, status:"Enviado"})
+            })
+            updateShopping.products=[...newProducts]
+            updateShopping.amount = totalToShop;
+            updateShopping.type= "Compra";
+            dispatch(createShoppingActionAsync(updateShopping)).then(()=>{
+                Swal.fire({
+                    icon: "success",
+                    title: "Compra realizada!",
+                    confirmButtonText: "Ok",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                      navigate('/');
+                    }
+                })
+            })
         }
-        return "Documento inválido"
     }
 
-    const { ref: name, ...restFieldName } = register('name', { required: 'Nombre requerido', validate: validateName })
-    const { ref: doc, ...restFieldDoc } = register('id', { required: 'Número requerido', validate: validateDoc })
-    const { ref: cvv, ...restFieldCvv } = register('cvv', { required: 'Número requerido', validate: validateCvv })
-
-    //Format the credit card number
-    const formattedTC = watch("numberCard").replace(/\D/g, "").replace(/(\d{4})/g, "$1 ").trim();
-    //Format de expiration date
-    const formattedED = watch("ED").replace(/\D/g, "")
-        .replace(/^(\d{2})\/?(\d{0,2})/, (_, a, b) => a + (b ? `/${b}` : "")).trim();
-
-    const onSubmit = async  (data) => {
-        console.log(data)
-    }
     return (
-        <section className="cart-shopping">
+        <section className="cart-shopping mb-5">
             <div className="container">
                 <div className="row">
                     <div className="col-sm-6">
                         <div className="cards-shopping">
-                            <div className="card-buy mb-2">
-                                <button type="button" className="btn p-0 w-100 text-end">
-                                    <img src={close} alt="close" />
-                                </button>
-                                <div className="d-flex card-shopping">
-                                    <div className="flex-shrink-0">
-                                        <img className="product" src={product} alt="product" />
-                                    </div>
-                                    <div className="flex-grow-1 ms-4 data-product">
-                                        <span className="fw-semibold">Cochesito marca XDD</span>
-                                        <p>$150.000</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="card-buy mb-2">
-                                <button type="button" className="btn p-0 w-100 text-end">
-                                    <img src={close} alt="close" />
-                                </button>
-                                <div className="d-flex card-shopping">
-                                    <div className="flex-shrink-0">
-                                        <img className="product" src={product} alt="product" />
-                                    </div>
-                                    <div className="flex-grow-1 ms-4 data-product">
-                                        <span className="fw-semibold">Cochesito marca XDD</span>
-                                        <p>$150.000</p>
-                                    </div>
-                                </div>
-                            </div>
+                            {currentShopping && currentShopping.products &&
+                                currentShopping.products.map(product=>{
+                                    const crrProuct= products.find(item=> item.id === product.productId);
+                                    return(
+                                        <div className="card-buy mb-2" key={product.productId}>
+                                            <button type="button" className="btn p-0 w-100 text-end" onClick={()=>deleteProduct(product.productId)}>
+                                                <img src={close} alt="close" />
+                                            </button>
+                                            <div className="d-flex card-shopping">
+                                                <div className="flex-shrink-0">
+                                                    <img className="product" src={crrProuct.fotos[0]} alt="product" />
+                                                </div>
+                                                <div className="flex-grow-1 ms-4 data-product">
+                                                    <span className="fw-semibold">{crrProuct.name}</span>
+                                                    <p>$ {crrProuct.precio?crrProuct.precio.toLocaleString("de-DE"):0}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
                         </div>
-                        <p className="text-end price fw-semibold">Total: <span className="ms-3">$300.000</span></p>
+
+                        <p className="text-end price fw-semibold">Total: <span className="ms-3">$ {totalToShop}</span></p>
+
                     </div>
-                    <div className="col-sm-6 px-4 data-shopping">
-                        <h3 className="text-center fw-semibold">Dirección de envío</h3>
+                    <div className="col-sm-6 px-4 data-shopping ">
+                    <h3 className="text-center fw-semibold">Saldo actual</h3>
                         <div className="info-user">
-                            <p className="m-0">Calle 11 b 64 - 65</p>
-                            <p className="m-0">Barranquilla</p>
+                            <p className="m-0">Saldo:<b> $ {total}</b></p>
+                        </div>
+                        <h3 className="text-center fw-semibold mt-3">Dirección de envío</h3>
+                        <div className="info-user">
+                            {user && user.id  &&
+                                <>
+                                    <p className="m-0">{user.address}</p>
+                                    <p className="m-0">{user.city}</p>
+                                </>
+                            }
                             <NavLink to="/cuenta">Editar dirección</NavLink>
                         </div>
-                        <h3 className="text-center fw-semibold">Carrito de compras</h3>
-                        <Form onSubmit={handleSubmit(onSubmit)}>
-                            <FormGroup>
-                                <Label for="numberCard">
-                                    Número de la tarjeta
-                                </Label>
-                                <input
-                                    id="numberCard"
-                                    className="form-control"
-                                    name="numberCard"
-                                    maxLength="19"
-                                    placeholder="5555-4444-3333-2222"
-                                    type="text"
-                                    {...register("numberCard", { required: {
-                                        value: true,
-                                        message: 'El número de TC es obligatorio.'
-                                    }, validate: validateTC })}
-                                value={formattedTC}
-                                />
-                                {errors.numberCard ? <span className='text-red'>{errors.numberCard.message}</span> : <></>}
-
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="name">
-                                    Nombre y apellido
-                                </Label>
-                                <Input
-                                    id="name"
-                                    name="name"
-                                    type="text"
-                                    innerRef={name} {...restFieldName}
-                                />
-                                {errors.name ? <span className='text-red'>{errors.name.message}</span> : <></>}
-
-                            </FormGroup>
-                            <Row>
-                                <Col md={6}>
-                                    <FormGroup>
-                                        <Label for="expiration">
-                                            Fecha expiración
-                                        </Label>
-                                        <input
-                                            type="text"
-                                            maxLength="5"
-                                            className="form-control"
-                                            placeholder="Expires"
-                                            name="ED"
-                                            {...register("ED", { required: {
-                                                value: true,
-                                                message: 'La fecha es requerido.'
-                                            }, validate: validateED })}
-                                            value={formattedED}
-                                        />
-                                        {errors.ED ? <span className='text-red'>{errors.ED.message}</span> : <></>}
-
-                                    </FormGroup>
-                                </Col>
-                                <Col md={6}>
-                                    <FormGroup>
-                                        <Label for="cvv">
-                                            Código de seguridad
-                                        </Label>
-                                        <Input
-                                            id="cvv"
-                                            name="cvv"
-                                            placeholder="123"
-                                            type="text"
-                                            innerRef={cvv} {...restFieldCvv}
-                                        />
-                                        {errors.cvv ? <span className='text-red'>{errors.cvv.message}</span> : <></>}
-
-                                    </FormGroup>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col md={4}>
-                                    <FormGroup>
-                                        <Label for="typeId">
-                                            Tipo
-                                        </Label>
-                                        <Input
-                                            id="typeId"
-                                            name="typeId"
-                                            type="select"
-                                        >
-                                            <option>
-                                                CC
-                                            </option>
-                                            <option>
-                                                CE
-                                            </option>
-                                        </Input>
-                                    </FormGroup>
-                                </Col>
-                                <Col md={8}>
-                                    <FormGroup>
-                                        <Label for="id">
-                                            Documento
-                                        </Label>
-                                        <Input
-                                            id="id"
-                                            name="id"
-                                            type="text"
-                                            innerRef={doc} {...restFieldDoc}
-                                        />
-                                        {errors.id ? <span className='text-red'>{errors.id.message}</span> : <></>}
-
-                                    </FormGroup>
-                                </Col>
-                            </Row>
-
-                            <Button size="lg" type="submit" className="w-100 rounded-pill mt-4 mb-5 btn-payment">
-                                Finalizar proceso
-                            </Button>
-                        </Form>
+                        {Number(total.replace(/[.]/g,'')) < Number(totalToShop.replace(/[.]/g,'')) ?
+                            <>
+                                <h3 className="text-center fw-semibold mt-3">Recargar</h3>
+                                <Recharge closeModal={closeModal} register={register} setValue={setValue} handleSubmit={handleSubmit} watch={watch}  errors={errors} total={total} totalToShop={totalToShop}/>
+                            </>
+                        :
+                            <div className="btn-shop">
+                                <Button
+                                    type="button"
+                                    onClick={doShopping}
+                                    disabled={(Object.keys(currentShopping).length>0 && currentShopping.products.length===0) || Object.keys(currentShopping).length===0}
+                                >Comprar</Button>
+                            </div>
+                        }
                     </div>
                 </div>
-                </div>
+            </div>
         </section>
     );
 };

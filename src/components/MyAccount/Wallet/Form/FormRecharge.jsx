@@ -4,12 +4,11 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter,FormGroup, Form, Lab
 import { useSelector, useDispatch } from "react-redux";
 import {updateDataUserActionAsync} from '../../../../redux/actions/userActions'
 import {createTransactionActionAsync} from '../../../../redux/actions/walletActions'
+import {createShoppingActionAsync} from '../../../../redux/actions/shoppingActions'
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const FormRecharge = ({modalWallet, toggleWallet}) => {
-    const dispatch = useDispatch();
-    const user = useSelector((store) => store.user);
-
     const { register, setValue, handleSubmit,watch,reset , formState: { errors } } = useForm({
         defaultValues: {
             value: "",
@@ -18,6 +17,26 @@ const FormRecharge = ({modalWallet, toggleWallet}) => {
         },
     });
 
+    const closeModal=()=>{
+        reset();
+        toggleWallet();
+    }
+
+    return (
+        <Modal isOpen={modalWallet} toggle={closeModal} centered className="wallet">
+            <ModalHeader className="border-0" toggle={closeModal}>Recargar</ModalHeader>
+            <ModalBody>
+                <Recharge closeModal={closeModal} register={register} setValue={setValue} handleSubmit={handleSubmit} watch={watch}  errors={errors} />
+            </ModalBody>
+        </Modal>
+    );
+};
+
+export const Recharge = ({closeModal, register, setValue, handleSubmit, watch, errors, total, totalToShop})=>{
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const user = useSelector((store) => store.user);
+    const { currentShopping } = useSelector((store) => store.shopping);
 
     const validateName = (value) => {
         if (value.split(' ').length <= 1) {
@@ -28,6 +47,11 @@ const FormRecharge = ({modalWallet, toggleWallet}) => {
 
     const validateCurrency= (value) =>{
         value= value.replace(/[.,]/g,'')
+        if(total && totalToShop){
+            if((Number(total.replace(/[.]/g,''))+Number(value)) < Number(totalToShop.replace(/[.]/g,''))){
+                return "Valor insuficiente para realizar la compra"
+            }
+        }
         if(Number(value)){
             setValue("value",Number(value).toLocaleString("de-DE"))
             return true
@@ -59,12 +83,11 @@ const FormRecharge = ({modalWallet, toggleWallet}) => {
     }
 
     const validateCvv = (value) => {
-        if (value.length < 3) {
+        if (value.length < 3 || value.length > 3) {
             return 'Se requieren 3 dígitos.'
         }
         return true
     }
-
     const { ref: name, ...restFieldName } = register('name', { required: 'Nombre requerido', validate: validateName })
     const { ref: doc, ...restFieldDoc } = register('id', { required: 'Número requerido', validate: validateDoc })
     const { ref: cvv, ...restFieldCvv } = register('cvv', { required: 'Número requerido', validate: validateCvv })
@@ -103,20 +126,39 @@ const FormRecharge = ({modalWallet, toggleWallet}) => {
             ]
             dispatch(updateDataUserActionAsync(newUser))
             dispatch(createTransactionActionAsync(dataTransaction)).then(()=>{
-                Swal.fire({
-                    icon: "success",
-                    title: "¡Depósito realizado!",
-                    confirmButtonText: "Ok",
-                })
+                if(total===undefined && totalToShop===undefined ){
+                    Swal.fire({
+                        icon: "success",
+                        title: "¡Depósito realizado!",
+                        confirmButtonText: "Ok",
+                    })
+                }
                 closeModal();
             })
         }
-
-    }
-
-    const closeModal=()=>{
-        reset();
-        toggleWallet();
+        if(Object.keys(currentShopping).length>0 && currentShopping.products.length>0 && total && totalToShop){
+            const updateShopping={...currentShopping};
+            const products=[...updateShopping.products]
+            const newProducts=[]
+            products.forEach(item=>{
+                newProducts.push({...item, status:"Enviado"})
+            })
+            updateShopping.products=[...newProducts]
+            updateShopping.amount = totalToShop;
+            updateShopping.type= "Compra";
+            dispatch(createShoppingActionAsync(updateShopping)).then(()=>{
+                Swal.fire({
+                    icon: "success",
+                    title: "Compra realizada!",
+                    confirmButtonText: "Ok",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                      navigate('/');
+                    }
+                  })
+                closeModal();
+            })
+        }
     }
 
     const changeTarget=(e)=> {
@@ -143,188 +185,183 @@ const FormRecharge = ({modalWallet, toggleWallet}) => {
     const formattedED = watch("ED").replace(/\D/g, "")
         .replace(/^(\d{2})\/?(\d{0,2})/, (_, a, b) => a + (b ? `/${b}` : "")).trim();
 
-    return (
-        <Modal isOpen={modalWallet} toggle={closeModal} centered className="wallet">
-            <ModalHeader className="border-0" toggle={closeModal}>Recargar</ModalHeader>
-            <ModalBody>
-                <Form onSubmit={handleSubmit(onSubmit)}>
-                    <FormGroup>
-                        <Label for="value">
-                            Valor*
-                        </Label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="0.000"
-                            {...register("value", { required: {
-                                value: true,
-                                message: 'Valor requerido.'
-                            }, validate: validateCurrency })}
-                            value={formattedCurrency}
-                        />
-                        {errors.value ? <span className='text-red'>{errors.value.message}</span> : <></>}
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="typeTarget">
-                            Tarjeta*
-                        </Label>
-                        <Input
-                            id="typeTarget"
-                            name="typeTarget"
-                            type="select"
-                            onChange={changeTarget}
-                        >
-                            <option>
-                                Nueva targeta
-                            </option>
-                            {
-                                <>
-                                    {user.cards && user.cards.length>0 &&
-                                        user.cards.map((card)=>(
-                                            <option key={card.numberCard}>
-                                                {card.numberCard}
-                                            </option>
-                                        ))
-                                    }
-                                </>
+    return(
+        <Form onSubmit={handleSubmit(onSubmit)}>
+            <FormGroup>
+                <Label for="value">
+                    Valor*
+                </Label>
+                <input
+                    type="text"
+                    className="form-control"
+                    placeholder="0.000"
+                    {...register("value", { required: {
+                        value: true,
+                        message: 'Valor requerido.'
+                    }, validate: validateCurrency })}
+                    value={formattedCurrency}
+                />
+                {errors.value ? <span className='text-red'>{errors.value.message}</span> : <></>}
+            </FormGroup>
+            <FormGroup>
+                <Label for="typeTarget">
+                    Tarjeta*
+                </Label>
+                <Input
+                    id="typeTarget"
+                    name="typeTarget"
+                    type="select"
+                    onChange={changeTarget}
+                >
+                    <option>
+                        Nueva targeta
+                    </option>
+                    {
+                        <>
+                            {user.cards && user.cards.length>0 &&
+                                user.cards.map((card)=>(
+                                    <option key={card.numberCard}>
+                                        {card.numberCard}
+                                    </option>
+                                ))
                             }
-                        </Input>
-                    </FormGroup>
+                        </>
+                    }
+                </Input>
+            </FormGroup>
+            <FormGroup>
+                <Label for="typeAccount">
+                    Tipo de tarjeta*
+                </Label>
+                <Input
+                    id="typeAccount"
+                    name="typeAccount"
+                    type="select"
+                    innerRef={typeAccount} {...restFieldTypeAccount}
+                >
+                    <option>
+                        Ahorros
+                    </option>
+                    <option>
+                        Crédito
+                    </option>
+                </Input>
+            </FormGroup>
+            <FormGroup>
+                <Label for="numberCard">
+                    Número de la tarjeta
+                </Label>
+                <input
+                    id="numberCard"
+                    className="form-control"
+                    name="numberCard"
+                    maxLength="19"
+                    placeholder="5555-4444-3333-2222"
+                    type="text"
+                    {...register("numberCard", { required: {
+                        value: true,
+                        message: 'El número de TC es obligatorio.'
+                    }, validate: validateTC })}
+                    value={formattedTC}
+                />
+                {errors.numberCard ? <span className='text-red'>{errors.numberCard.message}</span> : <></>}
+            </FormGroup>
+            <FormGroup>
+                <Label for="name">
+                    Titular *
+                </Label>
+                <Input
+                    id="name"
+                    name="name"
+                    type="text"
+                    innerRef={name} {...restFieldName}
+                />
+                {errors.name ? <span className='text-red'>{errors.name.message}</span> : <></>}
+            </FormGroup>
+            <Row>
+                <Col md={6}>
                     <FormGroup>
-                        <Label for="typeAccount">
-                            Tipo de tarjeta*
-                        </Label>
-                        <Input
-                            id="typeAccount"
-                            name="typeAccount"
-                            type="select"
-                            innerRef={typeAccount} {...restFieldTypeAccount}
-                        >
-                            <option>
-                                Ahorros
-                            </option>
-                            <option>
-                                Crédito
-                            </option>
-                        </Input>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="numberCard">
-                            Número de la tarjeta
+                        <Label for="expiration">
+                            Fecha expiración
                         </Label>
                         <input
-                            id="numberCard"
-                            className="form-control"
-                            name="numberCard"
-                            maxLength="19"
-                            placeholder="5555-4444-3333-2222"
                             type="text"
-                            {...register("numberCard", { required: {
+                            maxLength="5"
+                            className="form-control"
+                            placeholder="Expires"
+                            name="ED"
+                            {...register("ED", { required: {
                                 value: true,
-                                message: 'El número de TC es obligatorio.'
-                            }, validate: validateTC })}
-                            value={formattedTC}
+                                message: 'La fecha es requerido.'
+                            }, validate: validateED })}
+                            value={formattedED}
                         />
-                        {errors.numberCard ? <span className='text-red'>{errors.numberCard.message}</span> : <></>}
+                        {errors.ED ? <span className='text-red'>{errors.ED.message}</span> : <></>}
+
                     </FormGroup>
+                </Col>
+                <Col md={6}>
                     <FormGroup>
-                        <Label for="name">
-                            Titular *
+                        <Label for="cvv">
+                            Código de seguridad
                         </Label>
                         <Input
-                            id="name"
-                            name="name"
-                            type="text"
-                            innerRef={name} {...restFieldName}
+                            id="cvv"
+                            name="cvv"
+                            placeholder="123"
+                            type="number"
+                            innerRef={cvv} {...restFieldCvv}
                         />
-                        {errors.name ? <span className='text-red'>{errors.name.message}</span> : <></>}
+                        {errors.cvv ? <span className='text-red'>{errors.cvv.message}</span> : <></>}
+
                     </FormGroup>
-                    <Row>
-                        <Col md={6}>
-                            <FormGroup>
-                                <Label for="expiration">
-                                    Fecha expiración
-                                </Label>
-                                <input
-                                    type="text"
-                                    maxLength="5"
-                                    className="form-control"
-                                    placeholder="Expires"
-                                    name="ED"
-                                    {...register("ED", { required: {
-                                        value: true,
-                                        message: 'La fecha es requerido.'
-                                    }, validate: validateED })}
-                                    value={formattedED}
-                                />
-                                {errors.ED ? <span className='text-red'>{errors.ED.message}</span> : <></>}
-
-                            </FormGroup>
-                        </Col>
-                        <Col md={6}>
-                            <FormGroup>
-                                <Label for="cvv">
-                                    Código de seguridad
-                                </Label>
-                                <Input
-                                    id="cvv"
-                                    name="cvv"
-                                    placeholder="123"
-                                    type="text"
-                                    innerRef={cvv} {...restFieldCvv}
-                                />
-                                {errors.cvv ? <span className='text-red'>{errors.cvv.message}</span> : <></>}
-
-                            </FormGroup>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={4}>
-                            <FormGroup>
-                                <Label for="typeId">
-                                    Tipo*
-                                </Label>
-                                <Input
-                                    id="typeId"
-                                    name="typeId"
-                                    type="select"
-                                >
-                                    <option>
-                                        CC
-                                    </option>
-                                    <option>
-                                        CE
-                                    </option>
-                                </Input>
-                            </FormGroup>
-                        </Col>
-                        <Col md={8}>
-                            <FormGroup>
-                                <Label for="id">
-                                    Documento *
-                                </Label>
-                                <Input
-                                    id="id"
-                                    name="id"
-                                    type="number"
-                                    innerRef={doc} {...restFieldDoc}
-                                />
-                                    {errors.id ? <span className='text-red'>{errors.id.message}</span> : <></>}
-                            </FormGroup>
-                        </Col>
-                    </Row>
-                    <ModalFooter className="border-0">
-                        <Button className="btn-recharge"  type="submit">
-                            Recargar
-                        </Button>
-                        <Button color="secondary" onClick={closeModal}>
-                            Cancel
-                        </Button>
-                    </ModalFooter>
-                </Form>
-            </ModalBody>
-        </Modal>
-    );
-};
+                </Col>
+            </Row>
+            <Row>
+                <Col md={4}>
+                    <FormGroup>
+                        <Label for="typeId">
+                            Tipo*
+                        </Label>
+                        <Input
+                            id="typeId"
+                            name="typeId"
+                            type="select"
+                        >
+                            <option>
+                                CC
+                            </option>
+                            <option>
+                                CE
+                            </option>
+                        </Input>
+                    </FormGroup>
+                </Col>
+                <Col md={8}>
+                    <FormGroup>
+                        <Label for="id">
+                            Documento *
+                        </Label>
+                        <Input
+                            id="id"
+                            name="id"
+                            type="number"
+                            innerRef={doc} {...restFieldDoc}
+                        />
+                            {errors.id ? <span className='text-red'>{errors.id.message}</span> : <></>}
+                    </FormGroup>
+                </Col>
+            </Row>
+            <ModalFooter className="border-0">
+                <Button className="btn-recharge"  type="submit">
+                    Recargar
+                </Button>
+                <Button color="secondary" onClick={closeModal}>
+                    Cancel
+                </Button>
+            </ModalFooter>
+        </Form>
+    )
+}
 
 export default FormRecharge;

@@ -17,6 +17,7 @@ const EachProduct = ({ product, type }) => {
   const products = [
     {
       name: "Cochesito",
+      id: "oHCpmQmjk9yWcFj12cEd",
       description: "cochesito en buen estado marca x",
       category: "ropa",
       sub_category: "camisas",

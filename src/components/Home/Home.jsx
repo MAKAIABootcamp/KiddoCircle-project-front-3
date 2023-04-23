@@ -15,7 +15,7 @@ import {getProductsActionAsync} from '../../redux/actions/ProductsActions'
 const Home = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((store) => store.products);
-  console.log(products)
+
 
   useEffect(()=>{
     dispatch(getProductsActionAsync())

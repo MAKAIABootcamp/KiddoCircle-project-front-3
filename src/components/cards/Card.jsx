@@ -1,23 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import iconHeart from "../../assets/icons/icon empty heart.png";
 import iconHeartFull from "../../assets/icons/icon full heart.png";
 import donationIcon from "../../assets/icons/forDonation.png";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import {currentShopAction} from '../../redux/actions/shoppingActions'
 
 const Card = ({ product, type }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [heartFavorites, setHeartFavorites] = useState(false);
+  const [disabledButton, setDisabledButton] = useState(false);
+  const { currentShopping } = useSelector((store) => store.shopping);
+  const user = useSelector((store) => store.user);
+
+  useEffect(()=>{
+    if(currentShopping.products){
+      const isDisabled= currentShopping.products.filter(item=> item.productId === product.id).length;
+      setDisabledButton(isDisabled>0)
+    }
+  },[currentShopping])
 
   const changeHeart = () => {
     setHeartFavorites(!heartFavorites);
-    console.log(product);
   };
 
   const handleRoute = (product) => {
     navigate(`${product.name}`);
-    //console.log(product);
   };
+
+  const addProductCar=(product)=>{
+    const newShopping={...currentShopping}
+    if(Object.keys(newShopping).length===0){
+      newShopping.date= new Date().toISOString();
+      newShopping.userId= user.id;
+      newShopping.products= []
+    }
+    const addProduct ={
+      productId: product,
+      status: "Pendiente",
+    }
+    newShopping.products=[
+      ...(newShopping.products || []),
+      {
+          ...addProduct
+      }
+    ]
+    dispatch(currentShopAction(newShopping))
+  }
 
   return (
     <div className="card">
@@ -57,14 +88,17 @@ const Card = ({ product, type }) => {
           <p className="card__footer-price">{product?.price}</p>
         </footer>
       </motion.div>
-      <button
-        className="card__footer-button"
-        onClick={() => {
-          navigate("/cart-shooping");
-        }}
-      >
-        Comprar
-      </button>
+      {user && user.id &&
+        <button
+          className="card__footer-button"
+          onClick={() => {
+            addProductCar(product.id)
+          }}
+          disabled={disabledButton}
+        >
+          Comprar
+        </button>
+      }
     </div>
   );
 };

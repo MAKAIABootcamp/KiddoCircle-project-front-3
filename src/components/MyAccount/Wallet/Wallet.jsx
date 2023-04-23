@@ -1,13 +1,14 @@
 import React,  { useState, useEffect  } from "react";
 import { Button} from 'reactstrap';
 import plus from '../../../assets/icons/icon plus.png'
-import product from '../../../assets/coche.png'
+import product from '../../../assets/icons/shop.png'
 import recharge from '../../../assets/recarga.jpg';
 import FormRecharge from "./Form/FormRecharge";
 import FormWithdraw from "./Form/FormWithdraw";
 import { useDispatch, useSelector } from "react-redux";
 import {getTransactionsActionAsync} from '../../../redux/actions/walletActions'
 import { DateTime } from "luxon";
+import {getTotalTransactions} from '../../../utils/general'
 
 const Wallet = () => {
     const [modalRecharge, setModalRecharge] = useState(false);
@@ -28,23 +29,10 @@ const Wallet = () => {
 
     useEffect(()=>{
         if(transactions){
-            getTotalTransactions(transactions)
+            const sumTotal= getTotalTransactions(transactions)
+            setTotal(sumTotal)
         }
     },[transactions])
-
-    const getTotalTransactions=(transactions)=>{
-        const sum = transactions.reduce(
-            (accumulator, currentValue) => {
-                let acc;
-                if(currentValue.type === "Depósito"){
-                    acc = accumulator + Number(currentValue.amount.replace(/[.]/g,''))
-                }else{
-                    acc = accumulator - Number(currentValue.amount.replace(/[.]/g,''))
-                }
-                return acc
-            },0);
-        setTotal(sum.toLocaleString("de-DE"))
-    }
 
     const getDate = (date) =>{
         let day='';

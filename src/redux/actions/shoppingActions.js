@@ -1,11 +1,11 @@
 import { shoppingTypes } from "../types/shoppingTypes";
-import { getItemsSubCollectionActionAsync } from '../../services/crudColection';
+import { getItemsFilterSubCollectionActionAsync, createItemActionAsync } from '../../services/crudColection';
 import Swal from "sweetalert2";
 
-export const getShoppingsActionAsync = () => {
+export const getShoppingsActionAsync = (userId) => {
     return async (dispatch) => {
       try {
-        const shoppings = await getItemsSubCollectionActionAsync("shopping", true);
+        const shoppings = await getItemsFilterSubCollectionActionAsync("shopping", ['userId', '==', userId]);
         dispatch(getShoppingsAction(shoppings));
       } catch (error) {
         dispatch(getShoppingsAction([]));
@@ -23,4 +23,39 @@ const getShoppingsAction = (shoppings) => {
       type: shoppingTypes.GET_SHOPPING,
       payload: [...shoppings],
     };
+};
+
+
+export const currentShopAction = (shop) => {
+  return {
+    type: shoppingTypes.CURRENT_SHOPPING,
+    payload: shop,
+  };
+};
+
+
+export const createShoppingActionAsync = (shopping) => {
+  return async (dispatch) => {
+    try {
+      const shoppingDoc = await createItemActionAsync(shopping,`users/${shopping.userId}/shopping`);
+      dispatch(createShoppingAction(shoppingDoc));
+      dispatch(currentShopAction({}));
+      return shoppingDoc
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        createShoppingAction({
+          shoppings: {},
+          status: "error",
+        })
+      );
+    }
+  };
+};
+
+const createShoppingAction = (shopping) => {
+  return {
+    type: shoppingTypes.CREATE_SHOPPING,
+    payload: { ...shopping },
+  };
 };

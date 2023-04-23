@@ -11,13 +11,18 @@ import { NavLink, Outlet } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SearchModal from "./search-modal/SearchModal";
 import { useForm } from "react-hook-form";
+import carShopping from '../../assets/icons/cart-outline.png'
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
   const [modal, setModal] = useState(false);
   const { watch, register } = useForm();
+  const { currentShopping } = useSelector((store) => store.shopping);
+  const user = useSelector((store) => store.user);
 
   const products = [
     {
+      id: "oHCpmQmjk9yWcFj12cEd",
       name: "Cochesito",
       description: "cochesito en buen estado marca x",
       category: "ropa",
@@ -36,6 +41,7 @@ const NavBar = () => {
       ],
     },
     {
+      id:"I0xA3t6ncuODdJ4Hq4ez",
       name: "pañalera",
       description: "pañalera en buen estado, poco uso marca bebé",
       category: "items",
@@ -137,73 +143,92 @@ const NavBar = () => {
           <figure className="search-icon" onClick={handleModalSearch}>
             <img className="search-icon__img" src={search} />
           </figure>
-          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-md`} />
-          <Navbar.Offcanvas
-            id={`offcanvasNavbar-expand-md`}
-            aria-labelledby={`offcanvasNavbarLabel-expand-md`}
-            placement="end"
-          >
-            <Offcanvas.Header
-              closeButton
-              className="justify-content-end"
-            ></Offcanvas.Header>
-            <Offcanvas.Body>
-              <Nav className="justify-content-center  flex-grow-1 nav-bar-items fw-semibold">
-                <NavLink
-                  to="/"
-                  className={({ isActive }) =>
-                    isActive ? "selected px-0 nav-link" : "px-0 nav-link"
+          <div className="d-flex align-items-center">
+            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-md`} />
+            <Navbar.Offcanvas
+              id={`offcanvasNavbar-expand-md`}
+              aria-labelledby={`offcanvasNavbarLabel-expand-md`}
+              placement="end"
+            >
+              <Offcanvas.Header
+                closeButton
+                className="justify-content-end"
+              ></Offcanvas.Header>
+              <Offcanvas.Body>
+                <Nav className="justify-content-center  flex-grow-1 nav-bar-items fw-semibold">
+                  <NavLink
+                    to="/"
+                    className={({ isActive }) =>
+                      isActive ? "selected px-0 nav-link" : "px-0 nav-link"
+                    }
+                  >
+                    Inicio
+                  </NavLink>
+                  <NavLink
+                    to="/ropa"
+                    className={({ isActive }) =>
+                      isActive ? "selected px-0 nav-link" : "px-0 nav-link"
+                    }
+                  >
+                    Ropa
+                  </NavLink>
+                  <NavLink
+                    to="/juguetes"
+                    className={({ isActive }) =>
+                      isActive ? "selected px-0 nav-link" : "px-0 nav-link"
+                    }
+                  >
+                    Juguetes
+                  </NavLink>
+                  <NavLink
+                    to="/articulos"
+                    className={({ isActive }) =>
+                      isActive ? "selected px-0 nav-link" : "px-0 nav-link"
+                    }
+                  >
+                    Artículos
+                  </NavLink>
+                  {user.isLogged ?
+                    <NavLink
+                      to="/cuenta"
+                      className={({ isActive }) =>
+                        isActive ? "selected px-0 nav-link" : "px-0 nav-link"
+                      }
+                    >
+                      Mi cuenta
+                    </NavLink>
+                  :
+                    <NavLink
+                      to="/login"
+                      className={({ isActive }) =>
+                        isActive ? "selected px-0 nav-link" : "px-0 nav-link"
+                      }
+                    >
+                      Iniciar sesión
+                    </NavLink>
                   }
-                >
-                  Inicio
-                </NavLink>
-                <NavLink
-                  to="/ropa"
-                  className={({ isActive }) =>
-                    isActive ? "selected px-0 nav-link" : "px-0 nav-link"
-                  }
-                >
-                  Ropa
-                </NavLink>
-                <NavLink
-                  to="/juguetes"
-                  className={({ isActive }) =>
-                    isActive ? "selected px-0 nav-link" : "px-0 nav-link"
-                  }
-                >
-                  Juguetes
-                </NavLink>
-                <NavLink
-                  to="/articulos"
-                  className={({ isActive }) =>
-                    isActive ? "selected px-0 nav-link" : "px-0 nav-link"
-                  }
-                >
-                  Artículos
-                </NavLink>
-                <NavLink
-                  to="/cuenta"
-                  className={({ isActive }) =>
-                    isActive ? "selected px-0 nav-link" : "px-0 nav-link"
-                  }
-                >
-                  Mi cuenta
-                </NavLink>
-              </Nav>
-              <Form className="search me-3">
-                <Button>
-                  <img src={search} alt="search" />
-                </Button>
-                <Form.Control
-                  type="input"
-                  placeholder="Buscar productos"
-                  className="me-2"
-                  aria-label="Search"
-                  {...register("search")}
-                />
-              </Form>
-            </Offcanvas.Body>
-          </Navbar.Offcanvas>
+                </Nav>
+                <Form className="search me-3">
+                  <Button>
+                    <img src={search} alt="search" />
+                  </Button>
+                  <Form.Control
+                    type="input"
+                    placeholder="Buscar productos"
+                    className="me-2"
+                    aria-label="Search"
+                    {...register("search")}
+                  />
+                </Form>
+              </Offcanvas.Body>
+            </Navbar.Offcanvas>
+            {user && user.id &&
+              <NavLink to="/car-shopping" className='px-0 nav-link car'>
+                <img src={carShopping} alt="car" />
+                <span className="totalproducts fw-semibold">{currentShopping && currentShopping.products?currentShopping.products.length:0}</span>
+              </NavLink>
+            }
+          </div>
         </Container>
       </Navbar>
       <div className="filter-container">
