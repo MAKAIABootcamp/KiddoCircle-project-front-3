@@ -233,12 +233,93 @@ const Toys = () => {
         console.log();
     };
 
+    //Función para ordenar el array
+    function ordenarArray(array, opcion) {
+        switch (opcion) {
+            case "Alfabéticamente, A-Z":
+                array.sort((a, b) => a.nombre.localeCompare(b.nombre));
+                break;
+            case "Alfabéticamente, Z-A":
+                array.sort((a, b) => b.nombre.localeCompare(a.nombre));
+                break;
+            case "Precio, menor a mayor":
+                array.sort((a, b) => {
+                    // Si a y b no tienen precio, no cambian de posición
+                    if (
+                        !a.hasOwnProperty("precio") &&
+                        !b.hasOwnProperty("precio")
+                    )
+                        return 0;
+                    // Si a no tiene precio, se coloca primero
+                    if (!a.hasOwnProperty("precio")) return -1;
+                    // Si b no tiene precio, se coloca primero
+                    if (!b.hasOwnProperty("precio")) return 1;
+                    // Si ambos tienen precio, se ordenan normalmente
+                    return a.precio - b.precio;
+                });
+                break;
+            case "Precio, mayor a menor":
+                array.sort((a, b) => {
+                    if (!a.precio && !b.precio) {
+                        return 0;
+                    } else if (!a.precio) {
+                        return 1;
+                    } else if (!b.precio) {
+                        return -1;
+                    } else {
+                        return b.precio - a.precio;
+                    }
+                });
+                break;
+            case "Estado, menor a mayor":
+                array.sort((a, b) => {
+                    const parseState = (str) => {
+                        const [x, y] = str.split("/");
+                        return parseInt(x) / parseInt(y);
+                    };
+                    return parseState(a.estado) - parseState(b.estado);
+                });
+                break;
+            case "Estado, mayor a menor":
+                array.sort((a, b) => {
+                    const parseState = (str) => {
+                        const [x, y] = str.split("/");
+                        return parseInt(x) / parseInt(y);
+                    };
+                    return parseState(b.estado) - parseState(a.estado);
+                });
+                break;
+            case "Más antiguo":
+                array.sort((a, b) => {
+                    const parseDate = (str) => {
+                        const [day, month, year] = str.split("/");
+                        return new Date(year, month - 1, day);
+                    };
+                    return parseDate(a.fecha) - parseDate(b.fecha);
+                });
+                break;
+            case "Más reciente":
+                array.sort((a, b) => {
+                    const parseDate = (str) => {
+                        const [day, month, year] = str.split("/");
+                        return new Date(year, month - 1, day);
+                    };
+                    return parseDate(b.fecha) - parseDate(a.fecha);
+                });
+                break;
+            default:
+                break;
+        }
+        return array;
+    }
+
     useEffect(() => {
         const toyProducts = products.filter(
             (product) => product.categoria === "juguetes"
         );
-        setProductsFiltered(toyProducts);
         createPriceRange(toyProducts);
+        const arrayOrdenado = ordenarArray(toyProducts, optionSelected);
+        setProductsFiltered(arrayOrdenado);
     }, []);
 
     useEffect(() => {
@@ -246,19 +327,27 @@ const Toys = () => {
             (product) => product.categoria === "juguetes"
         );
         const resultFilter = doFilter(toyProducts, filter);
-        console.log(resultFilter);
-        setProductsFiltered(resultFilter);
+        const arrayOrdenado = ordenarArray(resultFilter, optionSelected);
+        setProductsFiltered(arrayOrdenado);
     }, [range]);
 
     useEffect(() => {
-        console.log(filter);
         const toyProducts = products.filter(
             (product) => product.categoria === "juguetes"
         );
         const resultFilter = doFilter(toyProducts, filter);
-        console.log(resultFilter);
-        setProductsFiltered(resultFilter);
+        const arrayOrdenado = ordenarArray(resultFilter, optionSelected);
+        setProductsFiltered(arrayOrdenado);
     }, [filter]);
+
+    useEffect(() => {
+        const toyProducts = products.filter(
+            (product) => product.categoria === "juguetes"
+        );
+        const resultFilter = doFilter(toyProducts, filter);
+        const arrayOrdenado = ordenarArray(resultFilter, optionSelected);
+        setProductsFiltered(arrayOrdenado);
+    }, [optionSelected]);
 
     return (
         <section className="clothes">
@@ -1225,6 +1314,7 @@ const Toys = () => {
                                     <p>{product.genero}</p>
                                     <p>{product?.talla}</p>
                                     <p>{product?.edad}</p>
+                                    <p>{product?.estado}</p>
                                     <p>{product.donacion}</p>
                                     <p>{product?.precio}</p>
                                     <p>{product?.fecha}</p>
