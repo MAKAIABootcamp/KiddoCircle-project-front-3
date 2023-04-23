@@ -5,6 +5,7 @@ import ropaImg from "../../../assets/ropa.jpg";
 import articulosImg from "../../../assets/articulos.jpg";
 import LottieNothing from "./lottieAnimation/LottieNothing";
 import Swal from "sweetalert2";
+import { DateTime } from "luxon";
 import * as yup from "yup";
 import {
     subCategoryClothes,
@@ -148,7 +149,8 @@ const Posts2 = () => {
                 fotos: await multipleFileUpload(fotos),
                 vistas: 0,
                 id_publicador: user.uid,
-                disponibilidad: true
+                disponibilidad: true,
+                fecha: DateTime.now().toFormat("dd/MM/yyyy")
             };
             if (typeSelected === "ropa") {
                 newProduct.talla = talla;
@@ -167,6 +169,7 @@ const Posts2 = () => {
             addDocument("products", newProduct)
                 .then(() => {
                     toggleForm();
+                    getPublishedProducts();
                     Swal.fire({
                         icon: "success",
                         title: "¡Publicación exitosa!",
