@@ -49,7 +49,7 @@ const Toys = () => {
     ]);
 
     const subCategory = [
-        "Figuras de accion y robots",
+        "Figuras de acción y robots",
         "Muñecas",
         "Juegos de mesa",
         "Vehículos",
