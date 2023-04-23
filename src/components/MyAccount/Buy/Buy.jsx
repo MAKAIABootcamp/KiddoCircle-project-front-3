@@ -2,16 +2,19 @@ import React, {useEffect} from "react";
 import productImg from '../../../assets/coche.png'
 import { useDispatch, useSelector } from "react-redux";
 import {getShoppingsActionAsync} from '../../../redux/actions/shoppingActions'
+import {getUsersActionAsync} from '../../../redux/actions/usersActions'
 import { DateTime } from "luxon";
 
 const ProductsList = ({productsShop, phone})=>{
     const { products } = useSelector((store) => store.products);
+    const {users} = useSelector((store) => store.allUsers);
 
     return(
         <>
-        {products &&
+        {products && users &&
             productsShop.map(product=>{
                 const crrProduct= products.find(item=> item.id === product.productId);
+                const dataUser= users.find(item=> item.uid === crrProduct.id_publicador);
                 return(
                     <div className="d-flex mx-4 card-buy mb-2" key={product.productId}>
                         <div className="flex-shrink-0">
@@ -20,8 +23,8 @@ const ProductsList = ({productsShop, phone})=>{
                         <div className="flex-grow-1 ms-5 data-product">
                             <span className="status fw-semibold">{product.status}</span>
                             <p>{crrProduct.nombre}</p>
-                            {phone &&
-                                <a className="linkChat fw-semibold" href={`https://wa.me/${phone.replace('+','')}/?text=tu%20texto%20personalizado`} target="_blank">Enviar mensaje</a>
+                            {dataUser &&
+                                <a className="linkChat fw-semibold" href={`https://wa.me/${dataUser.phone.replace('+','')}/?text=tu%20texto%20personalizado`} target="_blank">Enviar mensaje</a>
                             }
                         </div>
                     </div>
@@ -42,6 +45,10 @@ const Buy = () => {
             dispatch(getShoppingsActionAsync(user.id))
         }
     },[user])
+
+    useEffect(()=>{
+        dispatch(getUsersActionAsync())
+    },[])
 
     return (
         <section className="buy px-4">
