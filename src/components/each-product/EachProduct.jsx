@@ -4,16 +4,17 @@ import iconHeart from "../../assets/icons/icon empty heart.png";
 import iconHeartFull from "../../assets/icons/icon full heart.png";
 import donationIcon from "../../assets/icons/forDonation.png";
 import { motion } from "framer-motion";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import Carousel from "react-bootstrap/Carousel";
 import iconArrow from "../../assets/icons/iconPinkArrowRight.png";
 import PopularSection from "../Home/populars-section/PopularsSection";
 import { useDispatch, useSelector } from "react-redux";
 import { currentShopAction } from "../../redux/actions/shoppingActions";
 import { getProductsActionAsync } from "../../redux/actions/ProductsActions";
+import { doc, updateDoc } from "firebase/firestore";
+import { dataBase } from "../../firebase/firebaseConfig";
 
 const EachProduct = ({ product, type }) => {
-    const navigate = useNavigate();
     const [heartFavorites, setHeartFavorites] = useState(false);
     const productsAll = useSelector((state) => state.products.products);
     const user = useSelector((store) => store.user);
@@ -29,7 +30,8 @@ const EachProduct = ({ product, type }) => {
             const productFilter = productsAll?.find(
                 (product) => product.id === idProducto
             );
-            setProductFind(productFilter);
+          setProductFind(productFilter);
+          editVistas();
         }
     }, []);
 
@@ -37,7 +39,8 @@ const EachProduct = ({ product, type }) => {
           const productFilter = productsAll?.find(
               (product) => product.id === idProducto
           );
-          setProductFind(productFilter);
+        setProductFind(productFilter);
+        editVistas();
     }, [productsAll]);
 
     const goBack = () => {
@@ -73,6 +76,20 @@ const EachProduct = ({ product, type }) => {
         ];
         dispatch(currentShopAction(newShopping));
     };
+
+    const editVistas = async () => {
+        console.log(productFind);
+        try {
+            // Crear una referencia al documento del producto
+            const productoRef = doc(dataBase, "products", productFind.id);
+            // Actualizar las vistas del producto en Firestore
+            const addView = parseInt(productFind.vistas) + 1;
+            console.log(addView)
+            await updateDoc(productoRef, { vistas: addView });
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <>
