@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {currentShopAction} from '../../redux/actions/shoppingActions'
 
-const Card = ({ product, type }) => {
+const Card = ({ product}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [heartFavorites, setHeartFavorites] = useState(false);
@@ -27,7 +27,7 @@ const Card = ({ product, type }) => {
   };
 
   const handleRoute = (product) => {
-    navigate(`${product.name}`);
+    navigate(`${product.nombre}`);
   };
 
   const addProductCar=(product)=>{
@@ -56,7 +56,7 @@ const Card = ({ product, type }) => {
         whileHover={{ y: -12 }}
         onClick={() => handleRoute(product)}
       >
-        {type === true ? (
+        {product.donar ? (
           <img className="card__donation" src={donationIcon} alt="donation" />
         ) : (
           <></>
@@ -77,15 +77,15 @@ const Card = ({ product, type }) => {
           <figure className="card__figure">
             <img
               className="card__figure-img"
-              src={product?.photo[0]}
+              src={product?.fotos[0]}
               alt="product-image"
             />
           </figure>
         </header>
         <footer className="card__footer">
-          <p className="card__footer-name">{product?.name}</p>
-          <p className="card__footer-state">{product?.status}</p>
-          <p className="card__footer-price">{product?.price}</p>
+          <p className="card__footer-name">{product?.nombre}</p>
+          <p className="card__footer-state">{product?.estado}</p>
+          <p className="card__footer-price">{product?.precio}</p>
         </footer>
       </motion.div>
       {user && user.id &&
