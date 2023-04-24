@@ -63,7 +63,6 @@ const Profile = () => {
 
   const onSubmit = async (data) => {
     const photoCloud = photoFile ? await fileUpload(photoFile) : user.photoURL;
-    // console.log({ ...data, photoURL: photoCloud });
     if (data.name === "") {
       errorSwal();
     } else if (data.email === "") {
@@ -75,6 +74,7 @@ const Profile = () => {
     } else if (data.phone === "") {
       errorSwal();
     } else {
+      //console.log({ ...data, photoURL: photoCloud });
       dispatch(updateUserInformationAsync({ ...data, photoURL: photoCloud }));
     }
   };

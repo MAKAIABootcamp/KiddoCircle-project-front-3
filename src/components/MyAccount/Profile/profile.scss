@@ -21,16 +21,17 @@
     }
   }
   .details {
-    margin-top: 60px;
-    // background-color: green;
+    margin-top: 10%;
+    //background-color: green;
+    height: 100%;
     display: flex;
     flex-direction: column;
 
     .input-container {
       display: flex;
-      //background-color: pink;
+      //  background-color: pink;
       justify-content: center;
-      margin-bottom: 2%;
+      margin-bottom: 2% !important;
     }
 
     .input {

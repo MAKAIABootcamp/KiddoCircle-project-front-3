@@ -17,6 +17,8 @@ import {
   where,
   getDocs,
   doc,
+  Firestore,
+  updateDoc,
 } from "firebase/firestore";
 import { filterCollection } from "../../services/filterCollection";
 import Swal from "sweetalert2";
@@ -213,40 +215,40 @@ export const doLogoutAsync = () => {
 //uodate data user
 
 export const updateDataUserActionAsync = (user) => {
-    return async (dispatch) => {
-      try {
-        const id= user.id;
-        delete user.id
-        delete user.isLogged;
-        delete user.error;
-        delete user.register;
-        const userData= await updateItemActionAsync("users",user,id);
+  return async (dispatch) => {
+    try {
+      const id = user.id;
+      delete user.id;
+      delete user.isLogged;
+      delete user.error;
+      delete user.register;
+      const userData = await updateItemActionAsync("users", user, id);
 
-        dispatch(
-            updateProfileSync({
-                ...userData,
-                error: false
-            })
-        );
-        return userData
-      } catch (error) {
-        dispatch(
-            updateProfileSync({
-                name: "",
-                email: "",
-                error: true,
-                isLogged: false,
-            })
-        );
-      }
-    };
+      dispatch(
+        updateProfileSync({
+          ...userData,
+          error: false,
+        })
+      );
+      return userData;
+    } catch (error) {
+      dispatch(
+        updateProfileSync({
+          name: "",
+          email: "",
+          error: true,
+          isLogged: false,
+        })
+      );
+    }
+  };
 };
 
 const updateProfileSync = (user) => {
-    return {
-        type: userTypes.UPDATE_USER,
-        payload: user,
-    };
+  return {
+    type: userTypes.UPDATE_USER,
+    payload: user,
+  };
 };
 
 //Función para editar usuario
@@ -263,12 +265,23 @@ export const updateUserInformationAsync = (user) => {
 
     try {
       const userAuth = auth.currentUser;
-      await updateProfile(userAuth, {
-        displayName: user.name,
-        photoURL: user.photoURL,
-        phoneNumber: user.phone,
+      console.log(userAuth);
+      let id;
+      const q = query(userCollectionFirebase, where("uid", "==", userAuth.uid));
+      const userDoc = await getDocs(q);
+      userDoc.forEach((user) => {
+        id = user.id;
       });
-      await updateEmail(userAuth, user.email);
+      console.log(id);
+      console.log(userDoc);
+      const userRef = doc(dataBase, "users", id);
+
+      // await updateProfile(userAuth, {
+      //   displayName: user.name,
+      //   photoURL: user.photoURL,
+      //   phoneNumber: user.phone,
+      // });
+      const emailProfile = await updateEmail(userAuth, user.email);
 
       const newUser = {
         uid: userAuth.uid,
@@ -280,8 +293,9 @@ export const updateUserInformationAsync = (user) => {
         phone: user.phone,
       };
 
-      const userDocs = await addDoc(userCollectionFirebase, newUser);
-      dispatch(updateUserInformation({ ...newUser, id: userDocs.id }));
+      console.log(newUser);
+      await updateDoc(userRef, newUser);
+      dispatch(updateUserInformation(newUser));
       dispatch(toggleLoading());
       Swal.fire({
         position: "center",
