@@ -24,14 +24,13 @@ const EachProduct = ({ product, type }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-      if (productsAll.length === 0) {
-        dispatch(getProductsActionAsync());
+        if (productsAll.length === 0) {
+            dispatch(getProductsActionAsync());
         } else {
             const productFilter = productsAll?.find(
                 (product) => product.id === idProducto
             );
-          setProductFind(productFilter);
-          editVistas();
+            setProductFind(productFilter);
         }
     }, []);
 
@@ -40,8 +39,11 @@ const EachProduct = ({ product, type }) => {
               (product) => product.id === idProducto
           );
         setProductFind(productFilter);
-        editVistas();
     }, [productsAll]);
+
+    useEffect(() => {
+        editVistas();
+    }, [productFind]);
 
     const goBack = () => {
         window.history.back();
@@ -77,6 +79,8 @@ const EachProduct = ({ product, type }) => {
         dispatch(currentShopAction(newShopping));
     };
 
+
+    //Función para agregar un view al producto
     const editVistas = async () => {
         console.log(productFind);
         try {
@@ -176,7 +180,7 @@ const EachProduct = ({ product, type }) => {
                                 <button
                                     className="sell-button"
                                     onClick={() => {
-                                        addProductCar(product.id);
+                                        addProductCar(productFind.id);
                                     }}
                                 >
                                     Comprar
