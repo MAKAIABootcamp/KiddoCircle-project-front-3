@@ -210,8 +210,46 @@ export const doLogoutAsync = () => {
   };
 };
 
-//Función para editar usuario
+//uodate data user
 
+export const updateDataUserActionAsync = (user) => {
+    return async (dispatch) => {
+      try {
+        const id= user.id;
+        delete user.id
+        delete user.isLogged;
+        delete user.error;
+        delete user.register;
+        const userData= await updateItemActionAsync("users",user,id);
+
+        dispatch(
+            updateProfileSync({
+                ...userData,
+                error: false
+            })
+        );
+        return userData
+      } catch (error) {
+        dispatch(
+            updateProfileSync({
+                name: "",
+                email: "",
+                error: true,
+                isLogged: false,
+            })
+        );
+      }
+    };
+};
+
+const updateProfileSync = (user) => {
+    return {
+        type: userTypes.UPDATE_USER,
+        payload: user,
+    };
+};
+
+//Función para editar usuario
 const updateUserInformation = (user) => {
   return {
     type: userTypes.UPDATE_USER,
