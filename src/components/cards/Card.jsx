@@ -95,10 +95,10 @@ const Card = ({ product }) => {
                 </header>
                 <footer className="card__footer">
                     <p className="card__footer-name">{product?.nombre}</p>
-                    <p className="card__footer-state">{product?.estado}</p>
-                    {product?.price ? (
+                    <p className="card__footer-state">{`Estado: ${product?.estado}`}</p>
+                    {product?.precio ? (
                         <p className="card__footer-price">
-                            ${formatPrice(product?.precio)}
+                            ${formatPrice(product.precio)}
                         </p>
                     ) : (
                         <></>
