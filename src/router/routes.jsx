@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "../components/Home/Home";
 import Profile from "../components/MyAccount/Profile/Profile";
@@ -14,8 +14,30 @@ import MenuAccount from "../components/MyAccount/MenuAccount/MenuAccount";
 import CartShopping from "../components/CartShopping/CartShopping";
 import Posts from "../components/MyAccount/Posts/Posts";
 import EachProduct from "../components/each-product/EachProduct";
+import { useDispatch } from "react-redux";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase/firebaseConfig";
+import { getUserCollection } from "../services/filterCollection";
+import { userRegister } from "../redux/actions/userActions";
 
 const RouterDom = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        getUserCollection(user.uid)
+          .then((response) => {
+            dispatch(userRegister(response));
+          })
+          .catch((error) => {
+            dispatch(userRegister({}));
+          });
+      } else {
+        console.log("usuario no logueado");
+      }
+    });
+  }, []);
   return (
     <BrowserRouter>
       <Routes>
