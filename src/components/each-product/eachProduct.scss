@@ -5,14 +5,14 @@
   display: flex;
   margin: 20px 100px 20px 100px;
   padding: 10px;
-  justify-content: center;
-  height: 80vh;
+  justify-content: space-between;
+  // height: 80vh;
   border: 1px solid $dark-gray;
   border-radius: 1rem;
 
   &__aside {
     display: grid;
-    width: 30%;
+    width: 50%;
     // background-color: blue;
     padding: 20px;
     // align-items: center;
@@ -36,17 +36,27 @@
     padding: 15px 30px 15px 30px;
     display: flex;
     flex-direction: column;
-    width: 40%;
+    width: 50%;
+
+    h2{
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    &-p{
+      font-size: 15px;
+      margin-top: 10px;
+    }
 
     &-price {
+      align-self: flex-start;
       margin: 0;
-      font-weight: bold;
-      font-size: 1.1rem;
+      font-weight: 700;
+      font-size: 16px;
       background-color: rgba(121, 255, 244, 0.4);
       border-radius: 10px;
-      padding: 10px;
-      width: 20%;
-      margin-bottom: 2%;
+      padding: 5px 10px;
+      margin: 20px 0px !important;
     }
   }
 }
@@ -57,6 +67,7 @@
   // background-color: red;
   padding: 10px 0 10px 0;
   justify-content: space-between;
+  height: 60px;
 }
 //button para comprar
 .sell-button {
@@ -78,13 +89,10 @@
 
 //button para agregar a favoritos
 .button-favorite {
-  width: 60px;
-  height: 60px;
   background-color: rgba(255, 188, 188, 0.4);
   border: none;
   border-radius: 5px;
   width: 50px;
-  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -101,7 +109,7 @@
 .arrow-home-figure {
   width: 30px;
   height: 30px;
-  margin: 20px;
+  margin: 30px;
   cursor: pointer;
 }
 .arrow-home {

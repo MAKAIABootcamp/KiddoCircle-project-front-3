@@ -29,7 +29,7 @@ const Card = ({ product }) => {
     };
 
     const handleRoute = (product) => {
-        navigate(`${product.nombre}`);
+        navigate(`/producto/${product.id}`);
     };
 
     const addProductCar = (product) => {

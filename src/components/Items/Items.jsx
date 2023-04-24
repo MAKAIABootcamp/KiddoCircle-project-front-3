@@ -8,10 +8,12 @@ import "animate.css";
 import { motion } from "framer-motion";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LottieNoResult from "../Toys/lottieAnimation/LottieNoResults";
+import { getProductsActionAsync } from "../../redux/actions/ProductsActions";
 
 const Items = () => {
+    const dispatch = useDispatch();
     const [showSubCategory, setShowSubCategory] = useState(false);
     const [showGender, setShowGender] = useState(false);
     const [showSize, setShowSize] = useState(false);
@@ -154,7 +156,9 @@ const Items = () => {
 
     //Función para dar el formato de precio
     const formatPrice = (value) => {
-        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        if (value) {
+            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
     };
 
     const handleOrderOption = (item) => {
@@ -232,10 +236,10 @@ const Items = () => {
         console.log(productsWithPrice);
         const lowestPrice = productsWithPrice.reduce((lowest, product) => {
             return product.precio < lowest ? product.precio : lowest;
-        }, productsWithPrice[0].precio);
+        }, productsWithPrice[0]?.precio);
         const highestPrice = productsWithPrice.reduce((highest, product) => {
             return product.precio > highest ? product.precio : highest;
-        }, productsWithPrice[0].precio);
+        }, productsWithPrice[0]?.precio);
         setMin(lowestPrice);
         setMax(highestPrice);
         setRange([lowestPrice, highestPrice]);
@@ -323,13 +327,26 @@ const Items = () => {
     }
 
     useEffect(() => {
+        if (products.length === 0) {
+            dispatch(getProductsActionAsync());
+        } else {
+            const toyProducts = products.filter(
+                (product) => product.categoria === "articulos"
+            );
+            createPriceRange(toyProducts);
+            const arrayOrdenado = ordenarArray(toyProducts, optionSelected);
+            setProductsFiltered(arrayOrdenado);
+        }
+    }, []);
+
+    useEffect(() => {
         const toyProducts = products.filter(
             (product) => product.categoria === "articulos"
         );
         createPriceRange(toyProducts);
         const arrayOrdenado = ordenarArray(toyProducts, optionSelected);
         setProductsFiltered(arrayOrdenado);
-    }, []);
+    }, [products]);
 
   useEffect(() => {
       const toyProducts = products.filter(

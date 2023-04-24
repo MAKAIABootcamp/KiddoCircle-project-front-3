@@ -44,31 +44,43 @@ const RouterDom = () => {
   // }, []);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<NavBar />}>
-          <Route path="/" element={<Home />} />
-          <Route path=":productoId" element={<EachProduct />} />
-          <Route path="ropa" element={<Clothes />} />
-          <Route path="juguetes" element={<Toys />} />
-          <Route path="articulos" element={<Items />} />
-          <Route path="car-shopping" element={<CartShopping />} />
-          <Route element={<PrivateRoute isLogged={isLogged} />}>
-            <Route path="cuenta/*" element={<MenuAccount />}>
-              <Route path="*" element={<Navigate to="perfil" replace />} />
-              <Route path="perfil" element={<Profile />} />
-              <Route path="favoritos" element="" />
-              <Route path="mis-publicaciones" element={<Posts2 />} />
-              <Route path="mis-compras-donaciones" element={<Buy />} />
-              <Route path="mi-billetera" element={<Wallet />} />
-              <Route path="chat" element="" />
-            </Route>
-          </Route>
-        </Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="/registro" element={<Register />} />
-      </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+          <Routes>
+              <Route path="/" element={<NavBar />}>
+                  <Route path="/" element={<Home />} />
+                  <Route
+                      path="producto/:idProducto"
+                      element={<EachProduct />}
+                  />
+                  <Route path="ropa" element={<Clothes />} />
+                  <Route path="juguetes" element={<Toys />} />
+                  <Route path="articulos" element={<Items />} />
+                  <Route path="car-shopping" element={<CartShopping />} />
+                  <Route element={<PrivateRoute isLogged={isLogged} />}>
+                      <Route path="cuenta/*" element={<MenuAccount />}>
+                          <Route
+                              path="*"
+                              element={<Navigate to="perfil" replace />}
+                          />
+                          <Route path="perfil" element={<Profile />} />
+                          <Route path="favoritos" element="" />
+                          <Route
+                              path="mis-publicaciones"
+                              element={<Posts2 />}
+                          />
+                          <Route
+                              path="mis-compras-donaciones"
+                              element={<Buy />}
+                          />
+                          <Route path="mi-billetera" element={<Wallet />} />
+                          <Route path="chat" element="" />
+                      </Route>
+                  </Route>
+              </Route>
+              <Route path="/login" element={<Login />} />
+              <Route path="/registro" element={<Register />} />
+          </Routes>
+      </BrowserRouter>
   );
 };
 
