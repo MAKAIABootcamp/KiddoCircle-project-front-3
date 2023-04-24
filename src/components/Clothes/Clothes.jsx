@@ -1314,7 +1314,17 @@ const Clothes = () => {
                             )}
                         </div>
                     </div>
-                    <section className="clothes__asideYMain__main__cards">
+                    <section
+                        className="clothes__asideYMain__main__cards"
+                        style={{
+                            display: "flex",
+                            justifyContent: `${
+                                productsFiltered.length
+                                    ? "space-between"
+                                    : "center"
+                            }`,
+                        }}
+                    >
                         {productsFiltered.length === 0 ? (
                             <div>
                                 <LottieNoResult play={true} />
@@ -1325,7 +1335,7 @@ const Clothes = () => {
                                         fontWeight: "700",
                                     }}
                                 >
-                                    No hay resultados para tu busqueda
+                                    No hay resultados para tu búsqueda
                                 </span>
                             </div>
                         ) : (

@@ -1297,7 +1297,7 @@ const Toys = () => {
                                         fontWeight: "700",
                                     }}
                                 >
-                                    No hay resultados para tu busqueda
+                                    No hay resultados para tu búsqueda
                                 </span>
                             </div>
                         ) : (
