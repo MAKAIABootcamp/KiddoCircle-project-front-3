@@ -10,12 +10,15 @@ export const FavoritesSection = () => {
   const [productsFiltered, setProductsFiltered] = useState([]);
 
   useEffect(() => {
+    print();
+  }, [products]);
+
+  const print = () => {
       const filterProducts = products.filter(
           (product) => product.categoria === "articulos"
       );
-      console.log(filterProducts);
       setProductsFiltered(filterProducts);
-  }, [products]);
+  };
 
   const responsive = {
     superLargeDesktop: {
@@ -35,7 +38,7 @@ export const FavoritesSection = () => {
       items: 2,
     },
   };
-  
+
   return (
       <section className="popular-section">
           <p className="title-text">Artículos favoritos</p>
@@ -44,7 +47,11 @@ export const FavoritesSection = () => {
               style={{ justifyContent: "center" }}
           >
               {productsFiltered.map((product, index) => (
-                  <Card product={product} key={index} />
+                  <Card
+                      product={product}
+                      key={index}
+                      onFavoriteChange={print}
+                  />
               ))}
           </Carousel>
       </section>

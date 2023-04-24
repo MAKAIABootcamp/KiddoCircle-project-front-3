@@ -11,8 +11,10 @@ import PopularSection from "../Home/populars-section/PopularsSection";
 import { useDispatch, useSelector } from "react-redux";
 import { currentShopAction } from "../../redux/actions/shoppingActions";
 import { getProductsActionAsync } from "../../redux/actions/ProductsActions";
-import { doc, updateDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { dataBase } from "../../firebase/firebaseConfig";
+import { addDocument, filterCollectionMiltiple } from "../../services/filterCollection";
+import Swal from "sweetalert2";
 
 const EachProduct = ({ product, type }) => {
     const [heartFavorites, setHeartFavorites] = useState(false);
@@ -22,6 +24,16 @@ const EachProduct = ({ product, type }) => {
     const { idProducto } = useParams();
     const [productFind, setProductFind] = useState({});
     const dispatch = useDispatch();
+    const [disabledButton, setDisabledButton] = useState(false);
+
+    useEffect(() => {
+        if (currentShopping.products) {
+            const isDisabled = currentShopping.products.filter(
+                (item) => item.productId === productFind.id
+            ).length;
+            setDisabledButton(isDisabled > 0);
+        }
+    }, [currentShopping]);
 
     useEffect(() => {
         if (productsAll.length === 0) {
@@ -43,15 +55,97 @@ const EachProduct = ({ product, type }) => {
 
     useEffect(() => {
         editVistas();
+        printHeart();
     }, [productFind]);
+
+    const printHeart = async () => {
+        if (user.isLogged) {
+            try {
+                const userFavorite = await filterCollectionMiltiple({
+                    key1: "productId",
+                    value1: productFind.id,
+                    key2: "userId",
+                    value2: user.uid,
+                    collectionName: "favorites",
+                });
+                console.log(userFavorite);
+                if (userFavorite.length === 0) {
+                    setHeartFavorites(false);
+                } else {
+                    setHeartFavorites(true);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    };
+
+    const changeHeart = async () => {
+        if (user.isLogged) {
+            try {
+                const userFavorite = await filterCollectionMiltiple({
+                    key1: "productId",
+                    value1: productFind.id,
+                    key2: "userId",
+                    value2: user.uid,
+                    collectionName: "favorites",
+                });
+                if (userFavorite.length === 0) {
+                    const newProduct = {
+                        productId: productFind.id,
+                        userId: user.uid,
+                    };
+                    addDocument("favorites", newProduct)
+                        .then(() => {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Prducto agregado a favoritos",
+                            });
+                        })
+                        .catch((error) => {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Uups...",
+                                text: "Hubo un error al realizar la solictud",
+                            });
+                        });
+                    setHeartFavorites(true);
+                } else {
+                    const collections = collection(dataBase, "favorites");
+                    const querySnapshot = await getDocs(
+                        query(
+                            collections,
+                            where("productId", "==", productFind.id),
+                            where("userId", "==", user.uid)
+                        )
+                    );
+                    if (!querySnapshot.empty) {
+                        const docRef = querySnapshot.docs[0].ref;
+                        deleteDoc(docRef)
+                            .then(() => {
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Prducto eliminado de favoritos",
+                                });
+                            })
+                            .catch((error) => {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Uups...",
+                                    text: "Hubo un error al realizar la solictud",
+                                });
+                            });
+                    }
+                    setHeartFavorites(false);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    };
 
     const goBack = () => {
         window.history.back();
-    };
-
-    const changeHeart = () => {
-        setHeartFavorites(!heartFavorites);
-        console.log(product);
     };
 
     //Función para dar el formato de precio
@@ -78,7 +172,6 @@ const EachProduct = ({ product, type }) => {
         ];
         dispatch(currentShopAction(newShopping));
     };
-
 
     //Función para agregar un view al producto
     const editVistas = async () => {
@@ -182,6 +275,7 @@ const EachProduct = ({ product, type }) => {
                                     onClick={() => {
                                         addProductCar(productFind.id);
                                     }}
+                                    disabled={disabledButton}
                                 >
                                     Comprar
                                 </button>

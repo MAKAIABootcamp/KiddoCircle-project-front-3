@@ -22,6 +22,7 @@ import { auth } from "../firebase/firebaseConfig";
 import { getUserCollection } from "../services/filterCollection";
 import { userRegister } from "../redux/actions/userActions";
 import PrivateRoute from "./PrivateRoute";
+import Favorites from "../components/MyAccount/Favorites/Favorites";
 
 const RouterDom = () => {
   const dispatch = useDispatch();
@@ -63,7 +64,7 @@ const RouterDom = () => {
                               element={<Navigate to="perfil" replace />}
                           />
                           <Route path="perfil" element={<Profile />} />
-                          <Route path="favoritos" element="" />
+                          <Route path="favoritos" element={<Favorites />} />
                           <Route
                               path="mis-publicaciones"
                               element={<Posts2 />}

@@ -11,7 +11,7 @@ import { addDocument, filterCollectionMiltiple } from "../../services/filterColl
 import { collection, deleteDoc, getDocs, query, where } from "firebase/firestore";
 import { dataBase } from "../../firebase/firebaseConfig";
 
-const Card = ({ product }) => {
+const Card = ({ product, onFavoriteChange }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [heartFavorites, setHeartFavorites] = useState(false);
@@ -42,7 +42,7 @@ const Card = ({ product }) => {
                     value2: user.uid,
                     collectionName: "favorites",
                 });
-                console.log(userFavorite)
+                console.log(userFavorite);
                 if (userFavorite.length === 0) {
                     setHeartFavorites(false);
                 } else {
@@ -52,7 +52,7 @@ const Card = ({ product }) => {
                 console.log(error);
             }
         }
-    }
+    };
 
     const changeHeart = async () => {
         if (user.isLogged) {
@@ -67,7 +67,7 @@ const Card = ({ product }) => {
                 if (userFavorite.length === 0) {
                     const newProduct = {
                         productId: product.id,
-                        userId: user.uid
+                        userId: user.uid,
                     };
                     addDocument("favorites", newProduct)
                         .then(() => {
@@ -75,6 +75,9 @@ const Card = ({ product }) => {
                                 icon: "success",
                                 title: "Prducto agregado a favoritos",
                             });
+                            if (onFavoriteChange) {
+                                onFavoriteChange();
+                            }
                         })
                         .catch((error) => {
                             Swal.fire({
@@ -101,6 +104,9 @@ const Card = ({ product }) => {
                                     icon: "success",
                                     title: "Prducto eliminado de favoritos",
                                 });
+                                if (onFavoriteChange) {
+                                    onFavoriteChange();
+                                }
                             })
                             .catch((error) => {
                                 Swal.fire({
