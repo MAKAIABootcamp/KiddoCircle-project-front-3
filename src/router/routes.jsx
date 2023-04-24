@@ -27,21 +27,22 @@ const RouterDom = () => {
   const dispatch = useDispatch();
   const { isLogged } = useSelector((store) => store.user);
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        getUserCollection(user.uid)
-          .then((response) => {
-            dispatch(userRegister(response));
-          })
-          .catch((error) => {
-            dispatch(userRegister({}));
-          });
-      } else {
-        console.log("usuario no logueado");
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       getUserCollection(user.uid)
+  //         .then((response) => {
+  //           dispatch(userRegister(response));
+  //         })
+  //         .catch((error) => {
+  //           dispatch(userRegister({}));
+  //         });
+  //     } else {
+  //       console.log("usuario no logueado");
+  //     }
+  //   });
+  // }, []);
+
   return (
     <BrowserRouter>
       <Routes>
