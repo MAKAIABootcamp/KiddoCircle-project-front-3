@@ -4,6 +4,7 @@ import { walletReducer } from "../reducers/walletReduer";
 import { shoppingReducer } from "../reducers/shoppingReducer";
 import { productsReducer } from "../reducers/ProductsReducer";
 import { usersReducer } from "../reducers/usersReducer";
+import { loadingReducer } from "../reducers/LoadingReducer";
 
 const reducer = {
   user: userReducer,
