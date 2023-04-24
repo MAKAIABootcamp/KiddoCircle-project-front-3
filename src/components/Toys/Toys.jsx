@@ -49,7 +49,7 @@ const Toys = () => {
     ]);
 
     const subCategory = [
-        "Figuras de accion y robots",
+        "Figuras de acción y robots",
         "Muñecas",
         "Juegos de mesa",
         "Vehículos",
@@ -1297,7 +1297,7 @@ const Toys = () => {
                                         fontWeight: "700",
                                     }}
                                 >
-                                    No hay resultados para tu busqueda
+                                    No hay resultados para tu búsqueda
                                 </span>
                             </div>
                         ) : (
