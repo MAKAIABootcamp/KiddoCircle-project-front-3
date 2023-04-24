@@ -5,7 +5,7 @@ import donationIcon from "../../assets/icons/forDonation.png";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {currentShopAction} from '../../redux/actions/shoppingActions'
+import { currentShopAction } from "../../redux/actions/shoppingActions";
 
 const Card = ({ product, type }) => {
   const navigate = useNavigate();
@@ -15,12 +15,14 @@ const Card = ({ product, type }) => {
   const { currentShopping } = useSelector((store) => store.shopping);
   const user = useSelector((store) => store.user);
 
-  useEffect(()=>{
-    if(currentShopping.products){
-      const isDisabled= currentShopping.products.filter(item=> item.productId === product.id).length;
-      setDisabledButton(isDisabled>0)
+  useEffect(() => {
+    if (currentShopping.products) {
+      const isDisabled = currentShopping.products.filter(
+        (item) => item.productId === product.id
+      ).length;
+      setDisabledButton(isDisabled > 0);
     }
-  },[currentShopping])
+  }, [currentShopping]);
 
   const changeHeart = () => {
     setHeartFavorites(!heartFavorites);
@@ -30,32 +32,29 @@ const Card = ({ product, type }) => {
     navigate(`${product.name}`);
   };
 
-  const addProductCar=(product)=>{
-    const newShopping={...currentShopping}
-    if(Object.keys(newShopping).length===0){
-      newShopping.date= new Date().toISOString();
-      newShopping.userId= user.id;
-      newShopping.products= []
+  const addProductCar = (product) => {
+    const newShopping = { ...currentShopping };
+    if (Object.keys(newShopping).length === 0) {
+      newShopping.date = new Date().toISOString();
+      newShopping.userId = user.id;
+      newShopping.products = [];
     }
-    const addProduct ={
+    const addProduct = {
       productId: product,
       status: "Pendiente",
-    }
-    newShopping.products=[
+    };
+    newShopping.products = [
       ...(newShopping.products || []),
       {
-          ...addProduct
-      }
-    ]
-    dispatch(currentShopAction(newShopping))
-  }
+        ...addProduct,
+      },
+    ];
+    dispatch(currentShopAction(newShopping));
+  };
 
   return (
     <div className="card">
-      <motion.div
-        whileHover={{ y: -12 }}
-        onClick={() => handleRoute(product)}
-      >
+      <motion.div whileHover={{ y: -12 }} onClick={() => handleRoute(product)}>
         {type === true ? (
           <img className="card__donation" src={donationIcon} alt="donation" />
         ) : (
@@ -79,6 +78,7 @@ const Card = ({ product, type }) => {
               className="card__figure-img"
               src={product?.photo[0]}
               alt="product-image"
+              onClick={() => handleRoute(product)}
             />
           </figure>
         </header>
@@ -88,17 +88,17 @@ const Card = ({ product, type }) => {
           <p className="card__footer-price">{product?.price}</p>
         </footer>
       </motion.div>
-      {user && user.id &&
+      {user && user.id && (
         <button
           className="card__footer-button"
           onClick={() => {
-            addProductCar(product.id)
+            addProductCar(product.id);
           }}
           disabled={disabledButton}
         >
           Comprar
         </button>
-      }
+      )}
     </div>
   );
 };

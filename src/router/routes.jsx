@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "../components/Home/Home";
 import Profile from "../components/MyAccount/Profile/Profile";
@@ -16,40 +17,57 @@ import CartShopping from "../components/CartShopping/CartShopping";
 import Posts from "../components/MyAccount/Posts/Posts";
 import Posts2 from "../components/MyAccount/Posts/Posts2";
 import EachProduct from "../components/each-product/EachProduct";
-import PrivateRoute from "./PrivateRoute";
+import { useDispatch } from "react-redux";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase/firebaseConfig";
+import { getUserCollection } from "../services/filterCollection";
+import { userRegister } from "../redux/actions/userActions";
 
 const RouterDom = () => {
+  const dispatch = useDispatch();
   const { isLogged } = useSelector((store) => store.user);
 
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        getUserCollection(user.uid)
+          .then((response) => {
+            dispatch(userRegister(response));
+          })
+          .catch((error) => {
+            dispatch(userRegister({}));
+          });
+      } else {
+        console.log("usuario no logueado");
+      }
+    });
+  }, []);
   return (
-      <BrowserRouter>
-          <Routes>
-              <Route path="/" element={<NavBar />}>
-                  <Route path="/" element={<Home />} />
-                  <Route path=":productoId" element={<EachProduct />} />
-                  <Route path="ropa" element={<Clothes />} />
-                  <Route path="juguetes" element={<Toys />} />
-                  <Route path="articulos" element={<Items />} />
-                  <Route path="car-shopping" element={<CartShopping />} />
-                  <Route element={<PrivateRoute isLogged={isLogged} />}>
-                    <Route path="cuenta/*" element={<MenuAccount />}>
-                        <Route
-                            path="*"
-                            element={<Navigate to="perfil" replace />}
-                        />
-                        <Route path="perfil" element={<Profile />} />
-                        <Route path="favoritos" element="" />
-                        <Route path="mis-publicaciones" element={<Posts2 />} />
-                        <Route path="mis-compras-donaciones" element={<Buy />} />
-                        <Route path="mi-billetera" element={<Wallet />} />
-                        <Route path="chat" element="" />
-                    </Route>
-                  </Route>
-              </Route>
-              <Route path="/login" element={<Login />} />
-              <Route path="/registro" element={<Register />} />
-          </Routes>
-      </BrowserRouter>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<NavBar />}>
+          <Route path="/" element={<Home />} />
+          <Route path=":productoId" element={<EachProduct />} />
+          <Route path="ropa" element={<Clothes />} />
+          <Route path="juguetes" element={<Toys />} />
+          <Route path="articulos" element={<Items />} />
+          <Route path="car-shopping" element={<CartShopping />} />
+          <Route element={<PrivateRoute isLogged={isLogged} />}>
+            <Route path="cuenta/*" element={<MenuAccount />}>
+              <Route path="*" element={<Navigate to="perfil" replace />} />
+              <Route path="perfil" element={<Profile />} />
+              <Route path="favoritos" element="" />
+              <Route path="mis-publicaciones" element={<Posts2 />} />
+              <Route path="mis-compras-donaciones" element={<Buy />} />
+              <Route path="mi-billetera" element={<Wallet />} />
+              <Route path="chat" element="" />
+            </Route>
+          </Route>
+        </Route>
+        <Route path="/login" element={<Login />} />
+        <Route path="/registro" element={<Register />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
