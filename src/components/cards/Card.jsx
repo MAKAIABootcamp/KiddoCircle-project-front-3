@@ -6,6 +6,10 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { currentShopAction } from "../../redux/actions/shoppingActions";
+import Swal from "sweetalert2";
+import { addDocument, filterCollectionMiltiple } from "../../services/filterCollection";
+import { collection, deleteDoc, getDocs, query, where } from "firebase/firestore";
+import { dataBase } from "../../firebase/firebaseConfig";
 
 const Card = ({ product }) => {
     const navigate = useNavigate();
@@ -24,8 +28,94 @@ const Card = ({ product }) => {
         }
     }, [currentShopping]);
 
-    const changeHeart = () => {
-        setHeartFavorites(!heartFavorites);
+    useEffect(() => {
+        printHeart();
+    }, []);
+
+    const printHeart = async () => {
+        if (user.isLogged) {
+            try {
+                const userFavorite = await filterCollectionMiltiple({
+                    key1: "productId",
+                    value1: product.id,
+                    key2: "userId",
+                    value2: user.uid,
+                    collectionName: "favorites",
+                });
+                console.log(userFavorite)
+                if (userFavorite.length === 0) {
+                    setHeartFavorites(false);
+                } else {
+                    setHeartFavorites(true);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
+
+    const changeHeart = async () => {
+        if (user.isLogged) {
+            try {
+                const userFavorite = await filterCollectionMiltiple({
+                    key1: "productId",
+                    value1: product.id,
+                    key2: "userId",
+                    value2: user.uid,
+                    collectionName: "favorites",
+                });
+                if (userFavorite.length === 0) {
+                    const newProduct = {
+                        productId: product.id,
+                        userId: user.uid
+                    };
+                    addDocument("favorites", newProduct)
+                        .then(() => {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Prducto agregado a favoritos",
+                            });
+                        })
+                        .catch((error) => {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Uups...",
+                                text: "Hubo un error al realizar la solictud",
+                            });
+                        });
+                    setHeartFavorites(true);
+                } else {
+                    const collections = collection(dataBase, "favorites");
+                    const querySnapshot = await getDocs(
+                        query(
+                            collections,
+                            where("productId", "==", product.id),
+                            where("userId", "==", user.uid)
+                        )
+                    );
+                    if (!querySnapshot.empty) {
+                        const docRef = querySnapshot.docs[0].ref;
+                        deleteDoc(docRef)
+                            .then(() => {
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Prducto eliminado de favoritos",
+                                });
+                            })
+                            .catch((error) => {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Uups...",
+                                    text: "Hubo un error al realizar la solictud",
+                                });
+                            });
+                    }
+                    setHeartFavorites(false);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
     };
 
     const handleRoute = (product) => {
@@ -79,7 +169,11 @@ const Card = ({ product }) => {
                         whileTap={{ scale: 0.9 }}
                     >
                         <img
-                            onClick={changeHeart}
+                            // onClick={changeHeart}
+                            onClick={(event) => {
+                                event.stopPropagation();
+                                changeHeart();
+                            }}
                             className="card__header-heart"
                             src={heartFavorites ? iconHeartFull : iconHeart}
                             alt="heart-icon"
