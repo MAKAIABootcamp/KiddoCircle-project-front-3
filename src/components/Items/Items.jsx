@@ -1311,23 +1311,7 @@ const Items = () => {
                             </div>
                         ) : (
                             productsFiltered.map((product, index) => (
-                                <div
-                                    key={index}
-                                    style={{
-                                        border: "1px solid black",
-                                    }}
-                                >
-                                    <p>{product.nombre}</p>
-                                    <p>{product.categoria}</p>
-                                    <p>{product.subcategoria}</p>
-                                    <p>{product.genero}</p>
-                                    <p>{product?.talla}</p>
-                                    <p>{product?.edad}</p>
-                                    <p>{product?.estado}</p>
-                                    <p>{product.donacion}</p>
-                                    <p>{product?.precio}</p>
-                                    <p>{product?.fecha}</p>
-                                </div>
+                                <Card product={product} key={index} />
                             ))
                         )}
                     </section>
