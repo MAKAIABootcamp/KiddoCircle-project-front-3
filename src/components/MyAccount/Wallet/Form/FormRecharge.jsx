@@ -162,7 +162,7 @@ export const Recharge = ({closeModal, register, setValue, handleSubmit, watch, e
     }
 
     const changeTarget=(e)=> {
-        if(e.target.value !== 'Nueva targeta'){
+        if(e.target.value !== 'Nueva tarjeta'){
             const targetInfo= user.cards.find(card=> card.numberCard === e.target.value);
             setValue("numberCard",targetInfo.numberCard);
             setValue("typeAccount",targetInfo.typeAccount);
@@ -214,7 +214,7 @@ export const Recharge = ({closeModal, register, setValue, handleSubmit, watch, e
                     onChange={changeTarget}
                 >
                     <option>
-                        Nueva targeta
+                        Nueva tarjeta
                     </option>
                     {
                         <>
