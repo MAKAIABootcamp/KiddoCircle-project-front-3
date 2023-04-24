@@ -1,6 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "../components/Home/Home";
 import Profile from "../components/MyAccount/Profile/Profile";
@@ -22,6 +21,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 import { getUserCollection } from "../services/filterCollection";
 import { userRegister } from "../redux/actions/userActions";
+import PrivateRoute from "./PrivateRoute";
 
 const RouterDom = () => {
   const dispatch = useDispatch();
