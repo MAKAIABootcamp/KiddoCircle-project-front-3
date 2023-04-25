@@ -11,9 +11,20 @@ import PopularSection from "../Home/populars-section/PopularsSection";
 import { useDispatch, useSelector } from "react-redux";
 import { currentShopAction } from "../../redux/actions/shoppingActions";
 import { getProductsActionAsync } from "../../redux/actions/ProductsActions";
-import { collection, deleteDoc, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
+import {
+    collection,
+    deleteDoc,
+    doc,
+    getDocs,
+    query,
+    updateDoc,
+    where,
+} from "firebase/firestore";
 import { dataBase } from "../../firebase/firebaseConfig";
-import { addDocument, filterCollectionMiltiple } from "../../services/filterCollection";
+import {
+    addDocument,
+    filterCollectionMiltiple,
+} from "../../services/filterCollection";
 import Swal from "sweetalert2";
 
 const EachProduct = ({ product, type }) => {
@@ -47,9 +58,20 @@ const EachProduct = ({ product, type }) => {
     }, []);
 
     useEffect(() => {
-          const productFilter = productsAll?.find(
-              (product) => product.id === idProducto
-          );
+        if (productsAll.length === 0) {
+            dispatch(getProductsActionAsync());
+        } else {
+            const productFilter = productsAll?.find(
+                (product) => product.id === idProducto
+            );
+            setProductFind(productFilter);
+        }
+    }, [idProducto]);
+
+    useEffect(() => {
+        const productFilter = productsAll?.find(
+            (product) => product.id === idProducto
+        );
         setProductFind(productFilter);
     }, [productsAll]);
 
@@ -170,12 +192,12 @@ const EachProduct = ({ product, type }) => {
                 ...addProduct,
             },
         ];
-        dispatch(currentShopAction(newShopping))
+        dispatch(currentShopAction(newShopping));
         Swal.fire({
             icon: "success",
             title: "Producto agregado al carrito!",
             confirmButtonText: "Ok",
-        })
+        });
     };
 
     //Función para agregar un view al producto
@@ -186,12 +208,12 @@ const EachProduct = ({ product, type }) => {
             const productoRef = doc(dataBase, "products", productFind.id);
             // Actualizar las vistas del producto en Firestore
             const addView = parseInt(productFind.vistas) + 1;
-            console.log(addView)
+            console.log(addView);
             await updateDoc(productoRef, { vistas: addView });
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     return (
         <>
@@ -274,7 +296,7 @@ const EachProduct = ({ product, type }) => {
                             <></>
                         )}
                         <div className="buttons-container">
-                            {user && user.id && (
+                            {user && user.id && productFind.dispponibilidad && (
                                 <button
                                     className="sell-button"
                                     onClick={() => {
