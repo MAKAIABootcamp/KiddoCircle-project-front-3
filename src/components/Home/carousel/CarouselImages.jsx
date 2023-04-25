@@ -7,11 +7,11 @@ import {
   CarouselCaption,
 } from "reactstrap";
 
-import carouselImage from "../../../assets/carouselImage.jpg";
+import carouselImage from "../../../assets/cosas-bebes.png";
 import carouselImage2 from "../../../assets/carouselImage2.jpg";
 import carouselImage3 from "../../../assets/carouselImage3.png";
 import carouselImage4 from "../../../assets/carouselImage4.png";
-import "./carousel.scss";
+// import "./carousel.scss";
 
 const items = [
   {
