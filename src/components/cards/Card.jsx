@@ -42,7 +42,7 @@ const Card = ({ product, onFavoriteChange }) => {
                     value2: user.uid,
                     collectionName: "favorites",
                 });
-                console.log(userFavorite);
+
                 if (userFavorite.length === 0) {
                     setHeartFavorites(false);
                 } else {
@@ -145,7 +145,12 @@ const Card = ({ product, onFavoriteChange }) => {
                 ...addProduct,
             },
         ];
-        dispatch(currentShopAction(newShopping));
+        dispatch(currentShopAction(newShopping))
+        Swal.fire({
+            icon: "success",
+            title: "Producto agregado al carrito!",
+            confirmButtonText: "Ok",
+        })
     };
 
     //Función para dar el formato de precio

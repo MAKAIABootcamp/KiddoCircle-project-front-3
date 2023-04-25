@@ -2,7 +2,7 @@ export const getTotalTransactions=(transactions)=>{
     const sum = transactions.reduce(
         (accumulator, currentValue) => {
             let acc;
-            if(currentValue.type === "Depósito"){
+            if(currentValue.type === "Depósito" || currentValue.type === "Compra cancelada" || currentValue.type === "Venta" ){
                 acc = accumulator + Number(currentValue.amount.replace(/[.]/g,''))
             }else{
                 acc = accumulator - Number(currentValue.amount.replace(/[.]/g,''))

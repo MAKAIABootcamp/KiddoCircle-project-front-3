@@ -3,6 +3,7 @@ import { Button} from 'reactstrap';
 import plus from '../../../assets/icons/icon plus.png'
 import product from '../../../assets/icons/shop.png'
 import recharge from '../../../assets/recarga.jpg';
+import cancel from '../../../assets/icons/cancelar.png';
 import FormRecharge from "./Form/FormRecharge";
 import FormWithdraw from "./Form/FormWithdraw";
 import { useDispatch, useSelector } from "react-redux";
@@ -36,9 +37,9 @@ const Wallet = () => {
 
     const getDate = (date) =>{
         let day='';
-        if(DateTime.local().toISODate() == DateTime.fromISO(date).toISODate()){
+        if(DateTime.local().toISODate() === DateTime.fromISO(date).toISODate()){
             day='Hoy';
-        } else if(DateTime.local().minus({ days: 1 }).toISODate() == DateTime.fromISO(date).toISODate()){
+        } else if(DateTime.local().minus({ days: 1 }).toISODate() === DateTime.fromISO(date).toISODate()){
             day='Ayer'
         } else if(DateTime.fromISO(date).toISODate() > DateTime.local().minus({ days: 7 }).toISODate()){
             day=DateTime.fromISO(date).toLocaleString({ weekday: 'long' })
@@ -71,7 +72,7 @@ const Wallet = () => {
                     transactions.map(transaction=>(
                         <div className="d-flex mx-4 card-wallet mb-2 align-items-center" key={transaction.id}>
                             <div className="flex-shrink-0">
-                                <img className="product" src={transaction.type==="Compra" ?product:recharge} alt="product" />
+                                <img className="product" src={transaction.type==="Compra" ?product:transaction.type==="Compra cancelada"?cancel:recharge} alt="product" />
                             </div>
                             <div className="flex-grow-1 ms-5 data-product d-flex justify-content-between align-items-center">
                                 <div>
@@ -82,7 +83,7 @@ const Wallet = () => {
                                         }
                                     </p>
                                 </div>
-                                <span className={transaction.type==="Depósito"?"pay fw-semibold":"withdrawal fw-semibold"}>{`${transaction.type==="Depósito"?"+":"-"} $ ${transaction.amount}`}</span>
+                                <span className={transaction.type==="Depósito" || transaction.type==="Compra cancelada" || transaction.type==="Venta"?"pay fw-semibold":"withdrawal fw-semibold"}>{`${transaction.type==="Depósito" || transaction.type==="Compra cancelada" || transaction.type==="Venta"?"+":"-"} $ ${transaction.amount}`}</span>
                             </div>
                         </div>
                     ))

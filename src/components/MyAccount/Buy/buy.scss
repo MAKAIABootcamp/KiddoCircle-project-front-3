@@ -11,8 +11,15 @@
             display: flex;
             justify-content: center;
             flex-direction: column;
+
             .status{
                 color: $green;
+            }
+            .default{
+                color: $dark-gray;
+            }
+            .canceled{
+                color: $red;
             }
             .linkChat{
                 color: $dark-gray   ;

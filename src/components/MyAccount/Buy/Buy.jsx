@@ -21,7 +21,7 @@ const ProductsList = ({productsShop, phone})=>{
                             <img className="product" src={crrProduct.fotos[0]} alt="product" />
                         </div>
                         <div className="flex-grow-1 ms-5 data-product">
-                            <span className="status fw-semibold">{product.status}</span>
+                            <span className={product.status ==="Entregado"?"status fw-semibold":product.status ==="Enviado"?"default fw-semibold":"canceled fw-semibold"}>{product.status}</span>
                             <p>{crrProduct.nombre}</p>
                             {dataUser &&
                                 <a className="linkChat fw-semibold" href={`https://wa.me/${dataUser.phone.replace('+','')}/?text=tu%20texto%20personalizado`} target="_blank">Enviar mensaje</a>

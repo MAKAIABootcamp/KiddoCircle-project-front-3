@@ -1,5 +1,5 @@
 import { shoppingTypes } from "../types/shoppingTypes";
-import { getItemsFilterSubCollectionActionAsync, createItemActionAsync } from '../../services/crudColection';
+import { getItemsFilterSubCollectionActionAsync, createItemActionAsync, updateItemActionAsync } from '../../services/crudColection';
 import Swal from "sweetalert2";
 
 export const getShoppingsActionAsync = (userId) => {
@@ -57,5 +57,34 @@ const createShoppingAction = (shopping) => {
   return {
     type: shoppingTypes.CREATE_SHOPPING,
     payload: { ...shopping },
+  };
+};
+
+export const updateShoppingActionAsync = (shopping, shoppingId) => {
+  return async (dispatch) => {
+    try {
+      const shop= await updateItemActionAsync(`users/${shopping.userId}/shopping`,shopping,shoppingId);
+      dispatch(
+        updateShoppingAction({
+          shopping: {...shop},
+          status: "success",
+        })
+      );
+      return shop
+    } catch (error) {
+      dispatch(
+        updateShoppingAction({
+          shopping: {},
+          status: "error",
+        })
+      );
+    }
+  };
+};
+
+const updateShoppingAction = (shopping) => {
+  return {
+    type: shoppingTypes.UPDATE_SHOPPING,
+    payload: {...shopping},
   };
 };

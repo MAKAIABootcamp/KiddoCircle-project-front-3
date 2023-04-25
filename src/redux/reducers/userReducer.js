@@ -61,12 +61,7 @@ export const userReducer = (state = initialState, action) => {
     case userTypes.UPDATE_USER: {
       return {
         ...state,
-        name: action.payload.name,
-        email: action.payload.email,
-        phone: action.payload.phone,
-        city: action.payload.city,
-        address: action.payload.address,
-        photoURL: action.payload.photoURL,
+        ...action.payload
       };
     }
     default:

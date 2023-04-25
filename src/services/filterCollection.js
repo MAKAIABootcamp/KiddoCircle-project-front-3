@@ -77,7 +77,7 @@ export const filterCollectionMiltiple = async (data = initialData2) => {
     const collections = collection(dataBase, collectionName);
     const dataArray = [];
     try {
-        const q = data.key1 
+        const q = data.key1
             ? query(
                   collections,
                   where(data.key1, "==", data.value1),
@@ -85,7 +85,7 @@ export const filterCollectionMiltiple = async (data = initialData2) => {
               )
             : collections;
         const refDocs = await getDocs(q);
-        console.log(refDocs);
+
         refDocs.forEach((doc) => {
             dataArray.push({
                 id: doc.id,

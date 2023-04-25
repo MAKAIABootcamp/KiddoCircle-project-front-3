@@ -136,23 +136,7 @@ const MenuProfile = () => {
                   <span className="flex-grow-1 ms-2">Mi Billetera</span>
                 </NavLink>
               </NavItem>
-              <NavItem>
-                <NavLink
-                  to="chat"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "selected d-flex align-items-center nav-link"
-                      : "d-flex align-items-center nav-link"
-                  }
-                >
-                  <img
-                    className="flex-shrink-0 p-2"
-                    src={iconChat}
-                    alt="perfil"
-                  />
-                  <span className="flex-grow-1 ms-2">Chat</span>
-                </NavLink>
-              </NavItem>
+
             </Nav>
             {user.name !== "" ? (
               <button

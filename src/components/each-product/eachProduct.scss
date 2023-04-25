@@ -78,7 +78,9 @@
   color: $white;
   font-weight: bold;
   transition: 0.4s;
-
+  &:disabled{
+    background-color: $purple;
+  }
   &:hover {
     background-color: $white;
     color: $red;

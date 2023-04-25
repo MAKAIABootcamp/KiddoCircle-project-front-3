@@ -27,13 +27,13 @@ const EachProduct = ({ product, type }) => {
     const [disabledButton, setDisabledButton] = useState(false);
 
     useEffect(() => {
-        if (currentShopping.products) {
+        if (currentShopping.products && Object.keys(productFind).length !== 0) {
             const isDisabled = currentShopping.products.filter(
                 (item) => item.productId === productFind.id
             ).length;
             setDisabledButton(isDisabled > 0);
         }
-    }, [currentShopping]);
+    }, [currentShopping, productFind]);
 
     useEffect(() => {
         if (productsAll.length === 0) {
@@ -170,7 +170,12 @@ const EachProduct = ({ product, type }) => {
                 ...addProduct,
             },
         ];
-        dispatch(currentShopAction(newShopping));
+        dispatch(currentShopAction(newShopping))
+        Swal.fire({
+            icon: "success",
+            title: "Producto agregado al carrito!",
+            confirmButtonText: "Ok",
+        })
     };
 
     //Función para agregar un view al producto
