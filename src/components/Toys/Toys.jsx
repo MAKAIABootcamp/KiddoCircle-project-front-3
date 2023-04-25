@@ -321,16 +321,21 @@ const Toys = () => {
         if (products.length === 0) {
             dispatch(getProductsActionAsync());
         } else{const toyProducts = products.filter(
-            (product) => product.categoria === "juguetes"
+            (product) =>
+                product.categoria === "juguetes" &&
+                product.disponibilidad === true
         );
         createPriceRange(toyProducts);
         const arrayOrdenado = ordenarArray(toyProducts, optionSelected);
-        setProductsFiltered(arrayOrdenado);}
+            setProductsFiltered(arrayOrdenado);
+        }
     }, []);
 
     useEffect(() => {
         const toyProducts = products.filter(
-            (product) => product.categoria === "juguetes"
+            (product) =>
+                product.categoria === "juguetes" &&
+                product.disponibilidad === true
         );
         createPriceRange(toyProducts);
         const arrayOrdenado = ordenarArray(toyProducts, optionSelected);
@@ -339,7 +344,9 @@ const Toys = () => {
 
     useEffect(() => {
         const toyProducts = products.filter(
-            (product) => product.categoria === "juguetes"
+            (product) =>
+                product.categoria === "juguetes" &&
+                product.disponibilidad === true
         );
         const resultFilter = doFilter(toyProducts, filter);
         const arrayOrdenado = ordenarArray(resultFilter, optionSelected);
@@ -348,7 +355,9 @@ const Toys = () => {
 
     useEffect(() => {
         const toyProducts = products.filter(
-            (product) => product.categoria === "juguetes"
+            (product) =>
+                product.categoria === "juguetes" &&
+                product.disponibilidad === true
         );
         const resultFilter = doFilter(toyProducts, filter);
         const arrayOrdenado = ordenarArray(resultFilter, optionSelected);
@@ -357,7 +366,9 @@ const Toys = () => {
 
     useEffect(() => {
         const toyProducts = products.filter(
-            (product) => product.categoria === "juguetes"
+            (product) =>
+                product.categoria === "juguetes" &&
+                product.disponibilidad === true
         );
         const resultFilter = doFilter(toyProducts, filter);
         const arrayOrdenado = ordenarArray(resultFilter, optionSelected);

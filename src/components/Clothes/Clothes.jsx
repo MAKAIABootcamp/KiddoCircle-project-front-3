@@ -349,7 +349,9 @@ const Clothes = () => {
             dispatch(getProductsActionAsync());
         } else {
             const toyProducts = products.filter(
-                (product) => product.categoria === "ropa"
+                (product) =>
+                    product.categoria === "ropa" &&
+                    product.disponibilidad === true
             );
             createPriceRange(toyProducts);
             const arrayOrdenado = ordenarArray(toyProducts, optionSelected);
@@ -359,7 +361,8 @@ const Clothes = () => {
 
     useEffect(() => {
         const toyProducts = products.filter(
-            (product) => product.categoria === "ropa"
+            (product) =>
+                product.categoria === "ropa" && product.disponibilidad === true
         );
         createPriceRange(toyProducts);
         const arrayOrdenado = ordenarArray(toyProducts, optionSelected);
@@ -368,7 +371,8 @@ const Clothes = () => {
 
     useEffect(() => {
         const toyProducts = products.filter(
-            (product) => product.categoria === "ropa"
+            (product) =>
+                product.categoria === "ropa" && product.disponibilidad === true
         );
         const resultFilter = doFilter(toyProducts, filter);
         const arrayOrdenado = ordenarArray(resultFilter, optionSelected);
@@ -377,7 +381,8 @@ const Clothes = () => {
 
     useEffect(() => {
         const toyProducts = products.filter(
-            (product) => product.categoria === "ropa"
+            (product) =>
+                product.categoria === "ropa" && product.disponibilidad === true
         );
         const resultFilter = doFilter(toyProducts, filter);
         const arrayOrdenado = ordenarArray(resultFilter, optionSelected);
@@ -386,7 +391,8 @@ const Clothes = () => {
 
     useEffect(() => {
         const toyProducts = products.filter(
-            (product) => product.categoria === "ropa"
+            (product) =>
+                product.categoria === "ropa" && product.disponibilidad === true
         );
         const resultFilter = doFilter(toyProducts, filter);
         const arrayOrdenado = ordenarArray(resultFilter, optionSelected);
