@@ -15,7 +15,9 @@ export const FavoritesSection = () => {
 
   const print = () => {
       const filterProducts = products.filter(
-          (product) => product.categoria === "articulos"
+          (product) =>
+              product.categoria === "articulos" &&
+              product.disponibilidad === true
       );
       setProductsFiltered(filterProducts);
   };

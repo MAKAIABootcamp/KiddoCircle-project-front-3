@@ -16,7 +16,9 @@ const ToysSection = () => {
 
     const print = () => {
         const filterProducts = products.filter(
-            (product) => product.categoria === "juguetes"
+            (product) =>
+                product.categoria === "juguetes" &&
+                product.disponibilidad === true
         );
         setProductsFiltered(filterProducts);
     };

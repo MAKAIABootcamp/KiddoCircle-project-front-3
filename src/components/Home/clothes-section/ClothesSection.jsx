@@ -16,7 +16,8 @@ const ClothesSection = () => {
 
     const print = () => {
         const filterProducts = products.filter(
-            (product) => product.categoria === "ropa"
+            (product) =>
+                product.categoria === "ropa" && product.disponibilidad === true
         );
         setProductsFiltered(filterProducts);
     };
