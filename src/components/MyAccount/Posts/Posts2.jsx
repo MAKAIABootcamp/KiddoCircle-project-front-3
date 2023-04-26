@@ -180,7 +180,7 @@ const Posts2 = () => {
                     Swal.fire({
                         icon: "error",
                         title: "Uups...",
-                        text: "Hubo un error al realizar la solictud",
+                        text: "Hubo un error al realizar la solicitud",
                     });
                 });
             clearForm();
