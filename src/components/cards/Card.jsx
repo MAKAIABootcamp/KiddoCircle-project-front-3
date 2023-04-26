@@ -73,7 +73,7 @@ const Card = ({ product, onFavoriteChange }) => {
                         .then(() => {
                             Swal.fire({
                                 icon: "success",
-                                title: "Prducto agregado a favoritos",
+                                title: "Producto agregado a favoritos",
                             });
                             if (onFavoriteChange) {
                                 onFavoriteChange();
@@ -83,7 +83,7 @@ const Card = ({ product, onFavoriteChange }) => {
                             Swal.fire({
                                 icon: "error",
                                 title: "Uups...",
-                                text: "Hubo un error al realizar la solictud",
+                                text: "Hubo un error al realizar la solicitud",
                             });
                         });
                     setHeartFavorites(true);
@@ -102,7 +102,7 @@ const Card = ({ product, onFavoriteChange }) => {
                             .then(() => {
                                 Swal.fire({
                                     icon: "success",
-                                    title: "Prducto eliminado de favoritos",
+                                    title: "Producto eliminado de favoritos",
                                 });
                                 if (onFavoriteChange) {
                                     onFavoriteChange();
@@ -112,7 +112,7 @@ const Card = ({ product, onFavoriteChange }) => {
                                 Swal.fire({
                                     icon: "error",
                                     title: "Uups...",
-                                    text: "Hubo un error al realizar la solictud",
+                                    text: "Hubo un error al realizar la solicitud",
                                 });
                             });
                     }

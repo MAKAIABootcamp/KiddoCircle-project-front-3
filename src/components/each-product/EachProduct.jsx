@@ -121,14 +121,14 @@ const EachProduct = ({ product, type }) => {
                         .then(() => {
                             Swal.fire({
                                 icon: "success",
-                                title: "Prducto agregado a favoritos",
+                                title: "Producto agregado a favoritos",
                             });
                         })
                         .catch((error) => {
                             Swal.fire({
                                 icon: "error",
                                 title: "Uups...",
-                                text: "Hubo un error al realizar la solictud",
+                                text: "Hubo un error al realizar la solicitud",
                             });
                         });
                     setHeartFavorites(true);
@@ -147,14 +147,14 @@ const EachProduct = ({ product, type }) => {
                             .then(() => {
                                 Swal.fire({
                                     icon: "success",
-                                    title: "Prducto eliminado de favoritos",
+                                    title: "Producto eliminado de favoritos",
                                 });
                             })
                             .catch((error) => {
                                 Swal.fire({
                                     icon: "error",
                                     title: "Uups...",
-                                    text: "Hubo un error al realizar la solictud",
+                                    text: "Hubo un error al realizar la solicitud",
                                 });
                             });
                     }

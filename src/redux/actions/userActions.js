@@ -136,7 +136,7 @@ export const userLoginEmailAsync = ({ email, password }) => {
       Swal.fire({
         icon: "error",
         title: "Uups...",
-        text: "Hubo un error al realizar la solictud",
+        text: "Hubo un error al realizar la solicitud",
       });
     }
   };
@@ -182,7 +182,7 @@ export const userLoginProvider = (provider) => {
       Swal.fire({
         icon: "error",
         title: "Uups...",
-        text: "Hubo un error al realizar la solictud",
+        text: "Hubo un error al realizar la solicitud",
       });
     }
   };
@@ -206,7 +206,7 @@ export const doLogoutAsync = () => {
       Swal.fire({
         icon: "error",
         title: "Uups...",
-        text: "Hubo un error al realizar la solictud",
+        text: "Hubo un error al realizar la solicitud",
       });
     }
   };
