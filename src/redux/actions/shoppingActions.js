@@ -6,6 +6,9 @@ export const getShoppingsActionAsync = (userId) => {
     return async (dispatch) => {
       try {
         const shoppings = await getItemsFilterSubCollectionActionAsync("shopping", ['userId', '==', userId]);
+        shoppings.sort(function(a, b) {
+          return (a.date > b.date) ? -1 : ((a.date < b.date) ? 1 : 0);
+        });
         dispatch(getShoppingsAction(shoppings));
       } catch (error) {
         dispatch(getShoppingsAction([]));

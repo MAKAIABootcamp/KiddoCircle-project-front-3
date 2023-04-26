@@ -55,7 +55,7 @@ const Buy = () => {
             {shoppings.length>0 &&
                 shoppings.map(shop=>(
                     <div key={shop.id}>
-                        <p className="mb-4 fw-semibold mt-3">{DateTime.fromISO(new Date().toISOString()).toLocaleString({month:'long', day: 'numeric',...(new Date().getFullYear() > DateTime.fromISO('2023-04-22T04:19:22.222Z').toFormat("yyyy") && { year:'numeric'}) })}</p>
+                        <p className="mb-4 fw-semibold mt-3">{DateTime.fromISO(shop.date).toLocaleString({locale: "es", month:'long', day: 'numeric',...(new Date().getFullYear() > DateTime.fromISO(shop.date).toFormat("yyyy") && { year:'numeric'}) })}</p>
                         <ProductsList productsShop={shop.products}  phone={shop.phone}/>
                     </div>
                 ))

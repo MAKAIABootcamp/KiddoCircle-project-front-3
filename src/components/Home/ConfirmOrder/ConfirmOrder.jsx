@@ -80,18 +80,18 @@ const ConfirmOrder = () => {
             productModal.products.forEach(item=>{
                 const product= products.find(itemProduct=> itemProduct.id === item.productId)
                 const dataUser= users.find(item=> item.uid === product.id_publicador);
-                const index= getTransactionsUsers.findIndex(item=> item.userId === product.id_publicador)
+                const index= getTransactionsUsers.findIndex(item=> item.userId === dataUser.id)
                 if(index>-1){
-                    const amount= getTransactionsUsers[index].amount+product.precio;
+                    const amount= getTransactionsUsers[index].amount+(product.precio?product.precio:0);
                     getTransactionsUsers.splice(index,1,{userId:dataUser.id,amount:amount});
                 }else{
-                    getTransactionsUsers.push({userId:dataUser.id,amount:product.precio})
+                    getTransactionsUsers.push({userId:dataUser.id,amount:product.precio?product.precio:0})
                 }
             })
-            console.log(getTransactionsUsers)
+            // console.log(getTransactionsUsers)
             getTransactionsUsers.forEach(itemTransaction=>{
                 const dataTransaction ={
-                    amount: itemTransaction.amount.toLocaleString("de-DE"),
+                    amount: itemTransaction.amount?itemTransaction.amount.toLocaleString("de-DE"):0,
                     date: new Date().toISOString(),
                     type: "Venta",
                     userId:itemTransaction.userId ,
