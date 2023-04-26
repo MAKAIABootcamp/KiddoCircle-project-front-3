@@ -1343,7 +1343,7 @@ const Clothes = () => {
                             display: "flex",
                             justifyContent: `${
                                 productsFiltered.length
-                                    ? "space-between"
+                                    ? "flex-start"
                                     : "center"
                             }`,
                         }}

@@ -499,7 +499,7 @@ const Posts2 = () => {
                 style={{
                     display: "flex",
                     justifyContent: `${
-                        publishedProducts.length ? "space-between" : "center"
+                        publishedProducts.length ? "flex-start" : "center"
                     }`,
                 }}
             >

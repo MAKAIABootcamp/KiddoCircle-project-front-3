@@ -38,7 +38,7 @@ const Favorites = () => {
             style={{
                 display: "flex",
                 justifyContent: `${
-                    productFavorites.length ? "space-between" : "center"
+                    productFavorites.length ? "flex-start" : "center"
                 }`,
             }}
         >

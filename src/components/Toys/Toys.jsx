@@ -1308,7 +1308,7 @@ const Toys = () => {
                             display: "flex",
                             justifyContent: `${
                                 productsFiltered.length
-                                    ? "space-between"
+                                    ? "flex-start"
                                     : "center"
                             }`,
                         }}
