@@ -5,6 +5,8 @@ import {getShoppingsActionAsync, updateShoppingActionAsync} from '../../../redux
 import {createTransactionActionAsync} from '../../../redux/actions/walletActions'
 import Swal from "sweetalert2";
 import {getUsersActionAsync} from '../../../redux/actions/usersActions'
+import { updateProductActionAsync } from '../../../redux/actions/ProductsActions'
+
 
 const ConfirmOrder = () => {
     const dispatch = useDispatch();
@@ -49,13 +51,19 @@ const ConfirmOrder = () => {
             delete updateShopping.id
             const productsShop=[...updateShopping.products]
             const newProducts=[]
+            const updateProducts=[]
             productsShop.forEach(item=>{
+                const updateProduct= products.filter(itemProd=> itemProd.id === item.productId)[0];
+                updateProducts.push({...updateProduct,disponibilidad: true})
                 newProducts.push({...item, status:"Cancelado"})
             })
             updateShopping.products=[...newProducts]
             //updateShopping.type="Compra cancelada"
             //updateShopping.date=  new Date().toISOString();
             dispatch(updateShoppingActionAsync(updateShopping,productModal.id)).then(()=>{
+                updateProducts.forEach(prod=>{
+                    dispatch(updateProductActionAsync(prod))
+                })
                 toggleOrder()
                 Swal.fire({
                     icon: "success",
@@ -97,7 +105,12 @@ const ConfirmOrder = () => {
                     userId:itemTransaction.userId ,
                 }
                 dispatch(createTransactionActionAsync(dataTransaction))
-                toggleOrder()
+            })
+            toggleOrder()
+            Swal.fire({
+                icon: "success",
+                title: "Entrega confirmada!",
+                confirmButtonText: "Ok",
             })
         })
 

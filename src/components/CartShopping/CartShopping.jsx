@@ -7,10 +7,10 @@ import {Recharge} from "../MyAccount/Wallet/Form/FormRecharge";
 import {getTotalTransactions, getTotalPrice} from '../../utils/general'
 import { useSelector, useDispatch } from "react-redux";
 import {getTransactionsActionAsync} from '../../redux/actions/walletActions'
-import {currentShopAction} from '../../redux/actions/shoppingActions'
+import {currentShopAction, createShoppingActionAsync} from '../../redux/actions/shoppingActions'
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import {createShoppingActionAsync} from '../../redux/actions/shoppingActions'
+import { updateProductActionAsync } from '../../redux/actions/ProductsActions'
 
 const CartShopping = () => {
     const navigate = useNavigate();
@@ -69,20 +69,27 @@ const CartShopping = () => {
     const doShopping=()=>{
         if(Object.keys(currentShopping).length>0 && currentShopping.products.length>0 && total && totalToShop){
             const updateShopping={...currentShopping};
-            const products=[...updateShopping.products]
-            const newProducts=[]
-            products.forEach(item=>{
+            const productsShop=[...updateShopping.products]
+            const newProducts=[];
+            const updateProducts=[]
+            productsShop.forEach(item=>{
+                const updateProduct= products.filter(itemProd=> itemProd.id === item.productId)[0];
+                updateProducts.push({...updateProduct,disponibilidad: false})
                 newProducts.push({...item, status:"Enviado"})
             })
             updateShopping.products=[...newProducts]
             updateShopping.amount = totalToShop;
             updateShopping.type= "Compra";
+            // console.log(updateProducts)
             dispatch(createShoppingActionAsync(updateShopping)).then(()=>{
                 Swal.fire({
                     icon: "success",
                     title: "Compra realizada!",
                     confirmButtonText: "Ok",
                 }).then((result) => {
+                    updateProducts.forEach(prod=>{
+                        dispatch(updateProductActionAsync(prod))
+                    })
                     if (result.isConfirmed) {
                       navigate('/');
                     }
@@ -110,7 +117,7 @@ const CartShopping = () => {
                                                     <img className="product" src={crrProuct.fotos[0]} alt="product" />
                                                 </div>
                                                 <div className="flex-grow-1 ms-4 data-product">
-                                                    <span className="fw-semibold">{crrProuct.name}</span>
+                                                    <span className="fw-semibold">{crrProuct.nombre}</span>
                                                     <p>$ {crrProuct.precio?crrProuct.precio.toLocaleString("de-DE"):0}</p>
                                                 </div>
                                             </div>

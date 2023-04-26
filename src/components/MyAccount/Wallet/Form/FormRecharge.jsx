@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import {updateDataUserActionAsync} from '../../../../redux/actions/userActions'
 import {createTransactionActionAsync} from '../../../../redux/actions/walletActions'
 import {createShoppingActionAsync} from '../../../../redux/actions/shoppingActions'
+import { updateProductActionAsync } from '../../../../redux/actions/ProductsActions'
+
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
@@ -37,6 +39,7 @@ export const Recharge = ({closeModal, register, setValue, handleSubmit, watch, e
     const dispatch = useDispatch();
     const user = useSelector((store) => store.user);
     const { currentShopping } = useSelector((store) => store.shopping);
+    const { products } = useSelector((store) => store.products);
 
     const validateName = (value) => {
         if (value.split(' ').length <= 1) {
@@ -138,20 +141,27 @@ export const Recharge = ({closeModal, register, setValue, handleSubmit, watch, e
         }
         if(Object.keys(currentShopping).length>0 && currentShopping.products.length>0 && total && totalToShop){
             const updateShopping={...currentShopping};
-            const products=[...updateShopping.products]
+            const productsShop=[...updateShopping.products]
             const newProducts=[]
-            products.forEach(item=>{
+            const updateProducts=[]
+            productsShop.forEach(item=>{
+                const updateProduct= products.filter(itemProd=> itemProd.id === item.productId)[0];
+                updateProducts.push({...updateProduct,disponibilidad: false})
                 newProducts.push({...item, status:"Enviado"})
             })
             updateShopping.products=[...newProducts]
             updateShopping.amount = totalToShop;
             updateShopping.type= "Compra";
+            //console.log(updateProducts)
             dispatch(createShoppingActionAsync(updateShopping)).then(()=>{
                 Swal.fire({
                     icon: "success",
                     title: "Compra realizada!",
                     confirmButtonText: "Ok",
                 }).then((result) => {
+                    updateProducts.forEach(prod=>{
+                        dispatch(updateProductActionAsync(prod))
+                    })
                     if (result.isConfirmed) {
                       navigate('/');
                     }
