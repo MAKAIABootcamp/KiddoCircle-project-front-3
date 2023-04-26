@@ -7,6 +7,7 @@
     flex-direction: column;
     justify-content: space-between;
     position: relative;
+    cursor: pointer;
 
     &__productImg{
         width: 100%;
@@ -22,10 +23,14 @@
     }
 
     &__donacion{
-        font-weight: 700;
-        font-size: 16px;
-        color: #5ee2b4;
+        font-weight: 800;
+        font-size: 14px;
+        color: #ffffff;
         text-align: center;
+        background-color: #5CCFB2;
+        border-radius: 5px;
+        padding: 3px;
+        width: 80px;
     }
 
     &__mainLetter{
@@ -44,8 +49,11 @@
     &__disponibilidad{
         font-weight: 700;
         font-size: 16px;
-        color: #fa897b;
+        color: #ffffff;
         text-align: center;
+        background-color: #fa897b;
+        height: 30px;
+        padding: 3px 0px;
     }
 
     &__fill{

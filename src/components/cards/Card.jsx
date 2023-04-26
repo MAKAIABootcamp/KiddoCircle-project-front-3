@@ -125,7 +125,15 @@ const Card = ({ product, onFavoriteChange }) => {
     };
 
     const handleRoute = (product) => {
-        navigate(`/producto/${product.id}`);
+        if (product?.disponibilidad) {
+            navigate(`/producto/${product.id}`);
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Uups...",
+                text: "El producto ya no se encuentra disponible.",
+            });
+        }
     };
 
     const addProductCar = (product) => {

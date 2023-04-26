@@ -296,17 +296,19 @@ const EachProduct = ({ product, type }) => {
                             <></>
                         )}
                         <div className="buttons-container">
-                            {user && user.id && productFind.dispponibilidad && (
-                                <button
-                                    className="sell-button"
-                                    onClick={() => {
-                                        addProductCar(productFind.id);
-                                    }}
-                                    disabled={disabledButton}
-                                >
-                                    Comprar
-                                </button>
-                            )}
+                            {user &&
+                                user.id &&
+                                productFind.disponibilidad && (
+                                    <button
+                                        className="sell-button"
+                                        onClick={() => {
+                                            addProductCar(productFind.id);
+                                        }}
+                                        disabled={disabledButton}
+                                    >
+                                        Comprar
+                                    </button>
+                                )}
                             <motion.button
                                 onClick={changeHeart}
                                 className="button-favorite"
