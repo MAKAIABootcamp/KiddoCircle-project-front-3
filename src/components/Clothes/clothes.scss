@@ -180,9 +180,9 @@
 
             &__cards{
                 display: flex;
-                column-gap: 15px;
-                row-gap: 30px;
-                justify-content: space-between;
+                column-gap: 20px;
+                row-gap: 20px;
+                justify-content: flex-start !important;
                 flex-wrap: wrap;
                 margin-top: 20px;
             }
