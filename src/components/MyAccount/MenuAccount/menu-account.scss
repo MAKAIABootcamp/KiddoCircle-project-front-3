@@ -38,3 +38,40 @@
     transition: 0.4s;
   }
 }
+//responsive button dropdown
+.button-dropdown {
+  color: $dark-gray;
+  width: 100%;
+  border: 1px solid $dark-gray;
+}
+//dropdown responsive
+.dropdown {
+  display: none;
+}
+
+@media screen and (max-width: 760px) {
+  .dropdown {
+    display: block;
+    margin-top: -10%;
+  }
+  .navbar-menuAccount {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .wallet {
+    padding: 0;
+
+    div {
+      display: flex;
+      flex-direction: column;
+
+      button {
+        width: 100%;
+        margin: 0 !important;
+        margin-bottom: 4% !important;
+      }
+    }
+  }
+}
