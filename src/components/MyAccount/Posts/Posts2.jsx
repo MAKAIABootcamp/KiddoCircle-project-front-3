@@ -81,8 +81,14 @@ const Posts2 = () => {
             value: user.uid,
             collectionName: "products",
         });
-        console.log(getProducts)
-        setPublishedProducts(getProducts);
+        const orderArray = getProducts.sort((a, b) => {
+            const parseDate = (str) => {
+                const [day, month, year] = str.split("/");
+                return new Date(year, month - 1, day);
+            };
+            return parseDate(b.fecha) - parseDate(a.fecha);
+        });
+        setPublishedProducts(orderArray);
     }
 
     useEffect(() => {
