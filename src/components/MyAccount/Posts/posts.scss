@@ -18,11 +18,15 @@
 
     &__cards__container{
         margin-top: 20px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        row-gap: 25px;
-        column-gap: 20px;
+        // display: flex;
+        // flex-wrap: wrap;
+        // justify-content: space-evenly;
+        // justify-content: space-between;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        justify-items: center;
+        gap: 20px;
+
 
         &__lottie{
             justify-self: center;
@@ -126,3 +130,10 @@
         height: 80px;
     }
 }
+
+@media (max-width: 991px) {
+    .posts__cards__container{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+

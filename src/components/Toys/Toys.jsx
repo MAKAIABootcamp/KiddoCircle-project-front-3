@@ -1305,12 +1305,10 @@ const Toys = () => {
                     <section
                         className="clothes__asideYMain__main__cards"
                         style={{
-                            display: "flex",
-                            justifyContent: `${
-                                productsFiltered.length
-                                    ? "flex-start"
-                                    : "center"
-                            }`,
+                            display: productsFiltered.length ? "grid" : "flex",
+                            justifyContent: productsFiltered.length
+                                ? "space-between"
+                                : "center",
                         }}
                     >
                         {productsFiltered.length === 0 ? (

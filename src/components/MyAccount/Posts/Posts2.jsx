@@ -497,10 +497,13 @@ const Posts2 = () => {
             <div
                 className="posts__cards__container"
                 style={{
-                    display: "flex",
-                    justifyContent: `${
-                        publishedProducts.length ? "flex-start" : "center"
-                    }`,
+                    display: publishedProducts.length ? "grid" : "flex",
+                    justifyContent: publishedProducts.length
+                        ? "space-between"
+                        : "center",
+                    alignItems: publishedProducts.length
+                        ? "space-between"
+                        : "center",
                 }}
             >
                 {publishedProducts.length === 0 ? (
