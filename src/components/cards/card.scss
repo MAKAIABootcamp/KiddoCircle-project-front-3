@@ -26,18 +26,18 @@
       align-items: center;
       justify-self: flex-end;
       margin: 10px;
-      z-index: 100;
+      z-index: 99;
     }
 
     &-heart {
       cursor: pointer;
-      z-index: 100;
+      z-index: 99;
     }
   }
 
   &__donation {
     position: absolute;
-    z-index: 100;
+    z-index: 99;
   }
   &__figure {
     width: 100%;
@@ -86,7 +86,7 @@
       padding: 5px;
       cursor: pointer;
       transition: 0.3s;
-      &:disabled{
+      &:disabled {
         background-color: $purple;
       }
       &:hover {
