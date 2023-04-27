@@ -3,9 +3,9 @@ export const getTotalTransactions=(transactions)=>{
         (accumulator, currentValue) => {
             let acc;
             if(currentValue.type === "Depósito" || currentValue.type === "Compra cancelada" || currentValue.type === "Venta" ){
-                acc = accumulator + Number(currentValue.amount.replace(/[.]/g,''))
+                acc = accumulator + Number(currentValue.amount? currentValue.amount.replace(/[.]/g,''): 0)
             }else{
-                acc = accumulator - Number(currentValue.amount.replace(/[.]/g,''))
+                acc = accumulator - Number(currentValue.amount? currentValue.amount.replace(/[.]/g,''):0)
             }
             return acc
         },0);
