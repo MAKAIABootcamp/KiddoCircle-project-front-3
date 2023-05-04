@@ -1,0 +1,200 @@
+@import "../../variables.scss";
+
+.main-each-product {
+  // background-color: aqua;
+  display: flex;
+  margin: 20px 100px 20px 100px;
+  padding: 10px;
+  justify-content: space-between;
+  // height: 80vh;
+  border: 1px solid $dark-gray;
+  border-radius: 1rem;
+
+  &__aside {
+    display: grid;
+    width: 50%;
+    // background-color: blue;
+    padding: 20px;
+    // align-items: center;
+  }
+
+  &__figure {
+    //background-color: red;
+    border-radius: 10px;
+    overflow: hidden;
+    align-self: center;
+  }
+
+  &__img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__section {
+    //  background-color: pink;
+    padding: 15px 30px 15px 30px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+
+    h2{
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    &-p{
+      font-size: 15px;
+      margin-top: 10px;
+    }
+
+    &-price {
+      align-self: flex-start;
+      margin: 0;
+      font-weight: 700;
+      font-size: 16px;
+      background-color: rgba(121, 255, 244, 0.4);
+      border-radius: 10px;
+      padding: 5px 10px;
+      margin: 20px 0px !important;
+    }
+  }
+}
+
+//buttons container
+.buttons-container {
+  display: flex;
+  // background-color: red;
+  padding: 10px 0 10px 0;
+  justify-content: space-between;
+  height: 60px;
+}
+//button para comprar
+.sell-button {
+  background-color: $red;
+  width: 80%;
+  border: none;
+  border-radius: 10px;
+  color: $white;
+  font-weight: bold;
+  transition: 0.4s;
+  &:disabled{
+    background-color: $purple;
+  }
+  &:hover {
+    background-color: $white;
+    color: $red;
+    border: 1px solid $red;
+    transition: 0.4s;
+  }
+}
+
+//button para agregar a favoritos
+.button-favorite {
+  background-color: rgba(255, 188, 188, 0.4);
+  border: none;
+  border-radius: 5px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: flex-end;
+  transition: 0.4s;
+
+  &:hover {
+    background-color: rgba(255, 180, 180, 0.8);
+    color: $white;
+    transition: 0.4s;
+  }
+}
+//arrow para volver a home
+.arrow-home-figure {
+  width: 30px;
+  height: 30px;
+  margin: 30px;
+  cursor: pointer;
+}
+.arrow-home {
+  rotate: (180deg);
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+//icon para donación
+.icon-donation {
+  position: absolute;
+  z-index: 100;
+  justify-self: flex-start;
+  align-items: start;
+}
+
+// @media screen and (min-width: 1700px) {
+//   .main-each-product {
+//     padding: 20px 50px 20px 50px;
+//   }
+// }
+// @media screen and (max-width: 470px) {
+//   .main-each-product {
+//     padding: 20px;
+//     background-color: red;
+//     flex-direction: column;
+
+//     &__aside {
+//       width: 100%;
+//     }
+
+//     &__section {
+//       width: 100%;
+//       padding: 15px;
+//     }
+//   }
+// }
+
+@media (max-width: 1000px) {
+  .main-each-product {
+    margin: 20px 50px 20px 50px;
+    // flex-direction: column;
+  }
+}
+
+@media (max-width: 800px) {
+  .main-each-product {
+    padding: 10px;
+
+    &__section {
+      padding: 10px;
+
+      &-price {
+        width: 50%;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .main-each-product {
+    flex-direction: column;
+    height: 100vh;
+
+    &__aside {
+      margin: auto;
+      width: 70%;
+    }
+
+    &__section {
+      margin: auto;
+      width: 80%;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .main-each-product {
+    margin: 10px;
+    padding: 5px;
+
+    &__section {
+      margin-top: -10%;
+    }
+  }
+}

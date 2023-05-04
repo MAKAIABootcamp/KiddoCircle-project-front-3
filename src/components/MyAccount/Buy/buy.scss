@@ -1,0 +1,31 @@
+.buy{
+    color: #000000;
+    .card-buy{
+        border-bottom: 1px solid $dark-gray;
+        padding: 10px;
+        .product{
+            max-width:90px;
+            border-radius: 10px;
+        }
+        .data-product{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+
+            .status{
+                color: $green;
+            }
+            .default{
+                color: $dark-gray;
+            }
+            .canceled{
+                color: $red;
+            }
+            .linkChat{
+                color: $dark-gray   ;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        }
+    }
+}

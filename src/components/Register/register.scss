@@ -1,0 +1,125 @@
+.register__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    // width: 500px;
+    width: 100%;
+
+    .phoneContainer{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border: 2px solid #fa897b;
+        border-radius: 40px;
+        height: 40px;
+        padding: 10px;
+        color: #fa897b;
+        font-size: 15px;
+
+        input{
+            border: none;
+            font-weight: 400;
+            font-size: 15px;
+            color: #fa897b;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        input::placeholder {
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 30px;
+            color: #fa897b;
+        }
+    }
+
+    div{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    label {
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 30px;
+        color: #acabab;
+    }
+
+    .input {
+        border: 2px solid #fa897b;
+        border-radius: 40px;
+        height: 40px;
+        padding: 10px;
+        color: #fa897b;
+        font-size: 15px;
+    }
+
+    .input:focus {
+        outline: none;
+    }
+
+    .input::placeholder {
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 30px;
+        color: #fa897b;
+    }
+
+    button {
+        background: #fa897b;
+        border: 2px solid #fa897b;
+        border-radius: 40px;
+        height: 40px;
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 30px;
+        text-align: center;
+        color: #ffffff;
+    }
+
+    button:hover {
+        box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    span {
+        font-size: 15px;
+        color: #fa897b;
+    }
+
+    input[type="file"]::-webkit-file-upload-button {
+        background-color: #fa897b;
+        color: #ffffff;
+        padding: 10px;
+        font-family: "Lato", sans-serif;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 5px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+
+    &__photo{
+        height: auto !important;
+    }
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.swal2-styled.swal2-confirm {
+    background-color: #ccabd8;
+    color: #ffffff;
+    border: none;
+}
+
+.swal2-confirm,
+.swal2-cancel {
+  border: none !important;
+}

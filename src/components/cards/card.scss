@@ -1,0 +1,130 @@
+@import "../../variables.scss";
+.card {
+  font-family: "Lato", sans-serif;
+  background-color: $light-gray;
+  width: 230px;
+  height: 380px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__header {
+    display: grid;
+
+    &-container {
+      background-color: rgba(255, 255, 255, 0.4);
+      border: none;
+      border-radius: 5px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      justify-self: flex-end;
+      margin: 10px;
+      z-index: 99;
+    }
+
+    &-heart {
+      cursor: pointer;
+      z-index: 99;
+    }
+  }
+
+  &__donation {
+    position: absolute;
+    z-index: 99;
+  }
+  &__figure {
+    width: 100%;
+    height: 200px;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    // margin-top: -25%;
+    margin-top: -23%;
+
+    &-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__footer {
+    height: 100%;
+    margin-top: 10px;
+
+    &-name {
+      font-weight: bold;
+      margin-bottom: 2%;
+      font-size: 15px;
+    }
+
+    &-state {
+      font-size: 14px;
+      margin-bottom: 2%;
+    }
+
+    &-price {
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 2%;
+    }
+
+    &-button {
+      background-color: $red;
+      color: $white;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      width: 100%;
+      padding: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+      &:disabled {
+        background-color: $purple;
+      }
+      &:hover {
+        cursor: pointer;
+        transition: 0.3s;
+        background-color: #ffb5ac;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .card {
+    width: 180px;
+    height: 300px;
+
+    &__figure {
+      height: 150px;
+      margin-top: -38%;
+    }
+
+    &__footer {
+      margin-top: 0px;
+
+      &-name {
+        margin-bottom: 1%;
+        font-size: 12px;
+      }
+
+      &-state {
+        font-size: 10px;
+        margin-bottom: 1%;
+      }
+
+      &-price {
+        font-size: 13px;
+        margin-bottom: 1%;
+      }
+    }
+  }
+}

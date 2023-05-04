@@ -1,0 +1,46 @@
+.loginModal{
+    position: relative;
+
+    &__face{
+        position: absolute;
+        top: -50px;
+        left: 50%;
+        transform: translateX(-50%);
+
+    }
+
+    &__body{
+        text-align: center;
+        font-weight: 400;
+        font-size: 16px;
+        text-align: center;
+        color: #656565;
+
+        span{
+            width: 100%;
+            text-align: center;
+            font-weight: 700;
+            font-size: 30px;
+            text-decoration-line: underline;
+            color: #FA897B;
+        }
+
+    }
+
+    &__button{
+        --bs-btn-hover-bg:#CCABD8;
+        --bs-btn-bg: #CCABD8;
+        --bs-btn-active-bg: #CCABD8;
+        --bs-btn-hover-border-color: #CCABD8;
+        --bs-btn-border-color: #CCABD8;
+        width: 100%;
+    }
+
+    &__footer{
+        width: 100%;
+
+        &__link{
+            width: 100%;
+        }
+    }
+}

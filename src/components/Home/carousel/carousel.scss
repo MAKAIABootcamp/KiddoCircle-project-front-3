@@ -1,0 +1,66 @@
+@import "../../../variables.scss";
+
+.carousel-control-prev {
+  opacity: 1;
+}
+.carousel-control-next {
+  opacity: 1;
+}
+.carousel-control-prev-icon {
+  background-image: url("../../../assets/icons/iconPinkArrow.png");
+  background-size: contain;
+}
+.carousel-control-next-icon {
+  background-image: url("../../../assets/icons/iconPinkArrowRight.png");
+  background-size: contain;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  opacity: 0.7;
+}
+.carouselText {
+  h3 {
+    color: $red;
+    font-weight: bold;
+    font-size: 70px;
+    margin-bottom: 40%;
+    text-shadow: 1px 1px 2px $dark-gray;
+  }
+
+  p {
+    color: $dark-gray;
+    font-size: 19px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    padding: 5px;
+    margin-top: 20%;
+  }
+}
+
+//Mobile text
+.mobile-text-container {
+  background-color: rgba(255, 246, 246, 0.8);
+  padding: 10px;
+  border-radius: 16px;
+  display: none;
+}
+.title-mobile {
+  font-size: 30px;
+  text-align: center;
+  font-weight: bold;
+  color: $red;
+}
+
+.text-mobile {
+  font-size: 14px;
+  text-align: center;
+  color: $dark-gray;
+}
+
+@media screen and (max-width: 470px) {
+  .mobile-text-container {
+    display: block;
+  }
+}

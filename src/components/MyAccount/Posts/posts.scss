@@ -1,0 +1,139 @@
+.posts{
+
+    &__buttonPink{
+        --bs-btn-hover-bg:#fa897b;
+        --bs-btn-bg: #fa897b;
+        --bs-btn-active-bg: #fa897b;
+        --bs-btn-hover-border-color: #fa897b;
+        --bs-btn-border-color: #fa897b;
+    }
+
+    &__buttonMorado{
+        --bs-btn-hover-bg:#CCABD8;
+        --bs-btn-bg: #CCABD8;
+        --bs-btn-active-bg: #CCABD8;
+        --bs-btn-hover-border-color: #CCABD8;
+        --bs-btn-border-color: #CCABD8;
+    }
+
+    &__cards__container{
+        margin-top: 20px;
+        // display: flex;
+        // flex-wrap: wrap;
+        // justify-content: space-evenly;
+        // justify-content: space-between;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        justify-items: center;
+        gap: 20px;
+
+
+        &__lottie{
+            justify-self: center;
+            width: 300px;
+            height: 400px;
+            text-align: center;
+
+            &__p{
+                font-weight: 700;
+                font-size: 14px;
+                color: #36d49d;
+            }
+        }
+    }
+
+    &__error{
+        color: #fa897b;
+    }
+}
+
+.cardType{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    height: 280px;
+    border-radius: 10px;
+    background-position-x: center;
+    background-position-y: center;
+    border: 3px solid #ccabd800;
+    cursor: pointer;
+}
+
+.cardType:hover{
+    border: 3px solid #CCABD8;
+}
+
+.post__buttonMorado{
+    --bs-btn-hover-bg:#CCABD8;
+    --bs-btn-bg: #CCABD8;
+    --bs-btn-active-bg: #CCABD8;
+    --bs-btn-hover-border-color: #CCABD8;
+    --bs-btn-border-color: #CCABD8;
+}
+
+.postRopaFormModal{
+    button{
+        --bs-btn-hover-bg:#CCABD8;
+        --bs-btn-bg: #CCABD8;
+        --bs-btn-active-bg: #CCABD8;
+        --bs-btn-hover-border-color: #CCABD8;
+        --bs-btn-border-color: #CCABD8;
+    }
+
+    input[type="file"]::-webkit-file-upload-button {
+        background-color: #CCABD8;
+        color: #ffffff;
+        padding: 10px;
+        margin-left: 2px;
+        font-family: "Lato", sans-serif;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 5px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+
+    .btn-recharge{
+        background-color: $purple;
+        border: 1px solid $purple;
+    }
+    .form-control, .form-select{
+        border: 2px solid $purple;
+    }
+    .card-wallet{
+        color: #656565;
+        border-bottom: 0.745335px solid #656565;
+        img{
+            max-width: 50px;
+            border-radius: 8px;
+        }
+        .pay{
+            color: $green;
+        }
+        .withdrawal{
+            color: $red;
+        }
+    }
+}
+
+.form-check-input:checked {
+    background-color: #CCABD8 !important;
+    border-color: #CCABD8 !important;
+}
+
+
+
+@media (max-width: 767px) {
+    .cardType{
+        height: 80px;
+    }
+}
+
+@media (max-width: 991px) {
+    .posts__cards__container{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+

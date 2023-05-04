@@ -1,0 +1,77 @@
+.my-account {
+  padding-top: 77px;
+  background-color: #f1f1f1;
+  .nav-link {
+    color: $dark;
+    img {
+      max-width: 40px;
+    }
+    &.selected {
+      background: #d9d9d9;
+      border-radius: 25px;
+      max-width: 230px;
+    }
+  }
+  .content-accout {
+    background: $white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
+    min-height: 450px;
+    padding: 30px;
+    margin-bottom: 50px;
+  }
+}
+//button loggout
+.button-loggout {
+  width: 100%;
+  background-color: #c38fd6;
+  color: $white;
+  border: none;
+  border-radius: 20px;
+  transition: 0.4s;
+  padding: 10px;
+  margin-top: 2%;
+  font-weight: bold;
+
+  &:hover {
+    background-color: $purple;
+    transition: 0.4s;
+  }
+}
+//responsive button dropdown
+.button-dropdown {
+  color: $dark-gray;
+  width: 100%;
+  border: 1px solid $dark-gray;
+}
+//dropdown responsive
+.dropdown {
+  display: none;
+}
+
+@media screen and (max-width: 760px) {
+  .dropdown {
+    display: block;
+    margin-top: -10%;
+  }
+  .navbar-menuAccount {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .wallet {
+    padding: 0;
+
+    div {
+      display: flex;
+      flex-direction: column;
+
+      button {
+        width: 100%;
+        margin: 0 !important;
+        margin-bottom: 4% !important;
+      }
+    }
+  }
+}

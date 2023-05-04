@@ -1,15 +1,40 @@
 @import "./components/Home/home.scss";
+@import "./components/cards/card.scss";
+@import "./components/Clothes/clothes.scss";
+@import "./components/Navbar/navbar.scss";
+@import "./components/Home/populars-section/popularSection.scss";
+@import "./components/Login/login.scss";
+@import "./components/Register/register.scss";
+@import "./components/MyAccount/MenuAccount/menu-account.scss";
+@import "./components/MyAccount/Buy/buy.scss";
+@import "./components/MyAccount/Wallet/wallet.scss";
+@import "./components/CartShopping/cart-shopping.scss";
+@import "./components/Home/ConfirmOrder/confirm-order.scss";
+@import "./components/MyAccount/Posts/posts.scss";
+@import "./components/MyAccount/Profile/profile.scss";
+@import "./components/Navbar/search-modal/SearchModal.scss";
+@import "./components/Home/PopUpLogin/popUpLogin.scss";
+@import "./components/each-product/eachProduct.scss";
+@import "./components//MyAccount/Posts/CardPost/cardPost.scss";
+@import "./components/Home/carousel/carousel.scss";
 
 body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Lato', sans-serif;
-};
+  margin: 0;
+  padding: 0;
+  margin-bottom: 0px;
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+}
+
+.btn-close {
+  background: url("./assets/icons/icon-close-pink.png") center center no-repeat;
+  background-size: 24px;
+}
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Lato', sans-serif;
-};
+  margin: 0;
+  padding: 0;
+  margin-bottom: 0px !important;
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+}
