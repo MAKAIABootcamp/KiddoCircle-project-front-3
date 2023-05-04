@@ -40,6 +40,6 @@ Kiddo Circle es una aplicación web que permite a los usuarios comercializar o d
 
 ## Autores
 
-*Daniela Páez de la Hoz* - *Jurany Adelia Ramírez*- *Ana María Cano Correa* -  *Gloria Luz Gaviria Ramírez* 
+*Daniela Páez de la Hoz* - *Jurany Adelia Ramírez*- *Ana María Cano Correa* 
 
 
